@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{SIunits}
+\begin{document}
+\begin{table}
+	\begin{center}
+	\caption{Rule Base of the Fuzzy Inference System}\label{tab:rulebase}
+		\begin{tabular}{c||cccc}
+		\multicolumn{2}{c}{} &	\multicolumn{3}{c}{Velocity Measurement} \\\cline{3-5}\cline{3-5}
+		&	& Negative	&	Zero	&	Positive	\\\cline{2-5}
+		& Far	&	\multicolumn{3}{c}{Positive}	\\
+		& Close &	Positive	&	Zero	&	Negative	\\
+		& VeryClose &	Positive	&	Zero	&	Negative	\\
+		\end{tabular}
+	\end{center}
+\end{table}
+\end{document}

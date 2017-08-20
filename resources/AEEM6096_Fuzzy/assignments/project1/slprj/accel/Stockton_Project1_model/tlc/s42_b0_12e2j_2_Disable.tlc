@@ -1,0 +1,27 @@
+%implements s42_b0_12e2j_2_Disable "C"
+
+%function Disable(block, system) Output
+%assign localVarDecl = ""
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 6, 1)>\
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[2].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Disable", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Disable"))
+%<SLibCG_AccessArg(2, 2, 0)>
+%endif
+%if SLibCG_ArgAccessed(2, 2, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Disable", rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Disable"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(2, 2, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void mxuep24j0n(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(2, 2, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(2, 2, fcnProtoType)>
+%endfunction

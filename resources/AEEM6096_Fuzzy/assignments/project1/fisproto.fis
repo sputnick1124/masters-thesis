@@ -1,0 +1,57 @@
+[System]
+Name='fisproto'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=3
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='theta_error'
+Range=[-0.5 1.1]
+NumMFs=3
+MF1='Zero':'trimf',[-0.5 0 0.5]
+MF2='Small':'trimf',[0 0.5 1]
+MF3='Large':'trimf',[0.5 1 1.5]
+
+[Input2]
+Name='Theta_rate'
+Range=[0 1.1]
+NumMFs=3
+MF1='Zero':'trimf',[0 0 0.5]
+MF2='Small':'trimf',[0 0.5 1]
+MF3='Large':'trimf',[0.5 1 1.5]
+
+[Output1]
+Name='KP'
+Range=[0 11.6]
+NumMFs=1
+MF1='Small':'trimf',[5.7 5.8 5.9]
+
+[Output2]
+Name='KI'
+Range=[0 0.94]
+NumMFs=1
+MF1='Small':'trimf',[0.37 0.47 0.57]
+
+[Output3]
+Name='KD'
+Range=[0 5.7]
+NumMFs=1
+MF1='Small':'trimf',[2.75 2.85 2.95]
+
+[Rules]
+1 1, 1 1 1 (1) : 1
+1 2, 1 1 1 (1) : 1
+1 3, 1 1 1 (1) : 1
+2 1, 1 1 1 (1) : 1
+2 2, 1 1 1 (1) : 1
+2 3, 1 1 1 (1) : 1
+3 1, 1 1 1 (1) : 1
+3 2, 1 1 1 (1) : 1
+3 3, 1 1 1 (1) : 1

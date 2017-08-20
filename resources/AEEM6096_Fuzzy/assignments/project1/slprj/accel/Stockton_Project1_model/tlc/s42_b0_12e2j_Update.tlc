@@ -1,0 +1,52 @@
+%implements s42_b0_12e2j_Update "C"
+
+%function Update(block, system) Output
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T *lastU;
+n3qi1whofz *_rtB;
+ew10rzwqr2 *_rtDW;
+%closefile localVarDecl
+%<SLibCG_TrackDW(26)>\
+_rtDW = %<(SLibCG_SE(SLibGetDWorkStructPtr()))>;
+%<SLibCG_TrackBlockIO(26)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtDW->aqfnmf2fg0 = _rtB->gi4lkopkck;
+}
+if (_rtDW->b3ecm3joua == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    _rtDW->b3ecm3joua = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &_rtDW->nvs0y3p3bn;
+} else if (_rtDW->l3swgsbdap == %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>) {
+    _rtDW->l3swgsbdap = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &_rtDW->flhgb4dxyn;
+} else if (_rtDW->b3ecm3joua < _rtDW->l3swgsbdap) {
+    _rtDW->b3ecm3joua = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &_rtDW->nvs0y3p3bn;
+} else {
+    _rtDW->l3swgsbdap = %<(SLibCG_SE(LibGetT()))>;
+    lastU = &_rtDW->flhgb4dxyn;
+}
+*lastU = _rtB->c4korgmf33;
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Update", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Update"))
+%<SLibCG_AccessArg(4, 3, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 3, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Update", rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Update"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 3, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Update(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(4, 3, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 3, fcnProtoType)>
+%<LibSetSystemField(system, "CachedUpdateLocalVars", localVarDecl)>
+%endfunction

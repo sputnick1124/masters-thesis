@@ -1,0 +1,54 @@
+%implements s42_b0_12e2j_Derivatives "C"
+
+%function Derivatives(block, system) Output
+%assign localVarDecl = ""
+%openfile localVarDecl
+int_T is;
+n3qi1whofz *_rtB;
+loikxjbxjg *_rtP;
+f1xhd02yjc *_rtX;
+pqmvzr1kvu *_rtXdot;
+%closefile localVarDecl
+%<SLibCG_TrackContStatesDerivative(26)>\
+_rtXdot = %<(SLibCG_SE(SLibGetContStatesDerivativeStructPtr()))>;
+%<SLibCG_TrackContStates(26)>\
+_rtX = %<(SLibCG_SE(SLibGetContStatesStructPtr()))>;
+%<SLibCG_TrackParam(26)>\
+_rtP = %<(SLibCG_SE(SLibGetParamStructPtr()))>;
+%<SLibCG_TrackBlockIO(26)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+for (is = 0; is < 5; is++) {
+    _rtXdot->g42anpjwl4[is] = 0.0;
+}
+_rtXdot->g42anpjwl4[0U] += _rtP->P_58[0] * _rtX->g42anpjwl4[0];
+_rtXdot->g42anpjwl4[0U] += _rtP->P_58[1] * _rtX->g42anpjwl4[1];
+_rtXdot->g42anpjwl4[0U] += _rtP->P_58[2] * _rtX->g42anpjwl4[2];
+_rtXdot->g42anpjwl4[0U] += _rtP->P_58[3] * _rtX->g42anpjwl4[3];
+_rtXdot->g42anpjwl4[0U] += _rtP->P_58[4] * _rtX->g42anpjwl4[4];
+_rtXdot->g42anpjwl4[1U] += _rtP->P_58[5] * _rtX->g42anpjwl4[0];
+_rtXdot->g42anpjwl4[2U] += _rtP->P_58[6] * _rtX->g42anpjwl4[1];
+_rtXdot->g42anpjwl4[3U] += _rtP->P_58[7] * _rtX->g42anpjwl4[2];
+_rtXdot->g42anpjwl4[4U] += _rtP->P_58[8] * _rtX->g42anpjwl4[3];
+_rtXdot->g42anpjwl4[0U] += _rtP->P_59 * _rtB->gnyou0ndiq;
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Derivative", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Derivative"))
+%<SLibCG_AccessArg(4, 4, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 4, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Derivative", rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Derivative"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 4, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Derivatives(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(4, 4, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 4, fcnProtoType)>
+%<LibSetSystemField(system, "CachedDerivativeLocalVars", localVarDecl)>
+%endfunction

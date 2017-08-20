@@ -1,0 +1,216 @@
+\documentclass[]{aiaa-tc}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx,subfigmat,subfigure}
+\usepackage[noabbrev]{cleveref}
+\usepackage[per-mode=fraction]{siunitx}
+\usepackage{nomencl}
+\usepackage{booktabs}
+\usepackage{hhline }
+\usepackage{multirow}
+\usepackage[section]{placeins}
+
+\DeclareSIUnit{\px}{pixel}
+
+    \renewcommand{\topfraction}{0.9}	% max fraction of floats at top
+    \renewcommand{\bottomfraction}{0.8}	% max fraction of floats at bottom
+    %   Parameters for TEXT pages (not float pages):
+    \setcounter{topnumber}{2}
+    \setcounter{bottomnumber}{2}
+    \setcounter{totalnumber}{4}     % 2 may work better
+    \setcounter{dbltopnumber}{2}    % for 2-column pages
+    \renewcommand{\dbltopfraction}{0.9}	% fit big float above 2-col. text
+    \renewcommand{\textfraction}{0.07}	% allow minimal text w. figs
+    %   Parameters for FLOAT pages (not text pages):
+    \renewcommand{\floatpagefraction}{0.7}	% require fuller float pages
+    % N.B.: floatpagefraction MUST be less than topfraction !!
+    \renewcommand{\dblfloatpagefraction}{0.7}	% require fuller float pages
+
+ \author{
+  Nicklas Stockton,\thanks{Senior, Department of Aerospace and Engineering Mechanics}\quad
+  Manish Kumar, \thanks{Associate Professor, Department of Mechanical Engineering and Materials Engineering}\quad
+    and Kelly Cohen\thanks{ Professor, Department of Aerospace and Engineering Mechanics}\\
+    {\normalsize\itshape
+     College of Engineering and Applied Science, University of Cincinnati, Cincinnati, Ohio}}
+  
+\title{A Fuzzy-Logic-Based Solution to Dynamic Target Interception and Landing with a Small Multirotor Aircraft}
+\date{\today}
+\makenomenclature
+
+\begin{document}
+\maketitle
+\begin{abstract}
+The purpose of this work is to demonstrate the efficacy of using a fuzzy logic based approach to successfully perform the landing maneuver of a small multirotor aircraft on a dynamic target at low speeds. The corrective control of the vehicle is exerted based on visual input data from an on-board camera system. Given the constraint of the vehicle size, the computational complexity of image processing and control correction must be low in order to be performed on an on-board computer system-on-a-chip. The design of the controller around visual sensing reduces the dependency of special sensors on-board either the vehicle or target for rendezvous. The use of fuzzy logic enables the controller to adapt to different plant behaviors dynamically without the need for gains scheduling. Fuzzy systems can approximate highly nonlinear functions of arbitrary complexity; fuzzy control, therefore, is a apt fit for highly nonlinear systems which are difficult to control using linear techniques. In addition to being adaptable to nonlinearities, fuzzy logic requires only very basic mathematical operations, making it ideal for platforms which either have limited computational capabilities or need to respond quickly to dynamic conditions. The research is being performed using Robot Operating System to integrate sensing with control motor actuation. All control is performed with Python using OpenCV for image processing. This paper details the simulation setup and image processing algorithms; it also concerns the design and tuning of a simple PID controller. The work is based in high-fidelity simulation in preparation for physical testing on hardware. 
+\end{abstract}
+\printnomenclature
+
+\section{Introduction}
+With the ever-increasing proliferation of small unmanned air vehicles (sUAVs) and their use in commercial and emergency response applications, there is a growing need for intelligent, reliable control methodologies to safely manage their navigation, especially in possibly congested areas such as disaster areas or urban centers. Commercial delivery companies are moving towards an automated model with reduced human operator intervention to increase the efficiency of their deliveries. One such model consists of a vehicle-based sUAV which departs from the delivery vehicle to make a delivery to a remote residence. Upon completing the delivery, the sUAV returns to the vehicle and docks to receive additional packages. Considering the small target size of a landing platform affixed to the vehicle, and the highly dynamic conditions in which deliveries may be accomplished, the control effort must be accurate and robust in the face of disturbances.
+
+Fuzzy logic provides a way to perform flight control of an sUAV using linguistic variables and control rules, which can be easily understood and tuned using intuition\cite{MAMDANI19751}. The resulting control is able to accommodate nonlinearities in the dynamic system such as are found in the situation of an air vehicle to ground transport rendezvous\cite{Ionita_2005}. Fuzzy logic is also commonly used where there is great need to deal with imprecision or uncertainty\cite{Matlab_fuzzy_tb,lee1990fuzzy}, which is inherent in interfacing many different sensors and interacting with real-world situations. Fuzzy systems are highly robust to changes in the plant and environmental disturbances\cite{Janson_2015}. Current approaches for developing trajectory paths have focused on time-optimality\cite{Adams_2012}\cite{Hehn_2012} and not necessarily on lightweight, on-board controllers.In contrast, this work will optimize for reduced control effort and computational simplicity and efficiency. The control developed in this will be largely agnostic to the large linearities inherent in the system dynamics and will apply linguistic variables and logic to intuitively attain the interception and landing. Accuracy will be paramount as the target platform is nearly equally-sized to the sUAV.
+
+\section{System Architecture}
+The research setup involves a quadrotor aircraft of size \SI{450}{\mm} on the diagonal and a mobile rover robot with a \SI{255}{mm} radius landing platform affixed to it (as shown in \cref{f:lezl-olli}. The quadrotor is controlled by a Pixhawk flight controller which uses the PX4 flight control firmware. This flight controller allows for an on-board computer to take over control of the aircraft via a serial wire connection. A small Linux-based computer is placed on the quadrotor which sends velocity setpoints to the flight controller. All control logic is written in Python using a collection of softwares called Robot Operating System (ROS). ROS allows for easy integration of sensors and control actuation due to a distributed computation framework. As a highly event-driven, publish-subscribe model, ROS maintains an accurate, up-to-date view of internal states which are then exposed to any connected nodes.
+
+An assumption is made that GPS (or some other global positioning) data is available for the simulation; however, this positioning has a margin of error which is far too large to be used exclusively for precision landing. For this reason, an on-board, gimbaled camera will be utilized to detect and locate the target. Using the characteristics of the camera focal length and distortion coefficients, an accurate positional error can be obtained for the feedback control loop. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{../image_proc/rs_AA7A4487.JPG}
+\caption{The test sUAV with the mobile target platform.}\label{f:lezl-olli}
+\end{figure}
+%\section{Control Software}
+
+\section{Simulation}
+Gazebo is a 3D simulation software which uses open source dynamics engines Bullet, Dart, and ODE to model its components. While Gazebo has very high fidelity simulation capabilities for robots (its initial purpose), the complexities of aerodynamics in general, and multicopter physics in particular, can only be modeled with many simplifications. Even with the simplified dynamics, the simulation environment that Gazebo provides is very useful for high-level controller development. Gazebo allows for the simulation of many sensor types and nicely integrates with ROS and the PX4 flight controller firmware. The high fidelity of the simulation will ease the transition from virtual to real flight as all hardware components have simulated counterparts. The simulation provides a real time interface for tuning the controller with visual feedback. This is the process which was used to tune the PID controller and will be used as well for the tuning of the fuzzy controller.
+
+The most important aspect of sensing for the system is the image sensor. A camera sensor is simulated from the underside of the quadrotor to test the efficacy and efficiency of the computer vision algorithms. Care was taken to accurately represent the field of view and pixel noise of the physical camera sensor to be used. In this way, it is hoped that the controllers developed in simulation will be applicable on the physical system.
+
+\section{Controller}
+Control is exerted on the vehicle by supplying the flight controller with changes in the velocities, $\Delta v_x$, $\Delta v_y$, and $\Delta v_z$, as well as yaw rate, $\dot{\psi}$. The quadrotor is able to land with any arbitrary yaw angle, $\psi$, but the assumption is made that some reception mechanism may expect the vehicle in a nose-forward orientation. Distance to the platform is estimated from images taken by the camera sensor. Orientation is estimated only in the last phase of the landing sequence using a robust and efficient visual fiducial tag system\cite{olson2011tags} (see \cref{f:apriltag}).
+\nomenclature[]{$\Delta v_x$}{Control input change to velocity in $x$-axis}
+\nomenclature[]{$\Delta v_y$}{Control input change to velocity in $y$-axis}
+\nomenclature[]{$\Delta v_z$}{Control input change to velocity in $z$-axis}
+\nomenclature[]{$\dot{\psi}$}{Control input to yaw rate (rotation about $z$-axis)}
+
+\subsection{Computer Vision}
+Much emphasis is put on the sensing algorithms to be computationally efficient to decrease the load on the on-board computer. For this purpose, only a small number of image processes are required to detect and locate the target. As a first pass, the image is brought into the Hue-Saturation-Value (HSV) color space. This has been shown to be a robust space in which do perform color detection and segmentation in uncontrolled and unpredictable lighting conditions\cite{zhao2002robust}. A simple thresholding is performed on the image to isolate a sufficiently wide band of yellows to match the color of the target and dilate this to a binary blob. From this binary image, the image moments are calculated by
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{images/rs_working_apriltags_crop.png}
+\caption{Simulated image sensor detection of AprilTag marker.}\label{f:apriltag}
+\end{figure}
+
+\begin{equation}\label{e:im_moments}
+m_{ij}=\sum_{x,y}x^iy^jI_{xy}
+\end{equation}
+\nomenclature[]{$m_{ij}$}{Raw image moment}
+\nomenclature[]{$I_{xy}$}{Pixel intensity value}
+where $I_{xy}$ is the pixel intensity value for each pixel $(x,y)$ (equal to 1 in this case) and $i,j = 0,1,2$. From this it can be seen that $m_{00}$ describes the area and $\frac{m_{10}}{m_{00}}$ and $\frac{m_{01}}{m_{00}}$ describe the centroids $\overline{x}_p$ and $\overline{y}_p$ in terms of pixels. The blob is assumed to be circular and hence a diameter is extracted from the pixel area. Using the focal length of the sensor, these image points are then projected onto the ground plane using the known diameter of the landing pad and a vertical offset estimate is obtained as is shown in \cref{e:dist_est}.
+\begin{equation}\label{e:dist_est}
+d_z=\frac{d\cdot f}{m\cdot d_p}
+\end{equation}
+where $f$ is the focal length of the camera in units of length, $d$ is the known diameter of the landing pad, $d_p$ is the estimated diameter in pixels, and $m$ represents a scaling factor in units of \si{\px\per\mm} (unity in the simulation).
+\nomenclature[]{$f$}{Focal length of image sensor}
+\nomenclature[]{$m$}{Pixel scaling factor}
+Assuming that the image plane and the ground plane are parallel, the center of the image can be assumed to point directly below the vehicle and the horizontal offsets to the landing pad can then be calculated as
+\begin{align}\label{e:horiz_est}
+d_x &= d_z\cdot\frac{m\overline{x}_p}{f}\\
+d_y &= d_z\cdot\frac{m\overline{y}_p}{f}
+\end{align}
+\nomenclature[]{$d_x$}{Horizontal offset error from vehicle to target in the body-fixed $x$-axis}
+\nomenclature[]{$d_y$}{Horizontal offset error from vehicle to target in the body-fixed $y$-axis}
+\nomenclature[]{$d_z$}{Vertical offset error from vehicle to the target}
+
+As the vehicle approaches the landing pad, the image field of view is overtaken by the landing pad itself and the former segmentation no longer becomes effective. For this purpose, an apriltag\cite{olson2011tags} (see \cref{f:apriltag}) is placed on the center of the target. Once detection of this tag is achieved, an refined estimate of position and even orientation is obtained with respect to the target. This estimate is used to then orient the vehicle to match the heading of the landing pad (see \cref{f:landing_ims}).
+
+\begin{figure}
+ \begin{subfigmatrix}{4}% number of columns
+  \subfigure[\label{f:colora}]{\includegraphics[width=0.2\textwidth]{images/image1_18469000.png}}
+  \subfigure[]{\includegraphics[width=0.2\textwidth]{images/image1_30863000.png}}
+  \subfigure[]{\includegraphics[width=0.2\textwidth]{images/image1_36074000.png}}
+  \subfigure[\label{f:colorb}]{\includegraphics[width=0.2\textwidth]{images/image1_38233000.png}}
+  \subfigure[\label{f:aprila}]{\includegraphics[width=0.2\textwidth]{images/image2_18469000.png}}
+  \subfigure[]{\includegraphics[width=0.2\textwidth]{images/image2_30863000.png}}
+  \subfigure[]{\includegraphics[width=0.2\textwidth]{images/image2_36074000.png}}
+  \subfigure[\label{f:aprilb}]{\includegraphics[width=0.2\textwidth]{images/image2_38233000.png}}
+  \subfigure[\label{f:cva}]{\includegraphics[width=0.2\textwidth]{images/image1_18469000_proc.png}}
+  \subfigure[]{\includegraphics[width=0.2\textwidth]{images/image1_30863000_proc.png}}
+  \subfigure[]{\includegraphics[width=0.2\textwidth]{images/image1_36074000_proc.png}}
+  \subfigure[\label{f:cvb}]{\includegraphics[width=0.2\textwidth]{images/image1_38233000_proc.png}}
+ \end{subfigmatrix}
+ \caption{A time series of images taken during the landing maneuver. Note that in \cref{f:aprila}, there is no detection of the marker and there remains a slight error in yaw angle as a result. The red line in \crefrange{f:cva}{f:cvb} represents the horizontal offset of the vehicle to the desired point on the target.}
+ \label{f:landing_ims}
+\end{figure}
+
+\subsection{PID Results}
+A PID controller was created which uses the most recent error estimates and sends velocity requests to the flight controller. Due to the lack of a mathematical model of the system. The PID gains were found by iterating the simulation with various position setpoints and dynamically adjusting the gains while observing the response visually. This closely mimics the method by which PID gains are attained in the tuning of an actual quadrotor by flying a series of test flights and adjusting gain values by feel. In this way, a reasonable response and landing sequence was achieved for first a static target and then repeated for a dynamic target moving with constant velocity. The results are presented in \crefrange{f:pid_stat}{f:pid_dyn} in which the normed horizontal offset from target is shown in conjunction with the vertical distance to the platform. Viewing the charts, it is apparent that as the vehicle approaches the target, it tends to accumulate horizontal errors and must correct more frequently, particularly in the dynamic case. In both cases, the quadrotor managed to successfully land on the target. In the static case, the final offset from the center of the target was less than \SI{5}{\cm}. For the dynamic case, the error was \SI{7}{\cm} which nearly displaced it from the target surface. In both cases, the sink rate and yaw rates were controlled by simple PD controllers.
+
+
+
+\subsection{Fuzzy Results}
+Though this work is still in progress, promising preliminary results in development of a fuzzy controller have been obtained. Four fuzzy controllers of similar architecture were created as shown in \cref{f:fuzzy_mfs}. Each input fuzzy partition was multiplied by a scaling factor to bring it into the regime of the controller. Likewise, the outputs were then again scaled to match actuation limits. The rule base was developed using common intuition about the system dynamics. A full rule matrix was defined to fully cover the system possibilities. This rule matrix is shown in \cref{t:rules}. The rules are made up of linguistic variables composed into IF-THEN constructions of antecedents and consequents. For example:
+\begin{center}
+IF \emph{error} is \textbf{N} AND \emph{error rate} is \textbf{Z} THEN \emph{$\Delta v$} is \textbf{SP}
+\end{center}
+
+\begin{figure}[h]
+	\begin{subfigmatrix}{3}
+	\subfigure[Fuzzy input partition template\label{f:error_in_mfs}]{\includegraphics{images/error_in.png}}
+	\subfigure[Fuzzy input partition template\label{f:error_d_in_mfs}]{\includegraphics{images/error_del_in.png}}
+	\subfigure[Fuzzy output partition template\label{f:vel_out_mfs}]{\includegraphics{images/vel_out.png}}
+	\end{subfigmatrix}
+	\caption{Membership function definitions for fuzzy logic controller.}\label{f:fuzzy_mfs}
+\end{figure}
+These rules are intuitive and easy to understand and provide a process by which to lend the controller a decision-making system with a foundation in human reasoning. The tuning process of the fuzzy controller then becomes the task of defining the membership functions which decide how much of each rule should be activated for certain inputs. Triangular membership functions are used exclusively for their simplicity in definition and tuning\cite{mishra1994performance} while the aggregation of rules is the popular min-max method put forth by Mamdani\cite{MAMDANI19751}. The membership functions shown in \cref{f:fuzzy_mfs} are the result of only a small number of iterative tuning steps and were found to be the most effective of the configurations attempted. The fuzzy rule base also provides ample opportunities for tuning and will have a significant impact on controller performance.
+
+
+\begin{table}[ht]
+\centering
+\caption{Fuzzy rule base}\label{t:rules}
+	\begin{tabular}{cc||c|c|c|c|c|}
+		                            &  \multicolumn{6}{c}{error}  \\ 	
+		\multirow{6}{*}{error rate} &    & N  & SN & Z  & SP & P  \\ 	\hhline{~=#=|=|=|=|=|}
+		                            & N & P  & P  & SP & SP & Z  \\ 	\cline{2-7}
+		                            & SN  & P  & SP & SP & Z  & SN \\ 	\cline{2-7}
+		                            & Z & SP & SP & Z  & SN & SN \\ 	\cline{2-7}
+		                            & SP  & SP & Z  & SN & SN & N  \\ 	\cline{2-7}
+		                            & P  & Z  & SN & SN & N  & N  \\ 	\cline{2-7}
+	\end{tabular}
+\end{table}
+
+The result of this first-iteration controller was sufficient to land the quadrotor on both the static and constant linear velocity dynamic platforms, though the response to uncertainties is not very stable as of yet. The results shown in \crefrange{f:fuz_stat}{f:fuz_dyn} demonstrate the difficulty an untrained controller may have with novel situations. The results are expected to improve dramatically by using genetic algorithms to tune each controller.
+\begin{figure}[h]
+\begin{subfigmatrix}{2}
+\subfigure[$(kp,ki,kd)=(2.1,0.015,0.2)$ for static target interception.\label{f:pid_stat}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_static.png}}
+\subfigure[$(k_p,k_i,k_d)=(1.8,0.012,0.02)$ for dynamic target interception.\label{f:pid_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_dynamic.png}}
+\end{subfigmatrix}
+\caption{PID controllers for static and dynamic landing}\label{f:pid_lands}
+\end{figure}
+\begin{figure}[h]
+\begin{subfigmatrix}{2}
+\subfigure[Static target interception.\label{f:fuz_stat}]{\includegraphics[width=0.45\textwidth]{images/mag_z_fuzzy_static3.png}}
+\subfigure[Dynamic target interception.\label{f:fuz_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_fuzzy_dynamic3.png}}
+\end{subfigmatrix}
+\caption{Fuzzy controllers for static and dynamic landing}\label{f:fuzzy_lands}
+\end{figure}
+
+\section{Conclusion}
+The results presented are preliminary only, but show promising results. The control effort of the untuned fuzzy controller nearly matched that of the tuned PID controller for the  static target case. For the dynamic target, while neither controller was tuned to any high degree of accuracy, the fuzzy controller performed at least as well as the PID controller. It should be noted that the overall positioning control of the
+vehicle is relatively simple, but as it approaches more closely to the platform, small movements are translated to larger apparent errors and the controller may make bad decisions. This explains the peaks which can be seen in both of the dynamic situations; as the quadrotor becomes very near to the platform, it occasionally loses visual sight of the key target and must then abort the landing and gain altitude to retry.
+
+There is much future work to yet complete. Both the PID and Fuzzy controllers will be tuned by a genetic algorithm which will greatly improve the performance of each]. To prepare the system for real world deployment, the perfect gimbal assumption being made in the simulation will be replaced with a rigidly mounted camera. This will require then applying a rotational transform to each image pixel measurement which will increase the uncertainty in each estimate. Finally, the image processing pipeline must be optimized even further to decrease the computation load on the processor. With the current pipeline, the test hardware processes images at around \SI{2}{\Hz}, which may introduce too much latency in the control feedback. Either the image processing must be sped up, or the delay will need to be handled in some other fashion.
+%\section{Preliminary Results}
+%\subsection{sUAV Control}
+%Using Robot Operating System (ROS) as the control framework autonomous flight has been tested and verified in a lab environment using both position and velocity setpoint control. The experimental sUAV system has the capability to be controlled from a high level using Python and C++ on lightweight hardware. As of yet, no interception maneuvers have been performed, but simulations are currently being developed which will then be tested on flight hardware.
+%
+%\subsection{Image Processing}
+%Simple hue-based image processing has been tested using OpenCV. The algorithm is kept simple and uses well-tested techniques. The image processing is only corollary to the goals of this work, so is only mildly developed in order to reduce the computational complexity. Preliminary tests suggest that the target is located and extracted from an image in sufficient time to not hinder the frame rate of the imaging system. The accuracy of the of the image processing has not been shown to be a concern in the controlled conditions of the lab. Outdoor testing may yield different results, at which point, the image processing algorithm may be further expanded.
+%
+%%\begin{figure}[h]
+%%\begin{subfigmatrix}{2}
+%%\subfigure[$(kp,ki,kd)=(2.1,0.015,0.2)$ for static target interception.\label{f:pid_stat}]{\includegraphics[width = 0.45\textwidth]{images/mag_z_pid_static.png}}
+%%\subfigure[$(k_p,k_i,k_d)=(1.8,0.012,0.02)$ for dynamic target interception.\label{f:pid_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_dynamic.png}}
+%%\end{subfigmatrix}
+%%\caption{PID controllers for static and dynamic landing}\label{f:improc}
+%%\end{figure}
+%
+%\section{Methodology}
+%To develop the fuzzy control system, a similar methodology to that found in Janson and Stockton\cite{Janson_2015}. This previous work will be described briefly here as it will provide the basis for optimizing the fuzzy control system for this current work. Since tuning a fuzzy inference system (FIS) can be difficult to perform by hand, a genetic algorithm was deployed to tune the response of the controller to the desired outcome. The plant consisted of a strongly coupled dynamic system which exhibited flexible- and rigid-body modes in differing regimes. The highly nonlinear behavior of the plant proved difficult to control using linear techniques, so a FIS was developed to control the system. The FIS performed well when tuned by hand, but was tedious to tune. The FIS was distilled and quantified as a list of real-valued numbers which fully described the membership functions if the inputs and outputs. These parameters were given over the genetic algorithm to be optimized using a plant simulation as a means to determine FIS fitness. It was shown that in a relatively small number of generations, the genetic algorithm could produce a FIS which provided near-optimal control of the system while minimizing control effort as can be seen in~\cref{f:genfuzz}. The resulting FIS also performed well even under grossly exaggerated changes to the plant. The collective mass of the system was changed by over 600\% while the performance of the controller remained within 3\% of the theoretically optimal result.
+%
+%\begin{figure}[h]
+%\begin{subfigmatrix}{2}
+%\subfigure[Best fitness per population by generation.\label{f:genfuzz_popfit}]{\includegraphics[width=0.45\textwidth]{PopFitness.pdf}}
+%\subfigure[Control effort expended by actuator.\label{f:genfuzz_control}]{\includegraphics[width=0.45\textwidth]{FuzzyForcePlot.pdf}}
+%\end{subfigmatrix}
+%\caption{Results from the genetic algorithm developed for FIS tuning as well as the minimal control effort expended by the controller. Note that optimal fitness was found to be $J=0.3219$.}\label{f:genfuzz}
+%\end{figure}
+%
+%For this current work, a similar approach will be undertaken in that the mission will be simulated and fed back into genetic algorithm which will tune the parameters of the FIS until sufficient control characteristics are observed. The simulation will consist of the basic interception and landing maneuver to form the basic controller. Simulated disturbances such as wind and collision will be introduced to further tune the controller and to demonstrate the robustness of the controller. The strength of fuzzy logic as a control methodology will here be shown to its fullest as performance degradation will be minimal. The approximate language of fuzzy logic inherently absorbs uncertainty and disturbance while returning reliable results.
+%
+%\section{Expected Results}
+%It is expected that a fuzzy inference control system will provide accurate and robust control of the sUAV sufficient to intercept and perform a landing maneuver atop a moving platform. It will be shown that in the existence of disturbances such as wind, the controller will be able to effectively correct the path of the sUAV and complete its mission. The effort will be to show that control effort is minimized without sacrificing control authority. All results will be backed by simulation where feasible as well as physical flight test experiments.
+
+\bibliography{fuzzy}
+\bibliographystyle{aiaa}
+\end{document}

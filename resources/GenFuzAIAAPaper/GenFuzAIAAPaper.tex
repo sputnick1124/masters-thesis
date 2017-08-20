@@ -1,0 +1,29 @@
+\documentclass[submit]{aiaa-tc}
+
+\title{Genetic Optimization of Fuzzy Logic Control for Coupled Dynamic Systems}
+\author{ %
+	Andrew Janson,%
+		\thanks{College of Engineering and Applied Science, University of Cincinnati} \space
+	 Nick Stockton,%
+		\thanksibid{1}
+	\ and 
+	Kelly Cohen%
+		\thanksibid{1}
+		}
+	
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+This research project, in the field of control systems, was funded by the National Science Foundation through the Research Experience for Undergraduate (REU) students. The objective of this project was to combine the robustness of fuzzy logic control with the adaptability of genetic algorithms to produce a self-optimizing oscillation damping control mechanism. Once an initial fuzzy inference system (FIS) is developed by an expert for a given dynamic system, the genetic algorithm will be able to optimize the FIS for a range of similar systems with varying parameters. In order to evaluate the control mechanisms developed during this project, a simulation of a two cart spring-mass system was developed in MATLAB. The performance of the controllers was determined by how quickly it could approach a wall and how close it was able to settle the car system to the wall without crashing. The membership functions of the FIS were reduced to an array of real-valued parameters in order to be used in a genetic algorithm. Once the genetic representation of the FIS was defined, the selection, reproduction, and mutation methods were developed to complete the genetic algorithm. The best solution developed by the genetic algorithm was evaluated against the hand-tuned solution developed in the first phase of the project. In order to simulate varying parameters between similar dynamic systems, the mass of the car system in the simulation was varied from 3kg to 20kg. For each weight change the genetic algorithm was allowed to re-optimize the parameters of the FIS. The performance of the genetic algorithm, with respect to the theoretical best, varied up to 17\%, while the unmodified FIS varied up to 300\%. These results show that genetic algorithms are necessary to allow fuzzy control mechanisms to adapt to different systems with little external input from a general user.
+\end{abstract}
+\section{Introduction}
+Fuzzy logic systems are used as control systems which are capable of handling the vagueness of the real world. Fuzzy logic can model and control nuances overlooked by the binary logic of conventional computers [1]. In fuzzy logic, the truth of any statement becomes a matter of degree. Take for example, determining the timespan of your weekend [2]. Binary logic only allows a yes/no answer to the question: “Is this day part of my weekend?” However, in the real world we do not consider exactly 12am Saturday to be the start of our weekend. We usually view most of Friday as a part of the weekend, determined by when we decide to quit working. Fuzzy logic allows us to specify that most of Friday is considered the weekend as well by assigning it a value of less than one but greater than zero. This distinction gives the fuzzy logic system much more robustness compared to binary logic as it can map a larger range of inputs.
+        Many structural dynamics problems may be represented by a coupled set of second-order dynamic systems. Coupled rigid-body and flexible body dynamics are sensitive to movement vibrations, which add instability to the structures. The best solution is to use active control to augment structural dynamics.
+        The objective for this research project is to develop an effective non-linear active structural control methodology to provide stability in large flexible structures. Such structures include robotic manufacturing arms that must perform tasks in a quick and accurate manner. This project also takes into consideration managing stability with minimum cost. Stability in these structures is obtained by damping oscillations that occur during rapid movement of the structure.
+        Optimization of the non-linear fuzzy logic controller is best accomplished using genetic algorithms. Fuzzy logic controllers are defined by a large set of parameters which greatly increase the search space to find optimum values for the controller. Genetic algorithms mimic natural evolution through Darwinian selection [3]. Individuals who are best suited to the environment survive and produce the next generation. Over a large number of generations individuals become stronger as the weaker individuals are filtered out. Starting with a large number of diverse solutions allows for larger portions of the search space to be investigated and to then converge on areas that provide the best solutions. The automation of the optimization process generalizes the fuzzy logic controller so that it may be easily applied to different systems with varying requirements and parameters.
+ 
+
+ 
+
+\end{document}

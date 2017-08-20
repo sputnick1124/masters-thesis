@@ -1,0 +1,2434 @@
+%implements s42_b0_12e2j_Outputs "C"
+
+%function Outputs(block, system) Output
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T *lastU;
+int8_T rtPrevAction;
+int8_T rtAction;
+real_T i3wmigx0al;
+real_T lotbtatwvu[101];
+real_T awvnc0eowh[101];
+real_T bkyalauacy;
+int32_T i;
+real_T tmp[2];
+real_T tmp_p[2];
+real_T tmp_e[2];
+real_T tmp_i[2];
+real_T tmp_m[2];
+real_T tmp_g[2];
+real_T tmp_j[2];
+real_T tmp_f[2];
+real_T tmp_c[2];
+real_T tmp_k[2];
+real_T tmp_b[2];
+real_T tmp_n[2];
+real_T tmp_l[2];
+real_T tmp_d[2];
+real_T tmp_o[2];
+real_T tmp_dz[2];
+real_T tmp_fs[2];
+real_T tmp_ck[2];
+real_T tmp_f2[2];
+real_T tmp_kt[2];
+real_T tmp_lt[2];
+real_T tmp_hn[2];
+real_T tmp_ap[2];
+real_T tmp_pj[2];
+real_T tmp_po[2];
+n3qi1whofz *_rtB;
+loikxjbxjg *_rtP;
+f1xhd02yjc *_rtX;
+ew10rzwqr2 *_rtDW;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%assign tlcOutputsFcnOfS26B42 = OpaqueTLCBlockFcn("Outputs", 26, 42, 4, 2)
+%assign tlcOutputsFcnOfS26B43 = OpaqueTLCBlockFcn("Outputs", 26, 43, 4, 2)
+%<SLibCG_TrackDW(26)>\
+_rtDW = %<(SLibCG_SE(SLibGetDWorkStructPtr()))>;
+%<SLibCG_TrackContStates(26)>\
+_rtX = %<(SLibCG_SE(SLibGetContStatesStructPtr()))>;
+%<SLibCG_TrackParam(26)>\
+_rtP = %<(SLibCG_SE(SLibGetParamStructPtr()))>;
+%<SLibCG_TrackBlockIO(26)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    memcpy(&_rtB->lvci00mxzl[0], &_rtP->P_21[0], 101U * sizeof(real_T));
+    _rtB->dv030gyids = _rtP->P_22;
+    _rtB->c4korgmf33 = _rtP->P_23 - _rtP->P_25 * _rtDW->aqfnmf2fg0;
+}
+if ((_rtDW->b3ecm3joua >= %<(SLibCG_SE(LibGetT()))>) && (_rtDW->l3swgsbdap >= %<(SLibCG_SE(LibGetT()))>)) {
+    bpb4fxo5jx = 0.0;
+} else {
+    bkyalauacy = _rtDW->b3ecm3joua;
+    lastU = &_rtDW->nvs0y3p3bn;
+    if (_rtDW->b3ecm3joua < _rtDW->l3swgsbdap) {
+        if (_rtDW->l3swgsbdap < %<(SLibCG_SE(LibGetT()))>) {
+            bkyalauacy = _rtDW->l3swgsbdap;
+            lastU = &_rtDW->flhgb4dxyn;
+        }
+    } else {
+        if (_rtDW->b3ecm3joua >= %<(SLibCG_SE(LibGetT()))>) {
+            bkyalauacy = _rtDW->l3swgsbdap;
+            lastU = &_rtDW->flhgb4dxyn;
+        }
+    }
+    bpb4fxo5jx = (_rtB->c4korgmf33 - *lastU) / (%<(SLibCG_SE(LibGetT()))> - bkyalauacy);
+}
+rtPrevAction = _rtDW->ntjpezfhep;
+if (%<(LibIsMajorTimeStep())>) {
+    if ((bpb4fxo5jx < -0.689394926657801) || (bpb4fxo5jx > 0.67496103165471344)) {
+        rtAction = 0;
+    } else if (bpb4fxo5jx == -0.672569694178174) {
+        rtAction = 1;
+    } else if (bpb4fxo5jx < -0.672569694178174) {
+        rtAction = 2;
+    } else {
+        rtAction = 3;
+    }
+    _rtDW->ntjpezfhep = rtAction;
+} else {
+    rtAction = _rtDW->ntjpezfhep;
+}
+if (rtPrevAction != rtAction) {
+    switch (rtPrevAction) {
+      case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 0, 1)>\
+        break;
+      case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 1, 1)>\
+        break;
+      case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 0, 11, 0, 3, 26)>\
+%endif
+        break;
+      case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 0, 11, 0, 3, 26)>\
+%endif
+        break;
+    }
+}
+switch (rtAction) {
+  case 0:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 0, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 2))>) {
+        _rtB->bzn05jddvq = _rtP->P_1;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->f24f4g0u4j);
+    }
+    break;
+  case 1:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 1, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 3))>) {
+        _rtB->bzn05jddvq = _rtP->P_2;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->plq1vt2cj3);
+    }
+    break;
+  case 2:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("amhv0ezzdt",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("amhv0ezzdt", ["%<tSimStruct>"], 4, 0, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("hvpmhqfqzp", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->bzn05jddvq", "&_rtB->hvpmhqfqzpf", "(hpzbbrx0hd *)&_rtP->hvpmhqfqzpf"], 4, 0, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->hvpmhqfqzpf.hfsh1n31z5);
+    }
+    break;
+  case 3:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("fdufegn521",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fdufegn521", ["%<tSimStruct>"], 5, 0, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("nfde1yr3kt", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->bzn05jddvq", "&_rtB->nfde1yr3ktb", "(oenqmyj5h2 *)&_rtP->nfde1yr3ktb"], 5, 0, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->nfde1yr3ktb.mclvu04fpk);
+    }
+    break;
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    rtPrevAction = _rtDW->dybxqulwry;
+    if (%<(LibIsMajorTimeStep())>) {
+        if ((_rtB->c4korgmf33 < -1.0331580916680918) || (_rtB->c4korgmf33 > 0.097434655360478573)) {
+            rtAction = 0;
+        } else if (_rtB->c4korgmf33 == -0.7856827406662088) {
+            rtAction = 1;
+        } else if (_rtB->c4korgmf33 < -0.7856827406662088) {
+            rtAction = 2;
+        } else {
+            rtAction = 3;
+        }
+        _rtDW->dybxqulwry = rtAction;
+    } else {
+        rtAction = _rtDW->dybxqulwry;
+    }
+    if (rtPrevAction != rtAction) {
+        switch (rtPrevAction) {
+          case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 4, 1)>\
+            break;
+          case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 5, 1)>\
+            break;
+          case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 0, 11, 0, 3, 26)>\
+%endif
+            break;
+          case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 0, 11, 0, 3, 26)>\
+%endif
+            break;
+        }
+    }
+    switch (rtAction) {
+      case 0:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 4, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->mqjmktsaqz = _rtP->P_11;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->prhaij50zq);
+        }
+        break;
+      case 1:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 5, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->mqjmktsaqz = _rtP->P_12;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->mzcvtlnina);
+        }
+        break;
+      case 2:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("ip2zqguibj",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("ip2zqguibj", ["%<tSimStruct>"], 16, 0, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("a0wgdt4huz",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("a0wgdt4huz", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->mqjmktsaqz", "(ekdbauust1 *)&_rtP->a0wgdt4huzd"], 16, 0, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->a0wgdt4huzd.kvt42wiboe);
+        }
+        break;
+      case 3:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("okuvftbjio",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("okuvftbjio", ["%<tSimStruct>"], 17, 0, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("fz1tptag3q",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fz1tptag3q", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->mqjmktsaqz", "(iilhsrded1 *)&_rtP->fz1tptag3qr"], 17, 0, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->fz1tptag3qr.n34zmws1i3);
+        }
+        break;
+    }
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->mqjmktsaqz;
+    _rtDW->nxuicaawsq = 0;
+    if (_rtB->bzn05jddvq < _rtB->mqjmktsaqz) {
+        i3wmigx0al = _rtB->bzn05jddvq;
+        _rtDW->nxuicaawsq = 1;
+    }
+} else {
+    tmp[0] = _rtB->mqjmktsaqz;
+    tmp[1] = _rtB->bzn05jddvq;
+    i3wmigx0al = tmp[_rtDW->nxuicaawsq];
+}
+_rtB->i3x5blmatd = _rtB->dv030gyids * i3wmigx0al;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    memcpy(&_rtB->owwppgilfo[0], &_rtP->P_26[0], 101U * sizeof(real_T));
+}
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->i3x5blmatd;
+        _rtDW->hyjvejtas4[i] = 0;
+        if (_rtB->owwppgilfo[i] < _rtB->i3x5blmatd) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+            _rtDW->hyjvejtas4[i] = 1;
+        }
+        _rtB->c5lkgqotfh[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->i3x5blmatd;
+        if (_rtDW->hyjvejtas4[i] == 1) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+        }
+        _rtB->c5lkgqotfh[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->hbof0kucqf = _rtP->P_27;
+}
+rtPrevAction = _rtDW->o3mcjfvdwd;
+if (%<(LibIsMajorTimeStep())>) {
+    if ((bpb4fxo5jx < -0.72555458959984076) || (bpb4fxo5jx > 0.087577954280135484)) {
+        rtAction = 0;
+    } else if (bpb4fxo5jx == -0.49095379227512403) {
+        rtAction = 1;
+    } else if (bpb4fxo5jx < -0.49095379227512403) {
+        rtAction = 2;
+    } else {
+        rtAction = 3;
+    }
+    _rtDW->o3mcjfvdwd = rtAction;
+} else {
+    rtAction = _rtDW->o3mcjfvdwd;
+}
+if (rtPrevAction != rtAction) {
+    switch (rtPrevAction) {
+      case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 8, 1)>\
+        break;
+      case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 9, 1)>\
+        break;
+      case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 1, 11, 0, 3, 26)>\
+%endif
+        break;
+      case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 1, 11, 0, 3, 26)>\
+%endif
+        break;
+    }
+}
+switch (rtAction) {
+  case 0:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 8, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 6))>) {
+        _rtB->c4maurvhez = _rtP->P_3;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->bgjx10dntw);
+    }
+    break;
+  case 1:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 9, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 7))>) {
+        _rtB->c4maurvhez = _rtP->P_4;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->b4h01eocrf);
+    }
+    break;
+  case 2:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("amhv0ezzdt",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("amhv0ezzdt", ["%<tSimStruct>"], 4, 1, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("hvpmhqfqzp", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->c4maurvhez", "&_rtB->hikspwhxpk", "(hpzbbrx0hd *)&_rtP->hikspwhxpk"], 4, 1, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->hikspwhxpk.hfsh1n31z5);
+    }
+    break;
+  case 3:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("fdufegn521",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fdufegn521", ["%<tSimStruct>"], 5, 1, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("nfde1yr3kt", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->c4maurvhez", "&_rtB->f03rgt5qd3", "(oenqmyj5h2 *)&_rtP->f03rgt5qd3"], 5, 1, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->f03rgt5qd3.mclvu04fpk);
+    }
+    break;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->mqjmktsaqz;
+    _rtDW->k0ygupsaxr = 0;
+    if (_rtB->c4maurvhez < _rtB->mqjmktsaqz) {
+        i3wmigx0al = _rtB->c4maurvhez;
+        _rtDW->k0ygupsaxr = 1;
+    }
+} else {
+    tmp_p[0] = _rtB->mqjmktsaqz;
+    tmp_p[1] = _rtB->c4maurvhez;
+    i3wmigx0al = tmp_p[_rtDW->k0ygupsaxr];
+}
+_rtB->jorhuz32mi = _rtB->hbof0kucqf * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->jorhuz32mi;
+        _rtDW->k4i32dhhhj[i] = 0;
+        if (_rtB->owwppgilfo[i] < _rtB->jorhuz32mi) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+            _rtDW->k4i32dhhhj[i] = 1;
+        }
+        _rtB->exj4ujw2tk[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->jorhuz32mi;
+        if (_rtDW->k4i32dhhhj[i] == 1) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+        }
+        _rtB->exj4ujw2tk[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->dn3slfseng = _rtP->P_28;
+}
+rtPrevAction = _rtDW->ajwi4gwanv;
+if (%<(LibIsMajorTimeStep())>) {
+    if ((bpb4fxo5jx < -0.30372853210552564) || (bpb4fxo5jx > 1.0087190400518169)) {
+        rtAction = 0;
+    } else if (bpb4fxo5jx == 0.32672941826567392) {
+        rtAction = 1;
+    } else if (bpb4fxo5jx < 0.32672941826567392) {
+        rtAction = 2;
+    } else {
+        rtAction = 3;
+    }
+    _rtDW->ajwi4gwanv = rtAction;
+} else {
+    rtAction = _rtDW->ajwi4gwanv;
+}
+if (rtPrevAction != rtAction) {
+    switch (rtPrevAction) {
+      case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 12, 1)>\
+        break;
+      case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 13, 1)>\
+        break;
+      case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 4, 11, 0, 3, 26)>\
+%endif
+        break;
+      case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 4, 11, 0, 3, 26)>\
+%endif
+        break;
+    }
+}
+switch (rtAction) {
+  case 0:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 12, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 12))>) {
+        _rtB->nvklweodf2 = _rtP->P_9;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->ezq5c0fdph);
+    }
+    break;
+  case 1:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 13, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 13))>) {
+        _rtB->nvklweodf2 = _rtP->P_10;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->duzs4qjmpd);
+    }
+    break;
+  case 2:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("amhv0ezzdt",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("amhv0ezzdt", ["%<tSimStruct>"], 4, 4, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("hvpmhqfqzp", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->nvklweodf2", "&_rtB->l0kn4b05n3", "(hpzbbrx0hd *)&_rtP->l0kn4b05n3"], 4, 4, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->l0kn4b05n3.hfsh1n31z5);
+    }
+    break;
+  case 3:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("fdufegn521",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fdufegn521", ["%<tSimStruct>"], 5, 4, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("nfde1yr3kt", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->nvklweodf2", "&_rtB->bopplce2dl", "(oenqmyj5h2 *)&_rtP->bopplce2dl"], 5, 4, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->bopplce2dl.mclvu04fpk);
+    }
+    break;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->mqjmktsaqz;
+    _rtDW->pcbdlkcvwi = 0;
+    if (_rtB->nvklweodf2 < _rtB->mqjmktsaqz) {
+        i3wmigx0al = _rtB->nvklweodf2;
+        _rtDW->pcbdlkcvwi = 1;
+    }
+} else {
+    tmp_e[0] = _rtB->mqjmktsaqz;
+    tmp_e[1] = _rtB->nvklweodf2;
+    i3wmigx0al = tmp_e[_rtDW->pcbdlkcvwi];
+}
+_rtB->c1hkslshmu = _rtB->dn3slfseng * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->c1hkslshmu;
+        _rtDW->mzh4oz3sui[i] = 0;
+        if (_rtB->owwppgilfo[i] < _rtB->c1hkslshmu) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+            _rtDW->mzh4oz3sui[i] = 1;
+        }
+        _rtB->gs5ki0dxjk[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->c1hkslshmu;
+        if (_rtDW->mzh4oz3sui[i] == 1) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+        }
+        _rtB->gs5ki0dxjk[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->ogkrsjmxt2 = _rtP->P_29;
+}
+rtPrevAction = _rtDW->c5rbuikzxw;
+if (%<(LibIsMajorTimeStep())>) {
+    if ((bpb4fxo5jx < -0.21729040656369281) || (bpb4fxo5jx > 0.30648818596012584)) {
+        rtAction = 0;
+    } else if (bpb4fxo5jx == 0.22854303341747223) {
+        rtAction = 1;
+    } else if (bpb4fxo5jx < 0.22854303341747223) {
+        rtAction = 2;
+    } else {
+        rtAction = 3;
+    }
+    _rtDW->c5rbuikzxw = rtAction;
+} else {
+    rtAction = _rtDW->c5rbuikzxw;
+}
+if (rtPrevAction != rtAction) {
+    switch (rtPrevAction) {
+      case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 16, 1)>\
+        break;
+      case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 17, 1)>\
+        break;
+      case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 3, 11, 0, 3, 26)>\
+%endif
+        break;
+      case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 3, 11, 0, 3, 26)>\
+%endif
+        break;
+    }
+}
+switch (rtAction) {
+  case 0:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 16, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 10))>) {
+        _rtB->gbn3ddev1y = _rtP->P_7;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->d13raa4stw);
+    }
+    break;
+  case 1:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 17, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 11))>) {
+        _rtB->gbn3ddev1y = _rtP->P_8;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->l2zfyjpnid);
+    }
+    break;
+  case 2:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("amhv0ezzdt",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("amhv0ezzdt", ["%<tSimStruct>"], 4, 3, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("hvpmhqfqzp", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->gbn3ddev1y", "&_rtB->gn0k4yjlca", "(hpzbbrx0hd *)&_rtP->gn0k4yjlca"], 4, 3, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->gn0k4yjlca.hfsh1n31z5);
+    }
+    break;
+  case 3:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("fdufegn521",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fdufegn521", ["%<tSimStruct>"], 5, 3, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("nfde1yr3kt", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->gbn3ddev1y", "&_rtB->n32ezi1fyy", "(oenqmyj5h2 *)&_rtP->n32ezi1fyy"], 5, 3, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->n32ezi1fyy.mclvu04fpk);
+    }
+    break;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->mqjmktsaqz;
+    _rtDW->cwmkbz43ok = 0;
+    if (_rtB->gbn3ddev1y < _rtB->mqjmktsaqz) {
+        i3wmigx0al = _rtB->gbn3ddev1y;
+        _rtDW->cwmkbz43ok = 1;
+    }
+} else {
+    tmp_i[0] = _rtB->mqjmktsaqz;
+    tmp_i[1] = _rtB->gbn3ddev1y;
+    i3wmigx0al = tmp_i[_rtDW->cwmkbz43ok];
+}
+_rtB->eolcr0cf0x = _rtB->ogkrsjmxt2 * i3wmigx0al;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    memcpy(&_rtB->phxrw24uxv[0], &_rtP->P_30[0], 101U * sizeof(real_T));
+}
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->eolcr0cf0x;
+        _rtDW->cfoftv3iu4[i] = 0;
+        if (_rtB->phxrw24uxv[i] < _rtB->eolcr0cf0x) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+            _rtDW->cfoftv3iu4[i] = 1;
+        }
+        _rtB->bxt5jdh55t[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->eolcr0cf0x;
+        if (_rtDW->cfoftv3iu4[i] == 1) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+        }
+        _rtB->bxt5jdh55t[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->ao3ek3n3tz = _rtP->P_31;
+}
+rtPrevAction = _rtDW->edzikgxvri;
+if (%<(LibIsMajorTimeStep())>) {
+    if ((bpb4fxo5jx < 0.29449901862564931) || (bpb4fxo5jx > 0.83887774233621737)) {
+        rtAction = 0;
+    } else if (bpb4fxo5jx == 0.6696570970230018) {
+        rtAction = 1;
+    } else if (bpb4fxo5jx < 0.6696570970230018) {
+        rtAction = 2;
+    } else {
+        rtAction = 3;
+    }
+    _rtDW->edzikgxvri = rtAction;
+} else {
+    rtAction = _rtDW->edzikgxvri;
+}
+if (rtPrevAction != rtAction) {
+    switch (rtPrevAction) {
+      case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 20, 1)>\
+        break;
+      case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 21, 1)>\
+        break;
+      case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 2, 11, 0, 3, 26)>\
+%endif
+        break;
+      case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 2, 11, 0, 3, 26)>\
+%endif
+        break;
+    }
+}
+switch (rtAction) {
+  case 0:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 20, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 8))>) {
+        _rtB->egmu2knitr = _rtP->P_5;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->dtbd3vgqgr);
+    }
+    break;
+  case 1:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 21, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 9))>) {
+        _rtB->egmu2knitr = _rtP->P_6;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->imuyknlqma);
+    }
+    break;
+  case 2:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("amhv0ezzdt",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("amhv0ezzdt", ["%<tSimStruct>"], 4, 2, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("hvpmhqfqzp",4,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("hvpmhqfqzp", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->egmu2knitr", "&_rtB->batk2m2ouk", "(hpzbbrx0hd *)&_rtP->batk2m2ouk"], 4, 2, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->batk2m2ouk.hfsh1n31z5);
+    }
+    break;
+  case 3:
+    if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("fdufegn521",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fdufegn521", ["%<tSimStruct>"], 5, 2, 10, 0, 3, 26)>\
+%endif
+    }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("nfde1yr3kt",5,1)
+%<SLibCGIRAccessLocalVar(2, 0)> %% bpb4fxo5jx
+%endif
+
+%<SLibCGIRGenReusableSysCall("nfde1yr3kt", ["%<tSimStruct>", "bpb4fxo5jx", "&_rtB->egmu2knitr", "&_rtB->lfc4bdwe3i", "(oenqmyj5h2 *)&_rtP->lfc4bdwe3i"], 5, 2, 3, 0, 3, 26)>\
+%endif
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->lfc4bdwe3i.mclvu04fpk);
+    }
+    break;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->mqjmktsaqz;
+    _rtDW->atqqwxq141 = 0;
+    if (_rtB->egmu2knitr < _rtB->mqjmktsaqz) {
+        i3wmigx0al = _rtB->egmu2knitr;
+        _rtDW->atqqwxq141 = 1;
+    }
+} else {
+    tmp_m[0] = _rtB->mqjmktsaqz;
+    tmp_m[1] = _rtB->egmu2knitr;
+    i3wmigx0al = tmp_m[_rtDW->atqqwxq141];
+}
+_rtB->phnvdwne0n = _rtB->ao3ek3n3tz * i3wmigx0al;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    memcpy(&_rtB->hgssvifs22[0], &_rtP->P_32[0], 101U * sizeof(real_T));
+}
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->phnvdwne0n;
+        _rtDW->fwn30x201q[i] = 0;
+        if (_rtB->hgssvifs22[i] < _rtB->phnvdwne0n) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+            _rtDW->fwn30x201q[i] = 1;
+        }
+        _rtB->pmwyxnw4ed[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->phnvdwne0n;
+        if (_rtDW->fwn30x201q[i] == 1) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+        }
+        _rtB->pmwyxnw4ed[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->n1oapl1piu = _rtP->P_33;
+    rtPrevAction = _rtDW->klawyyekbz;
+    if (%<(LibIsMajorTimeStep())>) {
+        if ((_rtB->c4korgmf33 < -0.82479968112050539) || (_rtB->c4korgmf33 > 0.58595906621952143)) {
+            rtAction = 0;
+        } else if (_rtB->c4korgmf33 == -0.4604798525476349) {
+            rtAction = 1;
+        } else if (_rtB->c4korgmf33 < -0.4604798525476349) {
+            rtAction = 2;
+        } else {
+            rtAction = 3;
+        }
+        _rtDW->klawyyekbz = rtAction;
+    } else {
+        rtAction = _rtDW->klawyyekbz;
+    }
+    if (rtPrevAction != rtAction) {
+        switch (rtPrevAction) {
+          case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 24, 1)>\
+            break;
+          case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 25, 1)>\
+            break;
+          case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 1, 11, 0, 3, 26)>\
+%endif
+            break;
+          case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 1, 11, 0, 3, 26)>\
+%endif
+            break;
+        }
+    }
+    switch (rtAction) {
+      case 0:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 24, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->l5nzuluybl = _rtP->P_13;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->mpzp52id0t);
+        }
+        break;
+      case 1:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 25, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->l5nzuluybl = _rtP->P_14;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->nyxjscmhxx);
+        }
+        break;
+      case 2:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("ip2zqguibj",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("ip2zqguibj", ["%<tSimStruct>"], 16, 1, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("a0wgdt4huz",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("a0wgdt4huz", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->l5nzuluybl", "(ekdbauust1 *)&_rtP->ckjhoyj112"], 16, 1, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->ckjhoyj112.kvt42wiboe);
+        }
+        break;
+      case 3:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("okuvftbjio",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("okuvftbjio", ["%<tSimStruct>"], 17, 1, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("fz1tptag3q",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fz1tptag3q", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->l5nzuluybl", "(iilhsrded1 *)&_rtP->lgiprdszsq"], 17, 1, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->lgiprdszsq.n34zmws1i3);
+        }
+        break;
+    }
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->l5nzuluybl;
+    _rtDW->ek3t340ino = 0;
+    if (_rtB->bzn05jddvq < _rtB->l5nzuluybl) {
+        i3wmigx0al = _rtB->bzn05jddvq;
+        _rtDW->ek3t340ino = 1;
+    }
+} else {
+    tmp_g[0] = _rtB->l5nzuluybl;
+    tmp_g[1] = _rtB->bzn05jddvq;
+    i3wmigx0al = tmp_g[_rtDW->ek3t340ino];
+}
+_rtB->i50snlwand = _rtB->n1oapl1piu * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->i50snlwand;
+        _rtDW->hovijtn5hd[i] = 0;
+        if (_rtB->owwppgilfo[i] < _rtB->i50snlwand) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+            _rtDW->hovijtn5hd[i] = 1;
+        }
+        _rtB->p245u3hux5[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->i50snlwand;
+        if (_rtDW->hovijtn5hd[i] == 1) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+        }
+        _rtB->p245u3hux5[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->kc1camq3gt = _rtP->P_34;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->l5nzuluybl;
+    _rtDW->nhoztiuvup = 0;
+    if (_rtB->c4maurvhez < _rtB->l5nzuluybl) {
+        i3wmigx0al = _rtB->c4maurvhez;
+        _rtDW->nhoztiuvup = 1;
+    }
+} else {
+    tmp_j[0] = _rtB->l5nzuluybl;
+    tmp_j[1] = _rtB->c4maurvhez;
+    i3wmigx0al = tmp_j[_rtDW->nhoztiuvup];
+}
+_rtB->iod5ngnsrv = _rtB->kc1camq3gt * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->iod5ngnsrv;
+        _rtDW->cdvejmssga[i] = 0;
+        if (_rtB->phxrw24uxv[i] < _rtB->iod5ngnsrv) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+            _rtDW->cdvejmssga[i] = 1;
+        }
+        _rtB->fvuejgs0tr[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->iod5ngnsrv;
+        if (_rtDW->cdvejmssga[i] == 1) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+        }
+        _rtB->fvuejgs0tr[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->appeltcosz = _rtP->P_35;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->l5nzuluybl;
+    _rtDW->l4mixbetjv = 0;
+    if (_rtB->nvklweodf2 < _rtB->l5nzuluybl) {
+        i3wmigx0al = _rtB->nvklweodf2;
+        _rtDW->l4mixbetjv = 1;
+    }
+} else {
+    tmp_f[0] = _rtB->l5nzuluybl;
+    tmp_f[1] = _rtB->nvklweodf2;
+    i3wmigx0al = tmp_f[_rtDW->l4mixbetjv];
+}
+_rtB->aq2eefasad = _rtB->appeltcosz * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->aq2eefasad;
+        _rtDW->h4ot02dzil[i] = 0;
+        if (_rtB->phxrw24uxv[i] < _rtB->aq2eefasad) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+            _rtDW->h4ot02dzil[i] = 1;
+        }
+        _rtB->or0mixkgha[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->aq2eefasad;
+        if (_rtDW->h4ot02dzil[i] == 1) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+        }
+        _rtB->or0mixkgha[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->hgzyxt5ncy = _rtP->P_36;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->l5nzuluybl;
+    _rtDW->cccdv1xgoe = 0;
+    if (_rtB->gbn3ddev1y < _rtB->l5nzuluybl) {
+        i3wmigx0al = _rtB->gbn3ddev1y;
+        _rtDW->cccdv1xgoe = 1;
+    }
+} else {
+    tmp_c[0] = _rtB->l5nzuluybl;
+    tmp_c[1] = _rtB->gbn3ddev1y;
+    i3wmigx0al = tmp_c[_rtDW->cccdv1xgoe];
+}
+_rtB->ffrcbnvtf5 = _rtB->hgzyxt5ncy * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->ffrcbnvtf5;
+        _rtDW->gbat1wb1to[i] = 0;
+        if (_rtB->hgssvifs22[i] < _rtB->ffrcbnvtf5) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+            _rtDW->gbat1wb1to[i] = 1;
+        }
+        _rtB->drtzhbraal[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->ffrcbnvtf5;
+        if (_rtDW->gbat1wb1to[i] == 1) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+        }
+        _rtB->drtzhbraal[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->gm5udkhpkg = _rtP->P_37;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->l5nzuluybl;
+    _rtDW->a20akyce3z = 0;
+    if (_rtB->egmu2knitr < _rtB->l5nzuluybl) {
+        i3wmigx0al = _rtB->egmu2knitr;
+        _rtDW->a20akyce3z = 1;
+    }
+} else {
+    tmp_k[0] = _rtB->l5nzuluybl;
+    tmp_k[1] = _rtB->egmu2knitr;
+    i3wmigx0al = tmp_k[_rtDW->a20akyce3z];
+}
+_rtB->op0musds5m = _rtB->gm5udkhpkg * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->op0musds5m;
+        _rtDW->pthp4vrbgo[i] = 0;
+        if (_rtB->hgssvifs22[i] < _rtB->op0musds5m) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+            _rtDW->pthp4vrbgo[i] = 1;
+        }
+        _rtB->cqh24tm3bh[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->op0musds5m;
+        if (_rtDW->pthp4vrbgo[i] == 1) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+        }
+        _rtB->cqh24tm3bh[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->ibbeg5olr5 = _rtP->P_38;
+    rtPrevAction = _rtDW->hpppcqh30h;
+    if (%<(LibIsMajorTimeStep())>) {
+        if ((_rtB->c4korgmf33 < -0.97504713261729825) || (_rtB->c4korgmf33 > 0.49407095066028384)) {
+            rtAction = 0;
+        } else if (_rtB->c4korgmf33 == -0.88795253941058228) {
+            rtAction = 1;
+        } else if (_rtB->c4korgmf33 < -0.88795253941058228) {
+            rtAction = 2;
+        } else {
+            rtAction = 3;
+        }
+        _rtDW->hpppcqh30h = rtAction;
+    } else {
+        rtAction = _rtDW->hpppcqh30h;
+    }
+    if (rtPrevAction != rtAction) {
+        switch (rtPrevAction) {
+          case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 28, 1)>\
+            break;
+          case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 29, 1)>\
+            break;
+          case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 4, 11, 0, 3, 26)>\
+%endif
+            break;
+          case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 4, 11, 0, 3, 26)>\
+%endif
+            break;
+        }
+    }
+    switch (rtAction) {
+      case 0:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 28, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->g3duh0z4q2 = _rtP->P_19;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->keoomebgjo);
+        }
+        break;
+      case 1:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 29, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->g3duh0z4q2 = _rtP->P_20;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->or4mytv5er);
+        }
+        break;
+      case 2:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("ip2zqguibj",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("ip2zqguibj", ["%<tSimStruct>"], 16, 4, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("a0wgdt4huz",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("a0wgdt4huz", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->g3duh0z4q2", "(ekdbauust1 *)&_rtP->kmyftaqruw"], 16, 4, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->kmyftaqruw.kvt42wiboe);
+        }
+        break;
+      case 3:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("okuvftbjio",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("okuvftbjio", ["%<tSimStruct>"], 17, 4, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("fz1tptag3q",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fz1tptag3q", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->g3duh0z4q2", "(iilhsrded1 *)&_rtP->kwzuu4meyu"], 17, 4, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->kwzuu4meyu.n34zmws1i3);
+        }
+        break;
+    }
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->g3duh0z4q2;
+    _rtDW->fz41ozvgre = 0;
+    if (_rtB->bzn05jddvq < _rtB->g3duh0z4q2) {
+        i3wmigx0al = _rtB->bzn05jddvq;
+        _rtDW->fz41ozvgre = 1;
+    }
+} else {
+    tmp_b[0] = _rtB->g3duh0z4q2;
+    tmp_b[1] = _rtB->bzn05jddvq;
+    i3wmigx0al = tmp_b[_rtDW->fz41ozvgre];
+}
+_rtB->jamyfvhis0 = _rtB->ibbeg5olr5 * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->jamyfvhis0;
+        _rtDW->blhmnmwlwz[i] = 0;
+        if (_rtB->owwppgilfo[i] < _rtB->jamyfvhis0) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+            _rtDW->blhmnmwlwz[i] = 1;
+        }
+        _rtB->btzew2bqt3[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->jamyfvhis0;
+        if (_rtDW->blhmnmwlwz[i] == 1) {
+            bkyalauacy = _rtB->owwppgilfo[i];
+        }
+        _rtB->btzew2bqt3[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->ameh54bmo1 = _rtP->P_39;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->g3duh0z4q2;
+    _rtDW->mj3shleduv = 0;
+    if (_rtB->c4maurvhez < _rtB->g3duh0z4q2) {
+        i3wmigx0al = _rtB->c4maurvhez;
+        _rtDW->mj3shleduv = 1;
+    }
+} else {
+    tmp_n[0] = _rtB->g3duh0z4q2;
+    tmp_n[1] = _rtB->c4maurvhez;
+    i3wmigx0al = tmp_n[_rtDW->mj3shleduv];
+}
+_rtB->ksb3mnaj5a = _rtB->ameh54bmo1 * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->ksb3mnaj5a;
+        _rtDW->ct5pxm0hly[i] = 0;
+        if (_rtB->phxrw24uxv[i] < _rtB->ksb3mnaj5a) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+            _rtDW->ct5pxm0hly[i] = 1;
+        }
+        _rtB->cw2y1h3bak[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->ksb3mnaj5a;
+        if (_rtDW->ct5pxm0hly[i] == 1) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+        }
+        _rtB->cw2y1h3bak[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->ma1mqizgqf = _rtP->P_40;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->g3duh0z4q2;
+    _rtDW->fuacx0rkt3 = 0;
+    if (_rtB->nvklweodf2 < _rtB->g3duh0z4q2) {
+        i3wmigx0al = _rtB->nvklweodf2;
+        _rtDW->fuacx0rkt3 = 1;
+    }
+} else {
+    tmp_l[0] = _rtB->g3duh0z4q2;
+    tmp_l[1] = _rtB->nvklweodf2;
+    i3wmigx0al = tmp_l[_rtDW->fuacx0rkt3];
+}
+_rtB->invwbnm3jw = _rtB->ma1mqizgqf * i3wmigx0al;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    memcpy(&_rtB->cvmbvhhnlj[0], &_rtP->P_41[0], 101U * sizeof(real_T));
+}
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->invwbnm3jw;
+        _rtDW->p1eksizjg4[i] = 0;
+        if (_rtB->cvmbvhhnlj[i] < _rtB->invwbnm3jw) {
+            bkyalauacy = _rtB->cvmbvhhnlj[i];
+            _rtDW->p1eksizjg4[i] = 1;
+        }
+        _rtB->nuahnrk1xm[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->invwbnm3jw;
+        if (_rtDW->p1eksizjg4[i] == 1) {
+            bkyalauacy = _rtB->cvmbvhhnlj[i];
+        }
+        _rtB->nuahnrk1xm[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->laxbwkcszo = _rtP->P_42;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->g3duh0z4q2;
+    _rtDW->ap0wx13uyy = 0;
+    if (_rtB->gbn3ddev1y < _rtB->g3duh0z4q2) {
+        i3wmigx0al = _rtB->gbn3ddev1y;
+        _rtDW->ap0wx13uyy = 1;
+    }
+} else {
+    tmp_d[0] = _rtB->g3duh0z4q2;
+    tmp_d[1] = _rtB->gbn3ddev1y;
+    i3wmigx0al = tmp_d[_rtDW->ap0wx13uyy];
+}
+_rtB->mx0vcvsves = _rtB->laxbwkcszo * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->mx0vcvsves;
+        _rtDW->pl1sc43nlg[i] = 0;
+        if (_rtB->hgssvifs22[i] < _rtB->mx0vcvsves) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+            _rtDW->pl1sc43nlg[i] = 1;
+        }
+        _rtB->lydf4j1qnf[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->mx0vcvsves;
+        if (_rtDW->pl1sc43nlg[i] == 1) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+        }
+        _rtB->lydf4j1qnf[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->pxljl1nv3v = _rtP->P_43;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->g3duh0z4q2;
+    _rtDW->ljs3bbhsqr = 0;
+    if (_rtB->egmu2knitr < _rtB->g3duh0z4q2) {
+        i3wmigx0al = _rtB->egmu2knitr;
+        _rtDW->ljs3bbhsqr = 1;
+    }
+} else {
+    tmp_o[0] = _rtB->g3duh0z4q2;
+    tmp_o[1] = _rtB->egmu2knitr;
+    i3wmigx0al = tmp_o[_rtDW->ljs3bbhsqr];
+}
+_rtB->dpcbt4m1mj = _rtB->pxljl1nv3v * i3wmigx0al;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    memcpy(&_rtB->eesgd4z4r3[0], &_rtP->P_44[0], 101U * sizeof(real_T));
+}
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->dpcbt4m1mj;
+        _rtDW->foibfi2t5z[i] = 0;
+        if (_rtB->eesgd4z4r3[i] < _rtB->dpcbt4m1mj) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+            _rtDW->foibfi2t5z[i] = 1;
+        }
+        _rtB->i5qya1pteb[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->dpcbt4m1mj;
+        if (_rtDW->foibfi2t5z[i] == 1) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+        }
+        _rtB->i5qya1pteb[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->d2ucw0kdbv = _rtP->P_45;
+    rtPrevAction = _rtDW->paqqzznc1h;
+    if (%<(LibIsMajorTimeStep())>) {
+        if ((_rtB->c4korgmf33 < 0.17718927863621592) || (_rtB->c4korgmf33 > 0.71282438321981534)) {
+            rtAction = 0;
+        } else if (_rtB->c4korgmf33 == 0.4836959545381817) {
+            rtAction = 1;
+        } else if (_rtB->c4korgmf33 < 0.4836959545381817) {
+            rtAction = 2;
+        } else {
+            rtAction = 3;
+        }
+        _rtDW->paqqzznc1h = rtAction;
+    } else {
+        rtAction = _rtDW->paqqzznc1h;
+    }
+    if (rtPrevAction != rtAction) {
+        switch (rtPrevAction) {
+          case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 32, 1)>\
+            break;
+          case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 33, 1)>\
+            break;
+          case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 3, 11, 0, 3, 26)>\
+%endif
+            break;
+          case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 3, 11, 0, 3, 26)>\
+%endif
+            break;
+        }
+    }
+    switch (rtAction) {
+      case 0:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 32, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->gdc24cf2pe = _rtP->P_17;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->ltj0nfdsnq);
+        }
+        break;
+      case 1:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 33, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->gdc24cf2pe = _rtP->P_18;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->bdt3kxwjvd);
+        }
+        break;
+      case 2:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("ip2zqguibj",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("ip2zqguibj", ["%<tSimStruct>"], 16, 3, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("a0wgdt4huz",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("a0wgdt4huz", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->gdc24cf2pe", "(ekdbauust1 *)&_rtP->ivgkcdetja"], 16, 3, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->ivgkcdetja.kvt42wiboe);
+        }
+        break;
+      case 3:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("okuvftbjio",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("okuvftbjio", ["%<tSimStruct>"], 17, 3, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("fz1tptag3q",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fz1tptag3q", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->gdc24cf2pe", "(iilhsrded1 *)&_rtP->f4exshq2yo"], 17, 3, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->f4exshq2yo.n34zmws1i3);
+        }
+        break;
+    }
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->gdc24cf2pe;
+    _rtDW->jf2rhdqut2 = 0;
+    if (_rtB->bzn05jddvq < _rtB->gdc24cf2pe) {
+        i3wmigx0al = _rtB->bzn05jddvq;
+        _rtDW->jf2rhdqut2 = 1;
+    }
+} else {
+    tmp_dz[0] = _rtB->gdc24cf2pe;
+    tmp_dz[1] = _rtB->bzn05jddvq;
+    i3wmigx0al = tmp_dz[_rtDW->jf2rhdqut2];
+}
+_rtB->cgyaojd5o4 = _rtB->d2ucw0kdbv * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->cgyaojd5o4;
+        _rtDW->cwq0tqgq1n[i] = 0;
+        if (_rtB->phxrw24uxv[i] < _rtB->cgyaojd5o4) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+            _rtDW->cwq0tqgq1n[i] = 1;
+        }
+        _rtB->dpoq151qlb[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->cgyaojd5o4;
+        if (_rtDW->cwq0tqgq1n[i] == 1) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+        }
+        _rtB->dpoq151qlb[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->kutikudeub = _rtP->P_46;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->gdc24cf2pe;
+    _rtDW->hce2kpf4fv = 0;
+    if (_rtB->c4maurvhez < _rtB->gdc24cf2pe) {
+        i3wmigx0al = _rtB->c4maurvhez;
+        _rtDW->hce2kpf4fv = 1;
+    }
+} else {
+    tmp_fs[0] = _rtB->gdc24cf2pe;
+    tmp_fs[1] = _rtB->c4maurvhez;
+    i3wmigx0al = tmp_fs[_rtDW->hce2kpf4fv];
+}
+_rtB->lu4iiqvqgi = _rtB->kutikudeub * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->lu4iiqvqgi;
+        _rtDW->lvtrbdb5iy[i] = 0;
+        if (_rtB->phxrw24uxv[i] < _rtB->lu4iiqvqgi) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+            _rtDW->lvtrbdb5iy[i] = 1;
+        }
+        _rtB->knczk0ol2c[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->lu4iiqvqgi;
+        if (_rtDW->lvtrbdb5iy[i] == 1) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+        }
+        _rtB->knczk0ol2c[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->pdoct1y3b3 = _rtP->P_47;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->gdc24cf2pe;
+    _rtDW->ehedarvolh = 0;
+    if (_rtB->nvklweodf2 < _rtB->gdc24cf2pe) {
+        i3wmigx0al = _rtB->nvklweodf2;
+        _rtDW->ehedarvolh = 1;
+    }
+} else {
+    tmp_ck[0] = _rtB->gdc24cf2pe;
+    tmp_ck[1] = _rtB->nvklweodf2;
+    i3wmigx0al = tmp_ck[_rtDW->ehedarvolh];
+}
+_rtB->kz5mfdj0oi = _rtB->pdoct1y3b3 * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->kz5mfdj0oi;
+        _rtDW->pcijoifwzj[i] = 0;
+        if (_rtB->hgssvifs22[i] < _rtB->kz5mfdj0oi) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+            _rtDW->pcijoifwzj[i] = 1;
+        }
+        _rtB->n2dyfixgmn[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->kz5mfdj0oi;
+        if (_rtDW->pcijoifwzj[i] == 1) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+        }
+        _rtB->n2dyfixgmn[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->mx5u1jccyk = _rtP->P_48;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->gdc24cf2pe;
+    _rtDW->n4gohf0gax = 0;
+    if (_rtB->gbn3ddev1y < _rtB->gdc24cf2pe) {
+        i3wmigx0al = _rtB->gbn3ddev1y;
+        _rtDW->n4gohf0gax = 1;
+    }
+} else {
+    tmp_f2[0] = _rtB->gdc24cf2pe;
+    tmp_f2[1] = _rtB->gbn3ddev1y;
+    i3wmigx0al = tmp_f2[_rtDW->n4gohf0gax];
+}
+_rtB->nmp2s1mnhb = _rtB->mx5u1jccyk * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->nmp2s1mnhb;
+        _rtDW->h2ocrg4ukv[i] = 0;
+        if (_rtB->hgssvifs22[i] < _rtB->nmp2s1mnhb) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+            _rtDW->h2ocrg4ukv[i] = 1;
+        }
+        _rtB->pp0pb2hkar[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->nmp2s1mnhb;
+        if (_rtDW->h2ocrg4ukv[i] == 1) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+        }
+        _rtB->pp0pb2hkar[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->f0yavm152o = _rtP->P_49;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->gdc24cf2pe;
+    _rtDW->fvrqwkuiun = 0;
+    if (_rtB->egmu2knitr < _rtB->gdc24cf2pe) {
+        i3wmigx0al = _rtB->egmu2knitr;
+        _rtDW->fvrqwkuiun = 1;
+    }
+} else {
+    tmp_kt[0] = _rtB->gdc24cf2pe;
+    tmp_kt[1] = _rtB->egmu2knitr;
+    i3wmigx0al = tmp_kt[_rtDW->fvrqwkuiun];
+}
+_rtB->mi5t4zctji = _rtB->f0yavm152o * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->mi5t4zctji;
+        _rtDW->mxhcg5vfyy[i] = 0;
+        if (_rtB->eesgd4z4r3[i] < _rtB->mi5t4zctji) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+            _rtDW->mxhcg5vfyy[i] = 1;
+        }
+        _rtB->ibl2zd3hp4[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->mi5t4zctji;
+        if (_rtDW->mxhcg5vfyy[i] == 1) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+        }
+        _rtB->ibl2zd3hp4[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->kqnbtegjwl = _rtP->P_50;
+    rtPrevAction = _rtDW->iuu0yniqwc;
+    if (%<(LibIsMajorTimeStep())>) {
+        if ((_rtB->c4korgmf33 < -0.24569315710355477) || (_rtB->c4korgmf33 > 0.8140472366553817)) {
+            rtAction = 0;
+        } else if (_rtB->c4korgmf33 == 0.47267171369150784) {
+            rtAction = 1;
+        } else if (_rtB->c4korgmf33 < 0.47267171369150784) {
+            rtAction = 2;
+        } else {
+            rtAction = 3;
+        }
+        _rtDW->iuu0yniqwc = rtAction;
+    } else {
+        rtAction = _rtDW->iuu0yniqwc;
+    }
+    if (rtPrevAction != rtAction) {
+        switch (rtPrevAction) {
+          case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 36, 1)>\
+            break;
+          case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 37, 1)>\
+            break;
+          case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 2, 11, 0, 3, 26)>\
+%endif
+            break;
+          case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 2, 11, 0, 3, 26)>\
+%endif
+            break;
+        }
+    }
+    switch (rtAction) {
+      case 0:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 36, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->fzdqsthxxs = _rtP->P_15;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->diqjisgjdq);
+        }
+        break;
+      case 1:
+        if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 37, 0)>\
+            if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+            }
+        }
+        _rtB->fzdqsthxxs = _rtP->P_16;
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->ibo5oocu4o);
+        }
+        break;
+      case 2:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("ip2zqguibj",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("ip2zqguibj", ["%<tSimStruct>"], 16, 2, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("a0wgdt4huz",16,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("a0wgdt4huz", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->fzdqsthxxs", "(ekdbauust1 *)&_rtP->kuxc1ybiei"], 16, 2, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->kuxc1ybiei.kvt42wiboe);
+        }
+        break;
+      case 3:
+        if (rtAction != rtPrevAction) {
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Enable",0)
+%if SLibCG_SystemFcnArgAccessed("okuvftbjio",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("okuvftbjio", ["%<tSimStruct>"], 17, 2, 10, 0, 3, 26)>\
+%endif
+        }
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("fz1tptag3q",17,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("fz1tptag3q", ["%<tSimStruct>", "_rtB->c4korgmf33", "&_rtB->fzdqsthxxs", "(iilhsrded1 *)&_rtP->dw3ig1u5pp"], 17, 2, 3, 0, 3, 26)>\
+%endif
+        if (%<(LibIsMajorTimeStep())>) {
+            srUpdateBC(_rtDW->dw3ig1u5pp.n34zmws1i3);
+        }
+        break;
+    }
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->fzdqsthxxs;
+    _rtDW->pptvyiht5t = 0;
+    if (_rtB->bzn05jddvq < _rtB->fzdqsthxxs) {
+        i3wmigx0al = _rtB->bzn05jddvq;
+        _rtDW->pptvyiht5t = 1;
+    }
+} else {
+    tmp_lt[0] = _rtB->fzdqsthxxs;
+    tmp_lt[1] = _rtB->bzn05jddvq;
+    i3wmigx0al = tmp_lt[_rtDW->pptvyiht5t];
+}
+_rtB->bmfvu145db = _rtB->kqnbtegjwl * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->bmfvu145db;
+        _rtDW->puwemomp1l[i] = 0;
+        if (_rtB->phxrw24uxv[i] < _rtB->bmfvu145db) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+            _rtDW->puwemomp1l[i] = 1;
+        }
+        _rtB->hmeid1kipo[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->bmfvu145db;
+        if (_rtDW->puwemomp1l[i] == 1) {
+            bkyalauacy = _rtB->phxrw24uxv[i];
+        }
+        _rtB->hmeid1kipo[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->e5lwasiuqg = _rtP->P_51;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->fzdqsthxxs;
+    _rtDW->fbmhow0gil = 0;
+    if (_rtB->c4maurvhez < _rtB->fzdqsthxxs) {
+        i3wmigx0al = _rtB->c4maurvhez;
+        _rtDW->fbmhow0gil = 1;
+    }
+} else {
+    tmp_hn[0] = _rtB->fzdqsthxxs;
+    tmp_hn[1] = _rtB->c4maurvhez;
+    i3wmigx0al = tmp_hn[_rtDW->fbmhow0gil];
+}
+_rtB->f1xt3hi3hq = _rtB->e5lwasiuqg * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->f1xt3hi3hq;
+        _rtDW->cww3dq5jxf[i] = 0;
+        if (_rtB->hgssvifs22[i] < _rtB->f1xt3hi3hq) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+            _rtDW->cww3dq5jxf[i] = 1;
+        }
+        _rtB->icn03dfe1r[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->f1xt3hi3hq;
+        if (_rtDW->cww3dq5jxf[i] == 1) {
+            bkyalauacy = _rtB->hgssvifs22[i];
+        }
+        _rtB->icn03dfe1r[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->jjeer41y0n = _rtP->P_52;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->fzdqsthxxs;
+    _rtDW->e0nsq3duv0 = 0;
+    if (_rtB->nvklweodf2 < _rtB->fzdqsthxxs) {
+        i3wmigx0al = _rtB->nvklweodf2;
+        _rtDW->e0nsq3duv0 = 1;
+    }
+} else {
+    tmp_ap[0] = _rtB->fzdqsthxxs;
+    tmp_ap[1] = _rtB->nvklweodf2;
+    i3wmigx0al = tmp_ap[_rtDW->e0nsq3duv0];
+}
+_rtB->o3npjiscvj = _rtB->jjeer41y0n * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->o3npjiscvj;
+        _rtDW->g0nuywkafu[i] = 0;
+        if (_rtB->eesgd4z4r3[i] < _rtB->o3npjiscvj) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+            _rtDW->g0nuywkafu[i] = 1;
+        }
+        _rtB->lzdqdoejlp[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->o3npjiscvj;
+        if (_rtDW->g0nuywkafu[i] == 1) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+        }
+        _rtB->lzdqdoejlp[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->dim2tp3zvj = _rtP->P_53;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->fzdqsthxxs;
+    _rtDW->dmvufbq3yn = 0;
+    if (_rtB->gbn3ddev1y < _rtB->fzdqsthxxs) {
+        i3wmigx0al = _rtB->gbn3ddev1y;
+        _rtDW->dmvufbq3yn = 1;
+    }
+} else {
+    tmp_pj[0] = _rtB->fzdqsthxxs;
+    tmp_pj[1] = _rtB->gbn3ddev1y;
+    i3wmigx0al = tmp_pj[_rtDW->dmvufbq3yn];
+}
+_rtB->lyyac5wn2q = _rtB->dim2tp3zvj * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->lyyac5wn2q;
+        _rtDW->onvtwfmaxz[i] = 0;
+        if (_rtB->eesgd4z4r3[i] < _rtB->lyyac5wn2q) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+            _rtDW->onvtwfmaxz[i] = 1;
+        }
+        _rtB->msn5js4gmv[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->lyyac5wn2q;
+        if (_rtDW->onvtwfmaxz[i] == 1) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+        }
+        _rtB->msn5js4gmv[i] = bkyalauacy;
+    }
+}
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->ksxt53y5oo = _rtP->P_54;
+}
+if (%<(LibIsMajorTimeStep())>) {
+    i3wmigx0al = _rtB->fzdqsthxxs;
+    _rtDW->gkwn3x1iiz = 0;
+    if (_rtB->egmu2knitr < _rtB->fzdqsthxxs) {
+        i3wmigx0al = _rtB->egmu2knitr;
+        _rtDW->gkwn3x1iiz = 1;
+    }
+} else {
+    tmp_po[0] = _rtB->fzdqsthxxs;
+    tmp_po[1] = _rtB->egmu2knitr;
+    i3wmigx0al = tmp_po[_rtDW->gkwn3x1iiz];
+}
+_rtB->m5ruw4cloz = _rtB->ksxt53y5oo * i3wmigx0al;
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->m5ruw4cloz;
+        _rtDW->cui1jf4d4x[i] = 0;
+        if (_rtB->eesgd4z4r3[i] < _rtB->m5ruw4cloz) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+            _rtDW->cui1jf4d4x[i] = 1;
+        }
+        _rtB->lq3pa0nigy[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->m5ruw4cloz;
+        if (_rtDW->cui1jf4d4x[i] == 1) {
+            bkyalauacy = _rtB->eesgd4z4r3[i];
+        }
+        _rtB->lq3pa0nigy[i] = bkyalauacy;
+    }
+}
+if (%<(LibIsMajorTimeStep())>) {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->c5lkgqotfh[i];
+        _rtDW->jltzg3clp4[i] = 0;
+        if (_rtB->exj4ujw2tk[i] > _rtB->c5lkgqotfh[i]) {
+            bkyalauacy = _rtB->exj4ujw2tk[i];
+            _rtDW->jltzg3clp4[i] = 1;
+        }
+        if (_rtB->gs5ki0dxjk[i] > bkyalauacy) {
+            bkyalauacy = _rtB->gs5ki0dxjk[i];
+            _rtDW->jltzg3clp4[i] = 2;
+        }
+        if (_rtB->bxt5jdh55t[i] > bkyalauacy) {
+            bkyalauacy = _rtB->bxt5jdh55t[i];
+            _rtDW->jltzg3clp4[i] = 3;
+        }
+        if (_rtB->pmwyxnw4ed[i] > bkyalauacy) {
+            bkyalauacy = _rtB->pmwyxnw4ed[i];
+            _rtDW->jltzg3clp4[i] = 4;
+        }
+        if (_rtB->p245u3hux5[i] > bkyalauacy) {
+            bkyalauacy = _rtB->p245u3hux5[i];
+            _rtDW->jltzg3clp4[i] = 5;
+        }
+        if (_rtB->fvuejgs0tr[i] > bkyalauacy) {
+            bkyalauacy = _rtB->fvuejgs0tr[i];
+            _rtDW->jltzg3clp4[i] = 6;
+        }
+        if (_rtB->or0mixkgha[i] > bkyalauacy) {
+            bkyalauacy = _rtB->or0mixkgha[i];
+            _rtDW->jltzg3clp4[i] = 7;
+        }
+        if (_rtB->drtzhbraal[i] > bkyalauacy) {
+            bkyalauacy = _rtB->drtzhbraal[i];
+            _rtDW->jltzg3clp4[i] = 8;
+        }
+        if (_rtB->cqh24tm3bh[i] > bkyalauacy) {
+            bkyalauacy = _rtB->cqh24tm3bh[i];
+            _rtDW->jltzg3clp4[i] = 9;
+        }
+        if (_rtB->btzew2bqt3[i] > bkyalauacy) {
+            bkyalauacy = _rtB->btzew2bqt3[i];
+            _rtDW->jltzg3clp4[i] = 10;
+        }
+        if (_rtB->cw2y1h3bak[i] > bkyalauacy) {
+            bkyalauacy = _rtB->cw2y1h3bak[i];
+            _rtDW->jltzg3clp4[i] = 11;
+        }
+        if (_rtB->nuahnrk1xm[i] > bkyalauacy) {
+            bkyalauacy = _rtB->nuahnrk1xm[i];
+            _rtDW->jltzg3clp4[i] = 12;
+        }
+        if (_rtB->lydf4j1qnf[i] > bkyalauacy) {
+            bkyalauacy = _rtB->lydf4j1qnf[i];
+            _rtDW->jltzg3clp4[i] = 13;
+        }
+        if (_rtB->i5qya1pteb[i] > bkyalauacy) {
+            bkyalauacy = _rtB->i5qya1pteb[i];
+            _rtDW->jltzg3clp4[i] = 14;
+        }
+        if (_rtB->dpoq151qlb[i] > bkyalauacy) {
+            bkyalauacy = _rtB->dpoq151qlb[i];
+            _rtDW->jltzg3clp4[i] = 15;
+        }
+        if (_rtB->knczk0ol2c[i] > bkyalauacy) {
+            bkyalauacy = _rtB->knczk0ol2c[i];
+            _rtDW->jltzg3clp4[i] = 16;
+        }
+        if (_rtB->n2dyfixgmn[i] > bkyalauacy) {
+            bkyalauacy = _rtB->n2dyfixgmn[i];
+            _rtDW->jltzg3clp4[i] = 17;
+        }
+        if (_rtB->pp0pb2hkar[i] > bkyalauacy) {
+            bkyalauacy = _rtB->pp0pb2hkar[i];
+            _rtDW->jltzg3clp4[i] = 18;
+        }
+        if (_rtB->ibl2zd3hp4[i] > bkyalauacy) {
+            bkyalauacy = _rtB->ibl2zd3hp4[i];
+            _rtDW->jltzg3clp4[i] = 19;
+        }
+        if (_rtB->hmeid1kipo[i] > bkyalauacy) {
+            bkyalauacy = _rtB->hmeid1kipo[i];
+            _rtDW->jltzg3clp4[i] = 20;
+        }
+        if (_rtB->icn03dfe1r[i] > bkyalauacy) {
+            bkyalauacy = _rtB->icn03dfe1r[i];
+            _rtDW->jltzg3clp4[i] = 21;
+        }
+        if (_rtB->lzdqdoejlp[i] > bkyalauacy) {
+            bkyalauacy = _rtB->lzdqdoejlp[i];
+            _rtDW->jltzg3clp4[i] = 22;
+        }
+        if (_rtB->msn5js4gmv[i] > bkyalauacy) {
+            bkyalauacy = _rtB->msn5js4gmv[i];
+            _rtDW->jltzg3clp4[i] = 23;
+        }
+        if (_rtB->lq3pa0nigy[i] > bkyalauacy) {
+            bkyalauacy = _rtB->lq3pa0nigy[i];
+            _rtDW->jltzg3clp4[i] = 24;
+        }
+        lotbtatwvu[i] = bkyalauacy;
+    }
+} else {
+    for (i = 0; i < 101; i++) {
+        bkyalauacy = _rtB->c5lkgqotfh[i];
+        if (_rtDW->jltzg3clp4[i] == 1) {
+            bkyalauacy = _rtB->exj4ujw2tk[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 2) {
+            bkyalauacy = _rtB->gs5ki0dxjk[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 3) {
+            bkyalauacy = _rtB->bxt5jdh55t[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 4) {
+            bkyalauacy = _rtB->pmwyxnw4ed[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 5) {
+            bkyalauacy = _rtB->p245u3hux5[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 6) {
+            bkyalauacy = _rtB->fvuejgs0tr[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 7) {
+            bkyalauacy = _rtB->or0mixkgha[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 8) {
+            bkyalauacy = _rtB->drtzhbraal[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 9) {
+            bkyalauacy = _rtB->cqh24tm3bh[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 10) {
+            bkyalauacy = _rtB->btzew2bqt3[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 11) {
+            bkyalauacy = _rtB->cw2y1h3bak[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 12) {
+            bkyalauacy = _rtB->nuahnrk1xm[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 13) {
+            bkyalauacy = _rtB->lydf4j1qnf[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 14) {
+            bkyalauacy = _rtB->i5qya1pteb[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 15) {
+            bkyalauacy = _rtB->dpoq151qlb[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 16) {
+            bkyalauacy = _rtB->knczk0ol2c[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 17) {
+            bkyalauacy = _rtB->n2dyfixgmn[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 18) {
+            bkyalauacy = _rtB->pp0pb2hkar[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 19) {
+            bkyalauacy = _rtB->ibl2zd3hp4[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 20) {
+            bkyalauacy = _rtB->hmeid1kipo[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 21) {
+            bkyalauacy = _rtB->icn03dfe1r[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 22) {
+            bkyalauacy = _rtB->lzdqdoejlp[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 23) {
+            bkyalauacy = _rtB->msn5js4gmv[i];
+        }
+        if (_rtDW->jltzg3clp4[i] == 24) {
+            bkyalauacy = _rtB->lq3pa0nigy[i];
+        }
+        lotbtatwvu[i] = bkyalauacy;
+    }
+}
+for (i = 0; i < 101; i++) {
+    awvnc0eowh[i] = _rtB->lvci00mxzl[i] * lotbtatwvu[i];
+}
+i3wmigx0al = awvnc0eowh[0];
+bkyalauacy = lotbtatwvu[0];
+for (i = 0; i < 100; i++) {
+    i3wmigx0al += awvnc0eowh[i + 1];
+    bkyalauacy += lotbtatwvu[i + 1];
+}
+_rtB->j00icoiqcx = bkyalauacy;
+rtPrevAction = _rtDW->f4bzrflmrh;
+if (%<(LibIsMajorTimeStep())>) {
+    if (_rtB->j00icoiqcx <= 0.0) {
+        rtAction = 0;
+    } else {
+        rtAction = 1;
+    }
+    _rtDW->f4bzrflmrh = rtAction;
+} else {
+    rtAction = _rtDW->f4bzrflmrh;
+}
+if (rtPrevAction != rtAction) {
+    switch (rtPrevAction) {
+      case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 40, 1)>\
+        break;
+      case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 41, 1)>\
+        break;
+    }
+}
+switch (rtAction) {
+  case 0:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 40, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    if (%<(SLibCGIRIsSampleHit(1, 0))>) {
+        _rtB->pohazsv1vh = _rtP->P_0;
+    }
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->i2mcdeascw);
+    }
+    break;
+  case 1:
+    if (rtAction != rtPrevAction) {
+%<SLibCGIRSetStatesDisabled(26, 41, 0)>\
+        if (%<(SLibCG_SE(LibGetTaskTime(0)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+        }
+    }
+    _rtB->pohazsv1vh = _rtB->j00icoiqcx;
+    if (%<(LibIsMajorTimeStep())>) {
+        srUpdateBC(_rtDW->n1t4dlu1gz);
+    }
+    break;
+}
+bkyalauacy = i3wmigx0al / _rtB->pohazsv1vh;
+_rtB->aowzvtgftu = (((((((((((((((((((((((_rtB->i3x5blmatd + _rtB->jorhuz32mi) + _rtB->c1hkslshmu) + _rtB->eolcr0cf0x) + _rtB->phnvdwne0n) + _rtB->i50snlwand) + _rtB->iod5ngnsrv) + _rtB->aq2eefasad) + _rtB->ffrcbnvtf5) + _rtB->op0musds5m) + _rtB->jamyfvhis0) + _rtB->ksb3mnaj5a) + _rtB->invwbnm3jw) + _rtB->mx0vcvsves) + _rtB->dpcbt4m1mj) + _rtB->cgyaojd5o4) + _rtB->lu4iiqvqgi) + _rtB->kz5mfdj0oi) + _rtB->nmp2s1mnhb) + _rtB->mi5t4zctji) + _rtB->bmfvu145db) + _rtB->f1xt3hi3hq) + _rtB->o3npjiscvj) + _rtB->lyyac5wn2q) + _rtB->m5ruw4cloz;
+if (%<(SLibCGIRIsSampleHit(1, 26))>) {
+    _rtB->lkeces0pba = _rtP->P_55;
+    if (%<(LibIsMajorTimeStep())>) {
+        _rtDW->nubzelmtli = (_rtB->aowzvtgftu > _rtB->lkeces0pba);
+    }
+    _rtB->ir0r3w13nw = _rtDW->nubzelmtli;
+    _rtB->inq2f344de = _rtP->P_56;
+}
+if (_rtB->ir0r3w13nw >= _rtP->P_57) {
+    _rtB->ggqt5u5uof = bkyalauacy;
+} else {
+    _rtB->ggqt5u5uof = _rtB->inq2f344de;
+}
+%<tlcOutputsFcnOfS26B42>\
+_rtB->gi4lkopkck = 0.0;
+_rtB->gi4lkopkck += _rtP->P_60[0] * _rtX->g42anpjwl4[2];
+_rtB->gi4lkopkck += _rtP->P_60[1] * _rtX->g42anpjwl4[3];
+_rtB->gi4lkopkck += _rtP->P_60[2] * _rtX->g42anpjwl4[4];
+%<tlcOutputsFcnOfS26B43>\
+_rtB->gnyou0ndiq = _rtB->ggqt5u5uof + _rtB->c4korgmf33;
+%<SLibInsertSolverResetCode()>\
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(4, 2, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 2, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 2, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(4, 2, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 2, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

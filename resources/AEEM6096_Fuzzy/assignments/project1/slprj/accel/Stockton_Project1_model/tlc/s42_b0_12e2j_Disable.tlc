@@ -1,0 +1,334 @@
+%implements s42_b0_12e2j_Disable "C"
+
+%function Disable(block, system) Output
+%assign localVarDecl = ""
+%openfile localVarDecl
+ew10rzwqr2 *_rtDW;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%<SLibCG_TrackDW(26)>\
+_rtDW = %<(SLibCG_SE(SLibGetDWorkStructPtr()))>;
+switch (_rtDW->ntjpezfhep) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 0, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 1, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 0, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 0, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->ntjpezfhep = -1;
+switch (_rtDW->dybxqulwry) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 4, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 5, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 0, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 0, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->dybxqulwry = -1;
+switch (_rtDW->o3mcjfvdwd) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 8, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 9, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 1, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 1, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->o3mcjfvdwd = -1;
+switch (_rtDW->ajwi4gwanv) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 12, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 13, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 4, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 4, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->ajwi4gwanv = -1;
+switch (_rtDW->c5rbuikzxw) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 16, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 17, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 3, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 3, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->c5rbuikzxw = -1;
+switch (_rtDW->edzikgxvri) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 20, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 21, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("hd4a2jn5kn",4,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("hd4a2jn5kn", ["%<tSimStruct>"], 4, 2, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("jkalejavj5",5,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("jkalejavj5", ["%<tSimStruct>"], 5, 2, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->edzikgxvri = -1;
+switch (_rtDW->klawyyekbz) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 24, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 25, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 1, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 1, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->klawyyekbz = -1;
+switch (_rtDW->hpppcqh30h) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 28, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 29, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 4, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 4, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->hpppcqh30h = -1;
+switch (_rtDW->paqqzznc1h) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 32, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 33, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 3, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 3, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->paqqzznc1h = -1;
+switch (_rtDW->iuu0yniqwc) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 36, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 37, 1)>\
+    break;
+  case 2:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[16], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("mxuep24j0n",16,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("mxuep24j0n", ["%<tSimStruct>"], 16, 2, 11, 0, 11, 26)>\
+%endif
+    break;
+  case 3:
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[17], "Disable",0)
+%if SLibCG_SystemFcnArgAccessed("pu03kluh2t",17,0)
+%<SLibCG_AccessArg(4 ,7, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("pu03kluh2t", ["%<tSimStruct>"], 17, 2, 11, 0, 11, 26)>\
+%endif
+    break;
+}
+_rtDW->iuu0yniqwc = -1;
+switch (_rtDW->f4bzrflmrh) {
+  case 0:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 40, 1)>\
+    break;
+  case 1:
+%<SLibCGIRSetSolverNeedsReset()>\
+%<SLibCGIRSetStatesDisabled(26, 41, 1)>\
+    break;
+}
+_rtDW->f4bzrflmrh = -1;
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Disable", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Disable"))
+%<SLibCG_AccessArg(4, 7, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 7, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Disable", rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Disable"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 7, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Disable(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(4, 7, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 7, fcnProtoType)>
+%<LibSetSystemField(system, "CachedDisableLocalVars", localVarDecl)>
+%endfunction

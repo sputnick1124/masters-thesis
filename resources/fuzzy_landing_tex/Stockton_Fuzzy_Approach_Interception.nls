@@ -1,0 +1,28 @@
+\begin{thenomenclature} 
+
+ \nomgroup{Symbols}
+
+  \item [{$I_{xy}$}]\begingroup Pixel intensity value\nomeqref {1}
+		\nompageref{3}
+  \item [{$\Delta v_x$}]\begingroup Control input change to velocity in $x$-axis\nomeqref {0}
+		\nompageref{3}
+  \item [{$\Delta v_y$}]\begingroup Control input change to velocity in $y$-axis\nomeqref {0}
+		\nompageref{3}
+  \item [{$\Delta v_z$}]\begingroup Control input change to velocity in $z$-axis\nomeqref {0}
+		\nompageref{3}
+  \item [{$\dot{\psi}$}]\begingroup Control input to yaw rate (rotation about $z$-axis)\nomeqref {0}
+		\nompageref{3}
+  \item [{$d_x$}]\begingroup Horizontal offset error from vehicle to target in the body-fixed $x$-axis\nomeqref {4}
+		\nompageref{4}
+  \item [{$d_y$}]\begingroup Horizontal offset error from vehicle to target in the body-fixed $y$-axis\nomeqref {4}
+		\nompageref{4}
+  \item [{$d_z$}]\begingroup Vertical offset error from vehicle to the target\nomeqref {4}
+		\nompageref{4}
+  \item [{$f$}]\begingroup Focal length of image sensor\nomeqref {2}
+		\nompageref{3}
+  \item [{$m$}]\begingroup Pixel scaling factor\nomeqref {2}
+		\nompageref{3}
+  \item [{$m_{ij}$}]\begingroup Raw image moment\nomeqref {1}
+		\nompageref{3}
+
+\end{thenomenclature}

@@ -1,0 +1,92 @@
+[System]
+Name='test'
+Type='mamdani'
+Version=2.0
+NumInputs=3
+NumOutputs=3
+NumRules=27
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+%ImpMethod='meanofMV'
+%AggMethod='sum'
+%DefuzzMethod='passthrough'
+
+[Input1]
+Name='ep'
+Range=[0 1]
+NumMFs=3
+MF1='small':'trimf',[0 0 0.473505]
+MF2='medium':'trimf',[0.121293 0.505485 0.887657]
+MF3='large':'trimf',[0.59267 1 1]
+
+[Input2]
+Name='ei'
+Range=[0 1]
+NumMFs=3
+MF1='small':'trimf',[0 0 0.506476]
+MF2='medium':'trimf',[0.15194 0.441525 0.895073]
+MF3='large':'trimf',[0.547054 1 1]
+
+[Input3]
+Name='ed'
+Range=[0 1]
+NumMFs=3
+MF1='small':'trimf',[0 0 0.493808]
+MF2='medium':'trimf',[0.151043 0.625924 0.881316]
+MF3='large':'trimf',[0.40901 1 1]
+
+[Output1]
+Name='kp'
+Range=[0 1]
+NumMFs=3
+MF1='small':'trimf',[0 0 0.467947]
+MF2='medium':'trimf',[0.120934 0.362175 0.8566]
+MF3='large':'trimf',[0.439838 1 1]
+
+[Output2]
+Name='ki'
+Range=[0 1]
+NumMFs=3
+MF1='small':'trimf',[0 0 0.524068]
+MF2='medium':'trimf',[0.14886 0.592595 0.897468]
+MF3='large':'trimf',[0.538889 1 1]
+
+[Output3]
+Name='kd'
+Range=[0 1]
+NumMFs=3
+MF1='small':'trimf',[0 0 0.567095]
+MF2='medium':'trimf',[0.148478 0.378471 0.923738]
+MF3='large':'trimf',[0.473705 1 1]
+
+[Rules]
+1 1 1, 1 2 3 (1) : 1
+2 1 1, 2 1 3 (1) : 1
+3 1 1, 3 2 3 (1) : 1
+1 2 1, 3 2 3 (1) : 1
+2 2 1, 2 2 2 (1) : 1
+3 2 1, 2 1 3 (1) : 1
+1 3 1, 3 2 2 (1) : 1
+2 3 1, 1 3 1 (1) : 1
+3 3 1, 2 1 2 (1) : 1
+1 1 2, 3 2 1 (1) : 1
+2 1 2, 3 2 3 (1) : 1
+3 1 2, 2 1 2 (1) : 1
+1 2 2, 2 2 3 (1) : 1
+2 2 2, 3 3 3 (1) : 1
+3 2 2, 2 2 1 (1) : 1
+1 3 2, 2 2 2 (1) : 1
+2 3 2, 2 2 2 (1) : 1
+3 3 2, 3 2 3 (1) : 1
+1 1 3, 2 3 1 (1) : 1
+2 1 3, 1 3 1 (1) : 1
+3 1 3, 2 3 1 (1) : 1
+1 2 3, 1 3 1 (1) : 1
+2 2 3, 2 1 3 (1) : 1
+3 2 3, 3 3 3 (1) : 1
+1 3 3, 3 2 3 (1) : 1
+2 3 3, 3 2 1 (1) : 1
+3 3 3, 2 1 2 (1) : 1

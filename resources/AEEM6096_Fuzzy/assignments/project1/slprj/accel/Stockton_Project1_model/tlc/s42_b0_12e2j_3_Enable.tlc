@@ -1,0 +1,29 @@
+%implements s42_b0_12e2j_3_Enable "C"
+
+%function Enable(block, system) Output
+%assign localVarDecl = ""
+%<SLibCGIRSetStatesDisabled(26, 7, 0)>\
+if (%<(SLibCG_SE(LibGetTaskTime(1)))> != %<(SLibCG_SE(RTMGet("TStart")))>) {
+%<SLibCGIRSetSolverNeedsReset()>\
+}
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[3].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Enable", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Enable"))
+%<SLibCG_AccessArg(3, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(3, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Enable", rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Enable"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(3, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void okuvftbjio(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(3, 1, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(3, 1, fcnProtoType)>
+%endfunction

@@ -1,0 +1,55 @@
+\begin{thenomenclature} 
+
+ \nomgroup{Symbols}
+
+  \item [{$C^i$}]\begingroup Genetic parent\nomeqref {5}\nompageref{14}
+  \item [{$F$}]\begingroup Control force, \si{\newton}\nomeqref {0}
+		\nompageref{4}
+  \item [{$I$}]\begingroup Genetic selection interval\nomeqref {5}
+		\nompageref{14}
+  \item [{$K$}]\begingroup Spring Constant, \si{\newton\per\metre}\nomeqref {0}
+		\nompageref{4}
+  \item [{$L$}]\begingroup Simulation length, \si{\metre}\nomeqref {0}
+		\nompageref{4}
+  \item [{$M$}]\begingroup Total system mass, \si{\kilogram}\nomeqref {5}
+		\nompageref{6}
+  \item [{$d$}]\begingroup Genetic interval buffer distance\nomeqref {5}
+		\nompageref{14}
+  \item [{$m$}]\begingroup Cart mass, \si{\kilogram}\nomeqref {0}
+		\nompageref{4}
+  \item [{$t$}]\begingroup Time, \si{\second}\nomeqref {0}
+		\nompageref{4}
+  \item [{$x^j_i$}]\begingroup Parameter of genetic individual\nomeqref {5}
+		\nompageref{14}
+  \item [{$x(t)$}]\begingroup Cart position, \si{\meter}\nomeqref {0}
+		\nompageref{5}
+  \item [{$\dot{x}(t)$}]\begingroup Cart velocity, \si{\metre\per\second}\nomeqref {0}
+		\nompageref{5}
+  \item [{$\ddot{x}(t)$}]\begingroup Cart acceleration, \si{\metre\per\second\squared}\nomeqref {2}
+		\nompageref{6}
+  \item [{$y$}]\begingroup System state vector\nomeqref {0}
+		\nompageref{5}
+
+ \nomgroup{B}
+
+  \item [{$0$}]\begingroup Denotes initial condition\nomeqref {0}
+		\nompageref{5}
+  \item [{$1$}]\begingroup Denotes property of trailing cart\nomeqref {0}
+		\nompageref{4}
+  \item [{$2$}]\begingroup Denotes property of leading cart\nomeqref {0}
+		\nompageref{4}
+  \item [{$f$}]\begingroup Denotes condition at settling time\nomeqref {3}
+		\nompageref{6}
+
+ \nomgroup{G}
+
+  \item [{$\alpha$}]\begingroup Genetic parameter modifier\nomeqref {5}
+		\nompageref{14}
+  \item [{$\Delta(t,x)$}]\begingroup Genetic mutation function\nomeqref {5}
+		\nompageref{15}
+  \item [{$\lambda$}]\begingroup Random constant\nomeqref {5}
+		\nompageref{15}
+  \item [{$\tau$}]\begingroup Coin flip value\nomeqref {5}
+		\nompageref{15}
+
+\end{thenomenclature}

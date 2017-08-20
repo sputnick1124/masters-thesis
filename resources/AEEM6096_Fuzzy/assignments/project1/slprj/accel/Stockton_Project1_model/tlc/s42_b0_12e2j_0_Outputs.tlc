@@ -1,0 +1,39 @@
+%implements s42_b0_12e2j_0_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign localVarDecl = ""
+if (%<(SLibCGIRIsSampleHit(1, 4))>) {
+    localB->h3ce4rxdm3 = localP->P_0;
+    localB->kil15pib1b = localP->P_1;
+}
+*odqoqogauv = (c1euetv1og - localB->h3ce4rxdm3) / (localB->kil15pib1b - localB->h3ce4rxdm3);
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void hvpmhqfqzp(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>real_T c1euetv1og\
+%assign comma = ", "
+%<comma>real_T *odqoqogauv\
+%assign comma = ", "
+%<comma>jzidq0d314 *localB\
+%assign comma = ", "
+%<comma>hpzbbrx0hd *localP\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

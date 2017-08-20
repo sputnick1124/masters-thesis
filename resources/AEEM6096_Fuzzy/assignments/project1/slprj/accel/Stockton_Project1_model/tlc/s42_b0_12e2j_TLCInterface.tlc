@@ -1,0 +1,110 @@
+%implements s42_b0_12e2j_TLCInterface "C"
+
+%function getInputAddr_26_42_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackBlockIO(26)>
+
+%return "&_rtB->ggqt5u5uof"
+%endfunction
+
+%function getInput_26_42_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackBlockIO(26)>
+
+%return "_rtB->ggqt5u5uof"
+%endfunction
+
+%function getDWorkAddr_26_42_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->ctefzobhbb"
+%endfunction
+
+%function getDWork_26_42_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->ctefzobhbb"
+%endfunction
+
+%function getInputAddr_26_43_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackBlockIO(26)>
+
+%return "&_rtB->gi4lkopkck"
+%endfunction
+
+%function getInput_26_43_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackBlockIO(26)>
+
+%return "_rtB->gi4lkopkck"
+%endfunction
+
+%function getDWorkAddr_26_43_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->adx22bmrqd"
+%endfunction
+
+%function getDWork_26_43_4_0_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->adx22bmrqd"
+%endfunction
+
+%function getInputAddr_26_42_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->ggqt5u5uof"
+%endfunction
+
+%function getInput_26_42_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->ggqt5u5uof"
+%endfunction
+
+%function getDWorkAddr_26_42_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->ctefzobhbb"
+%endfunction
+
+%function getDWork_26_42_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->ctefzobhbb"
+%endfunction
+
+%function getInputAddr_26_43_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtB->gi4lkopkck"
+%endfunction
+
+%function getInput_26_43_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtB->gi4lkopkck"
+%endfunction
+
+%function getDWorkAddr_26_43_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "&_rtDW->adx22bmrqd"
+%endfunction
+
+%function getDWork_26_43_4_2_0_0(block, lcv, ucv, sigIdx, reim) void
+
+%return "_rtDW->adx22bmrqd"
+%endfunction
+
+%function getInputAddr_26_43_4_8_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackBlockIO(26)>
+
+%return "&_rtB->gi4lkopkck"
+%endfunction
+
+%function getInput_26_43_4_8_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackBlockIO(26)>
+
+%return "_rtB->gi4lkopkck"
+%endfunction
+
+%function getDWorkAddr_26_43_4_8_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackDW(26)>
+
+%return "&_rtDW->adx22bmrqd"
+%endfunction
+
+%function getDWork_26_43_4_8_0_0(block, lcv, ucv, sigIdx, reim) void
+%<SLibCG_TrackDW(26)>
+
+%return "_rtDW->adx22bmrqd"
+%endfunction
+
