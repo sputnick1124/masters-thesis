@@ -33,8 +33,10 @@ which must be traversed to the wall. A diagram of the simulation is shown in \cr
 \nomenclature{$t$}{Time, \si{\second}}
 
 \begin{figure}
-    \includegraphics{images/model.png} \caption{Diagram of two rigid bodies connected by a spring
-traversing distance \textrm{L} in minimum time.} \label{f:model}
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/model.png}
+    \caption{Diagram of two rigid bodies connected by a spring traversing distance \textrm{L} in minimum
+    time.} \label{f:model}
 \end{figure}
 
 The modeled system contains displacement and velocity sensors on each cart; therefore, the four inputs to the
@@ -153,10 +155,10 @@ For the FIS used in this research, trapezoidal- and triangular-shaped membership
 Trapezoids are represented by a four-element vector as they start at 0, rise to 1, remain at 1, and finally
 fall to 0. Likewise, triangular functions are expressed as three-element vectors. The parameters of the
 position membership functions shown in \cref{f:x2mfs} are: \begin{displaymath} \mathrm{Far:}\quad
-\mathrm{Trapezoid}\begin{bmatrix} \SI{0}{\metre}\\\SI{0}{\metre}\\\SI{49.8}{\metre}\\\SI{50.1}{\metre}
-\end{bmatrix}, \quad \mathrm{Close:}\quad \mathrm{Trapezoid}\begin{bmatrix}
+\begin{bmatrix} \SI{0}{\metre}\\\SI{0}{\metre}\\\SI{49.8}{\metre}\\\SI{50.1}{\metre}
+\end{bmatrix}, \quad \mathrm{Close:}\quad \begin{bmatrix}
     \SI{49.8}{\metre}\\\SI{50.1}{\metre}\\\SI{99.9}{\metre}\\\SI{100}{\metre} \end{bmatrix}, \end{displaymath}
-\begin{displaymath} \mathrm{VeryClose:}\quad \mathrm{Triangle}\begin{bmatrix}
+\begin{displaymath} \mathrm{VeryClose:}\quad \begin{bmatrix}
 \SI{99.9}{\metre}\\\SI{100}{\metre}\\\SI{100.1}{\metre} \end{bmatrix} \end{displaymath}
 
 \subsubsection{Velocity} The second input variable, velocity, is composed of three membership functions. The
@@ -173,11 +175,11 @@ functions\label{f:x4mfs}]{\includegraphics{images/x4_mfs.pdf}} \end{subfigmatrix
 functions}\label{f:mfs} \end{figure}
 
 The velocity membership function parameters are: \begin{displaymath} \mathrm{Negative:}\quad
-\mathrm{Trapezoid}\begin{bmatrix}
+\begin{bmatrix}
 \SI{-6}{\metre\per\second}\\\SI{-6}{\metre\per\second}\\\SI{-.2792}{\metre\per\second}\\\SI{0}{\metre\per\second}
-\end{bmatrix}, \quad \mathrm{Zero:}\quad \mathrm{Triangle}\begin{bmatrix}
+\end{bmatrix}, \quad \mathrm{Zero:}\quad \begin{bmatrix}
     \SI{-0.2792}{\metre\per\second}\\\SI{0}{\metre\per\second}\\\SI{0.2792}{\metre\per\second} \end{bmatrix},
-\end{displaymath} \begin{displaymath} \mathrm{Positive:}\quad \mathrm{Trapezoid}\begin{bmatrix}
+\end{displaymath} \begin{displaymath} \mathrm{Positive:}\quad \begin{bmatrix}
 \SI{0}{\metre\per\second}\\\SI{0.2792}{\metre\per\second}\\\SI{6}{\metre\per\second}\\\SI{6}{\metre\per\second}
 \end{bmatrix} \end{displaymath} \subsubsection{Rule Base}\label{ss:rulebase} The rule base of an FIS is a
 series of IF-THEN (antecedent-consequent) conditions that use the membership functions of all the inputs in
@@ -192,8 +194,10 @@ functions in that specific rule.
 
 The antecedent of each statement contains memberships of both input variables and the consequent maps to the
 output membership functions. The rules for this FIS were developed based upon intuitive decision making. The
-rules developed for our FIS are shown in \cref{tab:rulebase}.  \\ \\ \\ \\ \begin{table}[h]
-    \begin{center} \caption{Rule Base of the Fuzzy Inference System}\label{tab:rulebase}
+rules developed for our FIS are shown in \cref{tab:rulebase}.  
+\begin{table}[ht]
+    \begin{center}
+        \caption{Rule Base of the Fuzzy Inference System}\label{tab:rulebase}
         \begin{tabular}{ccccc} \multicolumn{2}{c}{}  & \multicolumn{3}{c}{Velocity Measurement}\\ \cline{3-5}
             \multicolumn{2}{c|}{}  & \multicolumn{1}{c|}{Negative} & \multicolumn{1}{c|}{Zero} &
             \multicolumn{1}{c|}{Positive} \\ \cline{2-5}
@@ -204,10 +208,13 @@ rules developed for our FIS are shown in \cref{tab:rulebase}.  \\ \\ \\ \\ \begi
                                                                               & \multicolumn{1}{c|}{Positive}
                                                                               & \multicolumn{1}{c|}{Zero} &
             \multicolumn{1}{c|}{Negative} \\ \cline{2-5} \multicolumn{2}{c}{}  & \multicolumn{3}{c}{Control
-        Force} \end{tabular} \end{center} \end{table}
+            Force}
+        \end{tabular}
+    \end{center}
+\end{table}
 
 \subsubsection{Control Force}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{images/f_mfs.pdf}
     \caption{Control force membership functions.}
@@ -226,18 +233,35 @@ will be directed opposite to the velocity of cart 2. The membership functions fo
 in \cref{f:fmfs}.
 	
 	
-
-
-\begin{displaymath} \mathrm{Negative:}\quad \mathrm{Triangle}\begin{bmatrix}
-\SI{-2}{\newton}\\\SI{-1}{\newton}\\\SI{0}{\newton} \end{bmatrix}, \quad \mathrm{Zero:}\quad
-\mathrm{Triangle}\begin{bmatrix} \SI{-1}{\newton}\\\SI{0}{\newton}\\\SI{1}{\newton} \end{bmatrix}, \quad
-    \mathrm{Positive:}\quad \mathrm{Triangle}\begin{bmatrix} \SI{0}{\newton}\\\SI{1}{\newton}\\\SI{2}{\newton}
-    \end{bmatrix} \end{displaymath}
+\begin{displaymath}
+    \mathrm{Negative:}\quad 
+        \begin{bmatrix}
+            \SI{-2}{\newton}\\
+            \SI{-1}{\newton}\\
+            \SI{0}{\newton}
+        \end{bmatrix}, \quad
+    \mathrm{Zero:}\quad 
+        \begin{bmatrix}
+            \SI{-1}{\newton}\\
+            \SI{0}{\newton}\\
+            \SI{1}{\newton}
+        \end{bmatrix}
+\end{displaymath}
+\begin{displaymath}
+    \mathrm{Positive:}
+    \quad 
+        \begin{bmatrix}
+            \SI{0}{\newton}\\
+            \SI{1}{\newton}\\
+            \SI{2}{\newton}
+        \end{bmatrix}
+\end{displaymath}
 
 \subsection{Simulation Performance}\label{ss:simperf}
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-\includegraphics[width=0.8\linewidth]{images/FuzzyForcePlot.pdf} \caption{System control force over time.} \label{f:forceplot}
+    \includegraphics[width=0.8\linewidth]{images/FuzzyForcePlot.pdf} \caption{System control force over time.}
+    \label{f:forceplot}
 \end{figure}
 
 
@@ -293,21 +317,21 @@ triangular membership function (iTriBase2). The output force membership function
 allowing the negative and positive membership functions become trapezoidal (oTrap and oTriBase). 
 
 \begin{itemize} \item Position Membership Function Parameter \begin{displaymath} \mathrm{Far:}\quad
-\mathrm{Trapezoid}\begin{bmatrix} 0\\0\\(center-iTrap1)\\(center+iTrap1) \end{bmatrix}, \quad
-\mathrm{Close:}\quad \mathrm{Trapezoid}\begin{bmatrix} (center-iTrap1\\(center+iTrap1)\\99.9\\100
-\end{bmatrix}, \end{displaymath} \begin{displaymath} \mathrm{VeryClose:}\quad \mathrm{Triangle}\begin{bmatrix}
+\begin{bmatrix} 0\\0\\(center-iTrap1)\\(center+iTrap1) \end{bmatrix}, \quad
+\mathrm{Close:}\quad \begin{bmatrix} (center-iTrap1\\(center+iTrap1)\\99.9\\100
+\end{bmatrix}, \end{displaymath} \begin{displaymath} \mathrm{VeryClose:}\quad \begin{bmatrix}
 (100-iTriBase1)\\100\\ (100+iTriBase1) \end{bmatrix} \end{displaymath}
  
  \item Velocity Membership Function Parameters \begin{displaymath} \mathrm{Negative:}\quad
-     \mathrm{Trapezoid}\begin{bmatrix} -6\\-6\\(0)-iTrap2)\\0 \end{bmatrix}, \quad \mathrm{Zero:}\quad
-     \mathrm{Triangle}\begin{bmatrix} (0-iTriBase2)\\0\\ (0+iTriBase2) \end{bmatrix}, \end{displaymath}
-         \begin{displaymath} \mathrm{Positive:}\quad \mathrm{Trapezoid}\begin{bmatrix} 0\\ (0+iTrap2)\\6\\6
+     \begin{bmatrix} -6\\-6\\(0)-iTrap2)\\0 \end{bmatrix}, \quad \mathrm{Zero:}\quad
+     \begin{bmatrix} (0-iTriBase2)\\0\\ (0+iTriBase2) \end{bmatrix}, \end{displaymath}
+         \begin{displaymath} \mathrm{Positive:}\quad \begin{bmatrix} 0\\ (0+iTrap2)\\6\\6
          \end{bmatrix} \end{displaymath}
  
 \item Control Force Membership Function Parameters \begin{displaymath} \mathrm{Negative:}\quad
-    \mathrm{Trapezoid}\begin{bmatrix} -2\\ (-1-oTrap)\\ (-1+oTrap)\\0 \end{bmatrix}, \quad \mathrm{Zero:}\quad
-    \mathrm{Triangle}\begin{bmatrix} (0-oTriBase)\\0\\ (1+oTriBase) \end{bmatrix}, \end{displaymath}
-        \begin{displaymath} \mathrm{Positive:}\quad \mathrm{Trapezoid}\begin{bmatrix} 0\\ (1-oTrap)\\
+    \begin{bmatrix} -2\\ (-1-oTrap)\\ (-1+oTrap)\\0 \end{bmatrix}, \quad \mathrm{Zero:}\quad
+    \begin{bmatrix} (0-oTriBase)\\0\\ (1+oTriBase) \end{bmatrix}, \end{displaymath}
+        \begin{displaymath} \mathrm{Positive:}\quad \begin{bmatrix} 0\\ (1-oTrap)\\
     (1+oTrap)\\2 \end{bmatrix} \end{displaymath} \end{itemize}
  
 These state reductions allow an individual to be defined by a single vector of seven variables.

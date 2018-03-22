@@ -65,56 +65,86 @@ fraction. It should be noted that likely due to some small numerical differences
 \textsc{Matlab}'s \verb|ODE45|, the settling times reported by \textsc{Matlab} are marginally slower in most
 cases than than what is given in \cref{t:f4}.
 
-\section{Results for Nominal and Other Flight Conditions} \begin{figure}[h] \centering \begin{subfigmatrix}{2}
-    \subfigure[\label{f:f4_nominal}Nominal approach
-    condition]{\includegraphics[width=0.49\textwidth]{results/f4_approach}}
-    \subfigure[\label{f:f4_degraded}Degraded aerodynamic derivative approach
-    condition]{\includegraphics[width=0.49\textwidth]{results/f4_deg}}
-\subfigure[\label{f:f4_subsonic}Subsonic cruise
-condition]{\includegraphics[width=0.49\textwidth]{results/f4_sub}}
-\subfigure[\label{f:f4_supersonic}Supersonic cruise
-condition]{\includegraphics[width=0.49\textwidth]{results/f4_sup}} \end{subfigmatrix} \caption{Step response
-for various flight conditions. Note the increased overshoot for nominal conditions from the Fuzzy-PID
-controller.}\label{f:f4} \end{figure}
+\section{Results for Nominal and Other Flight Conditions}
 
-\begin{table}[h] \centering \caption{Comparison table of current results with those of Bossert and
-    Cohen}\label{t:f4} \begin{tabular}{|c|c|c|c|c|c|}\hline Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) & $M_p$
-        (deg) & FV (deg) \\\hline Root Locus F4 Approach (Design Condition) & 23.6 & 1.09 & 3.14 & 1.09 & 0.62
-        \\\hline PID F4 Approach (Design Condition) & 7.08 & 1.27 & 4.98 & 1.023 & 1.00 \\\hline Fuzzy F4
-        Approach (Design Condition) & 1.65 & 1.68 & 1.74 & 1.013 & 1.00 \\\hline \textbf{Fuzzy PID Approach
-        (Design Condition)} \input{results/approach} Root Locus 50\% Red in $C_{m\alpha}$ and $C_{mq}$ & 25.8
-                                                                                                       & 1.16
-                                                                                                       & 3.57
-                                                                                                       & 1.42
-                                                                                                       & 0.77
-        \\\hline PID 50\% Red in $C_{m\alpha}$ and $C_{mq}$ & 8.0 & 1.03 & 1.35 & 1.045 & 1.01 \\\hline Fuzzy
-    50\% Red in $C_{m\alpha}$ and $C_{mq}$ & 1.66 & 1.69 & 1.75 & 1.014 & 1.00 \\\hline \textbf{Fuzzy PID 50\%
-Red in $C_{m\alpha}$ and $C_{mq}$} \input{results/deg} \end{tabular} \end{table}
+\begin{figure}[ht]
+    \centering
+    \begin{subfigmatrix}{2}
+        \subfigure[\label{f:f4_nominal}Nominal approach condition]
+            {\includegraphics[width=0.49\textwidth]{results/f4_approach}}
+        \subfigure[\label{f:f4_degraded}Degraded aerodynamic derivative approach condition]
+            {\includegraphics[width=0.49\textwidth]{results/f4_deg}}
+        \subfigure[\label{f:f4_subsonic}Subsonic cruise condition]
+            {\includegraphics[width=0.49\textwidth]{results/f4_sub}}
+        \subfigure[\label{f:f4_supersonic}Supersonic cruise condition]
+            {\includegraphics[width=0.49\textwidth]{results/f4_sup}}
+    \end{subfigmatrix} \caption{Step response for various flight conditions. Note the increased overshoot for
+                                nominal conditions from the Fuzzy-PID controller.}\label{f:f4}
+\end{figure}
 
-\begin{figure}[h] \centering \begin{subfigmatrix}{2} \subfigure[\label{f:f4_nominal_nos}Nominal approach
-    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_approach}}
-    \subfigure[\label{f:f4_degraded_nos}Degraded aerodynamic derivative approach
-    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_deg}}
-    \subfigure[\label{f:f4_subsonic_nos}Subsonic cruise
-    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_sub}}
-    \subfigure[\label{f:f4_supersonic_nos}Supersonic cruise
-    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_sup}} \end{subfigmatrix}
-\caption{Step response for various flight conditions. Note the significantly decreased overshoot for nominal
-and degraded flight conditions.}\label{f:f4_nos} \end{figure}
+\begin{sidewaystable}
+    \centering
+    \caption{Comparison table of current results with those of Bossert and Cohen}\label{t:f4}
+    \begin{tabular}{|c|c|c|c|c|c|}\hline
+        Case
+            & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) & $M_p$ (deg) & FV (deg) \\\hline
+        Root Locus F4 Approach (Design Condition)
+            & 23.6      & 1.09      & 3.14      & 1.09        & 0.62 \\\hline
+        PID F4 Approach (Design Condition)
+            & 7.08      & 1.27      & 4.98      & 1.023       & 1.00 \\\hline
+        Fuzzy F4 Approach (Design Condition)
+            & 1.65      & 1.68      & 1.74      & 1.013       & 1.00 \\\hline
+        \textbf{Fuzzy PID Approach (Design Condition)}
+            \input{results/approach}
+        Root Locus 50\% Red in $C_{m\alpha}$ and $C_{mq}$
+            & 25.8      & 1.16      & 3.57      & 1.42        & 0.77 \\\hline
+        PID 50\% Red in $C_{m\alpha}$ and $C_{mq}$
+            & 8.0       & 1.03      & 1.35      & 1.045       & 1.01 \\\hline
+        Fuzzy 50\% Red in $C_{m\alpha}$ and $C_{mq}$
+            & 1.66      & 1.69      & 1.75      & 1.014       & 1.00 \\\hline
+        \textbf{Fuzzy PID 50\% Red in $C_{m\alpha}$ and $C_{mq}$}
+            \input{results/deg}
+    \end{tabular}
+    \bigskip
+    \bigskip
+    \bigskip
+    \caption{Resulting FIS response from GA with modified cost function}\label{t:f4_nos}
+    \begin{tabular}{|c|c|c|c|c|c|}\hline
+        Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) & $M_p$ (deg) & FV (deg) \\\hline
+        Fuzzy PID Approach (Design Condition) \input{results/test/approach}
+        Fuzzy PID 50\% Red in $C_{m\alpha}$ and $C_{mq}$ \input{results/test/deg}
+    \end{tabular}
+\end{sidewaystable}
 
-\begin{table}[h] \centering \caption{Resulting FIS response from GA with modified cost
-    function}\label{t:f4_nos} \begin{tabular}{|c|c|c|c|c|c|}\hline Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) &
-        $M_p$ (deg) & FV (deg) \\\hline Fuzzy PID Approach (Design Condition)
-        \input{results/test/approach} Fuzzy PID 50\% Red in $C_{m\alpha}$ and $C_{mq}$
-        \input{results/test/deg} \end{tabular} \end{table}
+\begin{figure}[ht]
+    \centering 
+    \begin{subfigmatrix}{2}
+        \subfigure[\label{f:f4_nominal_nos}Nominal approach condition]
+            {\includegraphics[width=0.49\textwidth]{results/test/f4_approach}}
+        \subfigure[\label{f:f4_degraded_nos}Degraded aerodynamic derivative approach condition]
+            {\includegraphics[width=0.49\textwidth]{results/test/f4_deg}}
+        \subfigure[\label{f:f4_subsonic_nos}Subsonic cruise condition]
+            {\includegraphics[width=0.49\textwidth]{results/test/f4_sub}}
+        \subfigure[\label{f:f4_supersonic_nos}Supersonic cruise condition]
+            {\includegraphics[width=0.49\textwidth]{results/test/f4_sup}}
+    \end{subfigmatrix}
+    \caption{Step response for various flight conditions. Note the significantly decreased overshoot for
+             nominal and degraded flight conditions.}\label{f:f4_nos}
+\end{figure}
 
-\begin{table}[h] \centering \caption{Comparison of response times for subsonic and supersonic cruise
-    conditions for original and modified cost function. Modifying the cost function showed no improvements for
-this set of conditions, rather only proved to slow the response time with no gain in
-overshoot.}\label{t:subsup} \begin{tabular}{|c|c|c|c|c|c|}\hline Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) &
-    $M_p$ (deg) & FV (deg) \\\hline Subsonic Cruise (Orig. Cost) \input{results/sub} Supersonic Cruise (Orig.
-    Cost) \input{results/sup} Subsonic Cruise (Mod. Cost) \input{results/test/sub} Supersonic Cruise (Mod.
-    Cost) \input{results/test/sup} \end{tabular} \end{table}
+\begin{table}[ht]
+    \centering
+    \caption{Comparison of response times for subsonic and supersonic cruise conditions for original and
+             modified cost function. Modifying the cost function showed no improvements for this set of
+             conditions, rather only proved to slow the response time with no gain in overshoot.}%
+             \label{t:subsup}
+    \begin{tabular}{|c|c|c|c|c|c|}\hline
+        Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) &
+        $M_p$ (deg) & FV (deg) \\\hline Subsonic Cruise (Orig. Cost) \input{results/sub} Supersonic Cruise (Orig.
+        Cost) \input{results/sup} Subsonic Cruise (Mod. Cost) \input{results/test/sub} Supersonic Cruise (Mod.
+        Cost) \input{results/test/sup}
+    \end{tabular}
+\end{table}
 
 \section{Discussion} As can be seen from \cref{t:f4} and \crefrange{f:f4_nominal}{f:f4_degraded}, the
 overshoot which comes at a cost of decreased settling time is unacceptable. This is a product of defining a

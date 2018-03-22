@@ -36,7 +36,7 @@ landing. For this reason, an on-board, camera will be utilized to detect and loc
 the characteristics of the camera focal length and distortion coefficients, an accurate positional error can
 be obtained for the feedback control loop. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{images/irols.jpg}
     \caption{The test sUAV with the mobile target platform.}\label{f:lezl-olli}
@@ -71,7 +71,7 @@ take to landing are shown in \cref{f:smach}.
 
 \begin{figure}[ht]
     \centering
-    \includedot[scale=0.5]{tikz/smach}
+    \includedot[scale=0.47]{tikz/smach}
     \caption{State machine of robotic lander}\label{f:smach}
 \end{figure}
 
@@ -251,7 +251,7 @@ composed into IF-THEN constructions of antecedents and consequents. For example:
     IF \emph{error} is \textbf{N} AND \emph{error rate} is \textbf{Z} THEN \emph{$\Delta v$} is \textbf{SP}
 \end{center}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{subfigmatrix}{3}
         \subfigure[Fuzzy input partition template\label{f:error_in_mfs}]{\includegraphics{images/error_in.png}}
         \subfigure[Fuzzy input partition template\label{f:error_d_in_mfs}]{\includegraphics{images/error_del_in.png}}
@@ -289,14 +289,14 @@ constant linear velocity dynamic platforms, though the response to uncertainties
 The results shown in \crefrange{f:fuz_stat}{f:fuz_dyn} demonstrate the difficulty an untrained controller may
 have with novel situations. The results are expected to improve dramatically by using genetic algorithms to
 tune each controller.
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{subfigmatrix}{2}
         \subfigure[$(kp,ki,kd)=(2.1,0.015,0.2)$ for static target interception.\label{f:pid_stat}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_static.png}}
         \subfigure[$(k_p,k_i,k_d)=(1.8,0.012,0.02)$ for dynamic target interception.\label{f:pid_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_dynamic.png}}
     \end{subfigmatrix}
     \caption{PID controllers for static and dynamic landing}\label{f:pid_lands}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
     \begin{subfigmatrix}{2}
         \subfigure[Static target interception.\label{f:fuz_stat}]{\includegraphics[width=0.45\textwidth]{images/mag_z_fuzzy_static3.png}}
         \subfigure[Dynamic target interception.\label{f:fuz_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_fuzzy_dynamic3.png}}

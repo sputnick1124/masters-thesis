@@ -1,3 +1,4 @@
+\errorcontextlines=5
 \documentclass[ms]{osudissert96}
 %
 % To change the dissertation to a Master's Thesis, include a documentclass
@@ -5,6 +6,11 @@
 % and [twoside].  As a reminder, documentclass options are a
 % comma-separated list, e.g. \documentclass[ms,osudraft]{osudissert96}
 %
+
+\makeatletter
+\providecommand*{\toclevel@front}{0}% get rid of hyperref complaint about unknown front level
+\makeatother
+
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx,subfigmat,subfigure}
 \usepackage[per-mode=fraction]{siunitx}
@@ -12,6 +18,7 @@
 \usepackage{booktabs}
 \usepackage{hhline }
 \usepackage{multirow}
+\usepackage{rotating}
 \usepackage{microtype}
 
 \usepackage{gnuplot-lua-tikz}
@@ -29,13 +36,14 @@
 	text width=1em, text centered, minimum height=1em, inner sep=0pt]
 \tikzstyle{every picture} += [remember picture]
 \def\gpsetdashtype#1{} % dummy definition to squash errors. This is what happens when you don't install
-%texlive by hand
+%texlive by hand. Gnuplot -> tikz uses this.
 
 \usepackage{graphviz}
 
 \usepackage[section]{placeins}
 \usepackage[hidelinks]{hyperref}
 \usepackage[noabbrev]{cleveref}
+
 
 \usepackage{dcolumn}%  
 \newcolumntype{d}{D{.}{.}{-1}} % align tabulars on decimal point
