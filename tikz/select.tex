@@ -1,0 +1,24 @@
+\begin{tikzpicture}
+    \draw[fill=red!30, draw=none](-6.2,-1) -- (6.2,-4) -- (-6.2,-4) -- cycle;
+    \node(presort){
+            \begin{minipage}{0.9\textwidth}
+                \begin{align*}
+                    &P^{0}&&P^{1}&&P^{2}&&P^{3}&&P^{4}&&P^{5}&&P^{6}&&P^{7}\\
+                    &0.63&&0.67&&0.89&&0.60&&0.43&&0.26&&0.82&&0.03
+                \end{align*}
+            \end{minipage}
+        };
+    \node[below of= presort, yshift=-3.5cm] (sorted){
+            \begin{minipage}{0.9\textwidth}
+                \begin{align*}
+                    &P^{7}&&P^{5}&&P^{4}&&P^{3}&&P^{0}&&P^{1}&&P^{6}&&P^{2}\\
+                    &0.03&&0.26&&0.43&&0.60&&0.63&&0.67&&0.82&&0.89
+                \end{align*}
+            \end{minipage}
+        };
+    \draw[line](0,-1) -- (0,-2);
+
+\end{tikzpicture}
+
+
+

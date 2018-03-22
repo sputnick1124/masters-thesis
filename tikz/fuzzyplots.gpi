@@ -1,0 +1,28 @@
+set terminal tikz 
+set output 'crispplot.tex'
+set yrange [ -0.1 : 1.1 ]
+set xlabel 'Temperature, $\deg$'
+set ylabel '$\mu$, Membership value'
+set key right center
+plot 'crispset.dat' using 1:2 with lines lc 'blue' title 'Cool',\
+     'crispset.dat' using 1:3 with lines lc 'orange' title 'Warm',\
+     'crispset.dat' using 1:4 with lines lc 'red' title 'Hot'
+
+set terminal tikz
+set output 'fuzzyplot.tex'
+set key right center
+plot 'fuzzyset.dat' using 1:2 with lines title 'Cool' lc 'blue',\
+     'fuzzyset.dat' using 1:3 with lines title 'Warm' lc 'orange',\
+     'fuzzyset.dat' using 1:4 with lines title 'Hot' lc 'red'
+
+set terminal tikz
+set output 'outputplot.tex'
+set xrange[-0.01 : 1.01]
+set xlabel 'Fan Speed, $\%$'
+set ylabel '$\mu$, Membership value'
+set key right center
+plot 'outset.dat' using 1:2 with lines title 'Off' lc 'blue',\
+     'outset.dat' using 1:3 with lines title 'Low' lc 'orange',\
+     'outset.dat' using 1:4 with lines title 'High' lc 'red'
+
+pause -1

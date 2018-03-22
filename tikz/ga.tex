@@ -1,0 +1,23 @@
+\begin{tikzpicture}[node distance=1cm and 3cm, auto, scale = 0.9, transform shape]
+\node[draw, block] (init){initialize $P(t=0)$};
+\node[draw, block, below= of init](eval){evaluate $P(t)$};
+\node[draw, block, below= of eval](select){select parents from $P(t)$};
+\node[draw, block, below= of select](cross){crossover parents into offspring};
+\node[draw, block, below= of cross](mut){mutate offspring};
+\node[draw, block, below= of mut](ass){form $P(t+1)$ with new offspring};
+\node[draw, block, below= of ass](iter){$t=t+1$};
+\node[draw, decision, right= of iter](term){met\\termination criteria?};
+\node[draw, block, right= of term](fin){finished};
+
+\node [right= of eval](dummy1){};
+
+\draw[line](init) -- (eval);
+\draw[line](eval) -- (select);
+\draw[line](select) -- (cross);
+\draw[line](cross) -- (mut);
+\draw[line](mut) -- (ass);
+\draw[line](ass) -- (iter);
+\draw[line](iter) -- (term);
+\draw[line](term) -- (fin);
+\draw[line](term.north) -- (dummy1.center) -- (eval);
+\end{tikzpicture}
