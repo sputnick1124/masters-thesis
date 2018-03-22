@@ -1,0 +1,82 @@
+\chapter{The Problem To Be Solved}
+\label{prob.ch}
+
+This is the chapter that describes what cow-related problem will
+be looked at in the thesis.  Basically, we want to discover the
+``proper'' way to have a cow.  This will reduce the number of
+inappropriate cows that occur in the United States each year.
+We have studied aspects of this problem in the past, and documented it
+in~\cite{bsimp00}.
+
+
+That is some sort of chapter.  What a piece of work!
+
+\section{\LaTeX\ and \BibTeX}
+
+It is assumed that you are conversant with \LaTeX\ and \BibTeX.
+Hopefully, you have made a large bibliography database as you went
+through your many years at OSU, especially when you did some literature
+survey as part of your General Exams. If you aren't conversant with
+\BibTeX, read the relevant sections in Lamport's
+book~\cite{lamport:latex}. You should learn how to do citations using
+{\tt \verb+\+cite}.  Some examples of this can be found in the {\tt
+.tex} files for this document (see Section~\ref{good.examples}).
+
+\subsection{Some \LaTeX\ advice}
+
+\LaTeX\ will also help you number your figures, etc., properly. To
+reference them properly, use the {\tt \verb+\+label} and {\tt
+\verb+\+ref} commands. Details can be found in \cite{lamport:latex}
+and examples can be seen in the {\tt .tex} files for this document 
+(see Section~\ref{good.examples}).
+
+You should also make sure your understand the {\tt \verb+\+include} and
+{\tt \verb+\+input} commands. They will allow you to break up your
+documents into different parts, which you can then process separately.
+That way, you don't need to print {\em everything} everytime; you can
+just print a single chapter if you want ({\tt dvips} also has the
+capability of printing specific pages).  However, the page numbers,
+etc., will be done as though everything was printed. The sample thesis
+you are looking at was split into parts and combined using the
+\verb#\include# command.
+
+\subsection{Some \BibTeX\ advice}
+
+Everyone has opinions about how citations and references are made, so
+be sure to look at lots of journals/books to decide what style you
+want to use. \BibTeX\ has support for quite a few styles. The Graduate
+School has been known to accept the {\tt plain} and {\tt apalike}
+styles.
+
+\subsection{Some Examples}
+\label{good.examples}
+
+Probably the {\em best} way to figure out how to use the {\tt
+osudissert96} class with \LaTeXe\ is to look at how we created this
+document. 
+
+The main file ({\tt Thesis.tex}) is set up with {\em many} comments
+explaining where to put any special commands you use, how to split the
+document into parts and use \verb#\include# to combine the parts into
+a coherent whole, what the basic order of the dissertation should be,
+etc.
+
+We also used several common ``tricks'' (\verb#\label# and \verb#\ref#,
+{\tt table} and {\tt figure} environments,
+\verb#\verb# and {\tt verbatim} environments, etc.) that we will make
+use of in the subsequent files.  
+
+Please read this document and look at the {\tt .tex} files to see {\em
+how} we did it.  If you don't understand something, you can usually
+find answers in the \LaTeX\ book \cite{lamport:latex}.  If that fails
+and you still don't understand how/why something was done, ask someone
+who has done it before.
+
+\section{Other Useful Tools}
+
+There are other tools that come in handy while writing a thesis.
+Spelling Checkers and Grammar Checkers may come in handy!! On the CIS and EE
+machines, {\tt ispell} is very useful. {\tt
+dvips} can be used to print a subset of the pages from your
+thesis. Remember not to print your entire thesis out everytime you
+make a small change. Use {\tt dvips} with the -n and -p options!

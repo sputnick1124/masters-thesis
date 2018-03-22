@@ -1,0 +1,242 @@
+\chapter{Introduction}
+Fuzzy logic (FL) and genetic algorithms are members of a family of so-called soft computing methods along with
+neural nets (NN) and probabilistic reasoning\cite{cordon:01bk}. Each of these methods has particular strengths
+in specific domains, but all are employed in application which require computation based on imprecise, vague,
+or uncertain data. In recent years, NNs have risen greatly in popularity as improvements in compute power and
+algorithm development have allowed their application to a wide variety of problems via their role in dep
+learning\cite{Goodfellow-et-al-2016}. While FL has seen much less application in deep learning applications,
+it has long been shown to be particularly useful in feedback control applications of nonlinear
+systems\cite{MAMDANI19751}. FL excels at encoding expert knowlede of a human operator in machine-interpretable
+logic. In many cases, however, it is difficult or impossible to encode a knowledge base which is sufficient to
+control a system satisfactorily by hand; in these cases, a GA may be applied to tune or even learn a FL system
+to accomplish the task.
+
+\section{Fuzzy Logic}
+The basic component of a FL system consists of fuzzy membership sets\cite{ZADEH1965338}, which are an
+extension of classical binary set theory. The advantage of fuzzy set theory is that an element may share
+membership across many sets simultaneously in contrast to traiditonal set logic (see
+\crefrange{f:crispsets}{f:fuzzysets}). This formal encapsulation of ``fuzziness'' provides a method for
+machine instructions to operate on imprecise values. Fuzzy sets constitute the most basic element of a FL
+system; they are made useful in controls application when combined with a rule base (RB).
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/crispplot}
+    \caption{Crisp (classical) logic set transitions are discrete and abrupt}\label{f:crispsets}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/fuzzyplot}
+    \caption{Fuzzy sets allow for multiple membership, so a value can smoothly transition from being a member
+    of set to another.}\label{f:fuzzysets}
+\end{figure}
+
+A fuzzy inference system (FIS) is a control system built on the basic principles of fuzzy
+logic\cite{kosko:91bk}\cite{kosko:93sciam}. It can take an arbitrary number analog inputs and map them to a
+set of logical variables ranging from 0 to 1. This mapping is performed by membership functions (MF), which
+determine the degree of membership each input has to a function. Each input typically has multiple Mfs,
+allowing the input value (a so-called ``crisp value'' to be given membership in multiple sets
+simultaneously. The memberships are used to make an inference about the input according to linguistic rules.
+The RB is composed of IF-THEN statements which determines the crisp output variable. For example, if the
+membership sets in \cref{f:fuzzysets} were to be the input to a fan controller, and the output membership
+functions were as they are in \cref{f:outputfan}, the rules could be described as:
+
+\vspace{2em}
+\begin{tabular}{cccccc}
+        IF &  \emph{temperature} is & COOL, & THEN & \emph{fan speed} is & OFF\\
+        IF &  \emph{temperature} is & WARM, & THEN & \emph{fan speed} is & LOW\\
+        IF &  \emph{temperature} is & HOT,  & THEN & \emph{fan speed} is & HIGH
+\end{tabular}
+\vspace{2em}
+
+These rules can be succintly placed in a table as shown in \cref{t:fanspeed}. This representation becomes more
+useful still another input is addded to the controller. By using the set of rules and the MFs, the FIS is able
+to determine an appropriate crisp output given a set of crisp inputs. The FIS representation is in essence a
+transfer function, but a transfer function which can be arbitrarily complex. The common representation of a
+FIS shown in \cref{f:fis_block} shows the components of a FIS.
+
+\begin{table}[ht]
+    \centering
+    \caption{Example rule base for a fictitious fan speed controller}\label{t:fanspeed}
+    \begin{tabular}{c|c|c|c}
+        Temperature & Cool & Warm & Hot\\\hline
+        Fan Speed & Off & Low & High
+    \end{tabular}
+\end{table}
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/outputplot}
+    \caption{Possible output membership functions for a fan controller with \cref{f:fuzzysets} as the
+    input.}\label{f:outputfan}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/fis}
+    \caption{Visual representation of a fuzzy inference system}\label{f:fis_block}
+\end{figure}
+
+One limiting constraint of FL systems is manifested in a type of state explosion. As the number of inputs,
+specifically the number of input MFs, increases, the number of rules needed to cover every case increases as
+the product of the number of MFs across all inputs. There have been numerous approaches to overcome this
+problem such as cascading small FISs together\cite{ernest2015genetic}, developing more robust methods to guide
+convergence\cite{hansen1997convergence} or using approximate fuzzy rule bases\cite{cordon:01bk}. The approach
+taken in this work, however, has been to employ GA techniques to tune the MFs or even learn the entire
+knowledge base. The dynamic systems being controlled in this research are adequately small that no special
+state reduction was deemed necessary in most cases.
+
+\section{Genetic Algorithms}
+Genetic algorithms are an evolutionary computing strategy used in optimization and search problems. GAs have
+been used in many search and optimization problems\cite{bodenhofer1997ten}. Their effectiveness comes
+from the combined ability to explore and exploit. The exploration of of even large search spaces is made
+possible with large populations of candidate solutions which are stochastically sampled across the whole
+space. Candidates are ranked according to a fitness function and recombined together to create the next
+generation. The algorithms exploits learnings in the selection process, favoring recombination of candidates
+which ranked well according to the fitness function. In order to maintain gene pool diversity, random mutation
+is introduced into each generation as it is created. This process is illustrated in \cref{f:ga_block}. Due to
+te stochastic nature of the algorithm, it is not guaranteed to provide an optimal solution and may converge on
+a local optimum, but careful selection of hyper parameters such as population size, mutation rates,
+recombination methods, and random candidate injection can circumvent these deficiencies somewhat. As the goal
+of a GA is to maximize some defintion of a reward, they are commonly employed in reinforcement learning
+applications\cite{salimans2017evolution}.
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/ga}
+    \caption{Block diagram describing genetic algorithm}\label{f:ga_block}
+\end{figure}
+
+Since the fitness function is the sole driver of the algorithm and the solution it provides, great care must
+be taken in formulating a fitness function. In robotics applications in particular, formulating a fitness which
+adequately encapsulates complex outcomes can be a difficult task\cite{divband2015effect}. This issue will be
+revisited a number of times throughout the course of this work.
+
+Another major consideration when utilizing a GA is how to represent or encode a candidate solution for
+optimzation. A particularly simple method is to use a binary encoded format\cite{cordon:01bk}, but this
+increases the distance between the candidate in its usefule form (phenotype) and its encoded form (genotype)
+for many real-values problems\cite{chakraborty1991chromosomal}. A genetic encoding of a FIS is an inherently
+heterogenous structure with real values describing the MFs and discrete classes describing the RB. The genetic
+operator chosen for a specific genotype will depend on its representation; ideally, the mapping between
+genotype and phenotype will be one-to-one such that the combination of two genes will produce a candidate
+which performs similarly two its parents. This allows the GA to properly exploit its inherent learning and
+converge on a solution.
+
+\subsection{Genetic Operators}
+The GA advances by applying operations to the chromosome candidates in its population. The genetic operations
+employed in this work are crossover,  mutation, and randomization. Crossover is the operation which allows the
+genes from two chromosomes to mix and create new children. If the chromosomes are binary encoded or discrete
+valued, the crossover method is generally single-, double-, or n-point crossover. This involves randomly
+selecting a point in the encoding string to ``cut'' the chromosomes and swap the tails for single-point, or
+sections for n-point.  \Cref{f:dp_cx} demonstrates this process. 
+
+
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/cx}
+    \caption{Double point crossover for binary or discrete valued chromosome.}\label{f:dp_cx}
+\end{figure}
+
+For real-values chromosome strings, the crossover methods can be much more complex and more closely related to
+solution space. Throughout this work variations on flat crossover will be employed as the main crossover
+operation for real-valued portions of the chromosomes\cite{cordon:01bk}. Using this method, a new gene is
+created from its parents by drawing a real value from the interval between the parent genes using a uniform
+distribution. In many situations, it becomes simpler to write code which always produces two children from a
+pair of parents; in these cases, the other gene from a parent interval is selected to be the complement of the
+first. Given parents, $P^1 = \left\{p_1^1, p_2^1, \dots, p_n^1\right\},\,P^2=\left\{p_1^2,p_2^2, \dots,
+p_n^2\right\}$, children
+$C^1=\left\{c_1^1, c_2^1, \dots, c_n^1\right\},\,C^2=\left\{c_1^2,c_2^2,\dots,c_n^2\right\}$ are
+created such that:
+
+\begin{align}
+    c_i^1 &= \lambda p_i^{min} + (1 - \lambda)p_i^{max}\label{e:flat_cx_c1}\\
+    c_i^2 &= (1-\lambda)p_i^{min} + \lambda p_i^{max}\label{e:flat_cx_c2}
+\end{align}
+where $p_i^{max}=\max(p_i^1,p_i^2)$ and $p_i^{min}=\min(p_i^1,p_i^2)$. An extension, \emph{BLX-$\alpha$}
+crossover, is used to expand the selection region beyond the interval between the parents to allow the
+crossover function to be more exploratory\cite{cordon:01bk}. This method is described in more detail in
+\cref{c:acc}.
+
+Mutation for discrete-valued chromosomes consists of randomly choosing a value from the set of possible values
+for a number of genes in achromosome. For this work, mutation is applied to the chromosomes after crossover is
+applied. The number of genes in each chromosome to mutate is defined as a hyperparameter. Mutation for
+real-valued chromosomes is done with a non-uniform mutation rate which decreases as the generations progress.
+This process is detailed in \cref{c:acc}.
+
+For each new generation of chromosomes, a small number of the best performers are preserved untouched from the
+previous generation to allow the best genetic material to survive. These chromosomes are called elite. All
+chromosomes are ranked according to their fitness to the task and used in crossover proportional to their
+fitness. In other words, parents are selected for mutation by drawing chromosomes from the ranked list of
+chromosomes using a triangular distribution. \Cref{f:sort-select} shows a distribution laid on top of a sorted
+population from which parents would be selected for  recombination. Parents are replaced after selection so
+that they may reproduce many times in one generation.
+
+\begin{figure}
+    \centering
+    \input{tikz/select.tex}
+    \caption{Population sorting and selection distribution overlay}\label{f:sort-select}
+\end{figure}
+    
+\section{Genetic Fuzzy Systems}
+Genetic Fuzzy Systems (GFS) here describe FL systems which have been tuned or learned using GA strategies.
+Tuning a GFS implies that the rule base is static, while the GA is allowed to operate on only the MF values or
+input/output scaling. Learning, on the other hand, implies that the RB itself is allowed to vary. For this
+research, except where otherwise stated, GFSs are allowed to learn the RB from scratch. In order to
+effectively use GAs to interact with FISs, some simplifying constraints are commonly imposed on the GFS to
+ease the use of genetic operators. One such constraint that is frequently used in this research is to mandate
+strict triangular or trapezoidal MFs. This allows the entire collection of MFs across all of the inputs to be
+described by either 3- or 4-tuples of sorted real values. As the GA is allowed to operate on the MFs, checks
+are placed to make sure that like MFs are combined in recombination and that the children contain valid MFs.
+All of this is eased by constraining a GFS to only contain triangular or trapezoidal MFs. Additionally, it is
+assumed that the RB completely covers the input combination possibilities. This is similar to a fully
+connected layer of neurons in a NN. This forces the number of rules to be equal to the product of the number
+of MFs across all inputs; as a result of this constraint, the number of rules can quickly explode as inputs
+are added to the system or inputs are granularized with additional MFs. To prevent RB explosion, FISs in this
+work are kept minimal. Knowing the numpber of MFs, the RB can be reduced to a single string of integers, where
+each integer is equal to the index of one of the output MFs. Thus is in way, we can fully describe a FIS with
+one heterogenous string of values. For instance, the FIS illustrated in \crefrange{f:fuzzysets}{f:outputfan}
+with the RB in \cref{t:fanspeed} would be described completely by the list:
+
+\begin{equation*}
+    \left(0, 0, 55, 65\right) \left(55, 65, 75\right) \left(65, 75, 100, 100\right)
+    |\left(0, 0, 0.25\right) \left(0, 0.25, 1\right) \left(0.25, 1, 1\right)
+    \left[0, 1, 2\right]
+\end{equation*}
+where each MF tuple is grouped in $\left(\right)$, input is separated from output with $|$, and the RB is in
+$\left[\right]$. The genetic operations on MF paramaters are any operations which can work with real values,
+and the RB is constrained to n-point crossover.
+
+\section{Motivation and Problem Statement}
+This work explores the utility of using the GFS approach to exert control on dynamic systems. Because of the
+ability of a GFS to deal with imprecision and uncertainty, it can be an adaptive controller which can respond
+to changes in plant dynamics. Also, if the GFS is kept small, the trained system can be interpreted by a human
+operator with linguistic rules. With the rise in popularity of black box decision-making frameworks in recent
+years, interpretability has become a topic of fervent
+research\cite{ribeiro2016should,lipton2016mythos,zeiler2014visualizing,dong2017improving}. Learning [rovides
+the benefit of exhibiting emergent behavior, but usually at the cost of interpretability. Genetic fuzzy
+systems may provide a middle ground; starting with a hand-crafted template, and then allowing a GA to learn
+behavior, the final model can still be assigned lingistic variables and given meaning. 
+
+This thesis is composed of a handful of problems which were approached using a GFS.
+\begin{enumerate}
+    \item {\bf Two-cart flexible system}. First, the problem of controlling a two-cart system is addressed.
+        The system is allowed to move freely along a track with the objective of meeting, but not exceeding, a
+        goal. This system exhibits two modes of behavior: over large distances, it behaves similar to a rigid
+        structure; when finer control is needed in the terminal phase, the flexible body vibrations dominate
+        the behavior. A controller is tuned to handle this system in \cref{c:acc}.
+
+    \item {\bf F-4 Phantom Pitch Controller}. Secondly, a pitch attitude controller for the F-4 fighter jet is
+        designed. This system is allowed to train on only a nominal flight condition, but then subjected to
+        large degradations in plant dynamics and evaluated. The performance is shown to exceed that of a PID
+        controller in \cref{c:f4}.
+
+    \item {\bf sUAS Precision Landing} Finally, a controller for a small quadrotor is designed to guide the
+        vehicle to a moving target using only visual feedback from an on-board camera. This problem is
+        constrained by physical systems, so simulation environments, controllers, computations, and sensors
+        are chosen such that the system will be more readily physically realized. The benefits and
+        shortcomings of the Robot Operating System with the Gazebo simulation environment are also discussed
+        at length. This discussion comprises \cref{c:landing}.
+\end{enumerate}
+

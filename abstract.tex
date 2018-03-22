@@ -1,0 +1,25 @@
+Aerospace applications are composed of many dynamic systems which are coupled, nonlinear, and difficult to
+control. Fuzzy logic (FL) systems  provides a means by which to encode expert knowledge into a set of rules
+which can produce highly nonlinear control signals; this is possible because FL, like many other soft
+computational methods is a universal approximator. While FL systems excel at encapsulating expert knowledge
+bases, when coupled with genetic algorithms (GA), they can learn the knowledge base from evolutionary
+repetition. It is the goal of this work to present the efficacy of hybrid genetic fuzzy systems (GFS) in a
+variety of applications.
+
+First, a sample problem presented at the 1990 American Control Conference is used to demonstrate the
+robustness of FL control as well as the utility of GAs in the learning process. The results are a controller
+that is far more resistant to even large changes in the plant dynamics compared to a linear controller.
+
+The next problem applies the same approach to an elevator actuator for pitch control of an F-4 Phantom. This
+controller is tuned for a nominal case and ten subjected to the same plant with degraded aerodynamic
+coefficients. It is compared to a well-tuned PID controller.
+
+The effort culminates in a practical application of a FL system to guide a small unmanned aerial system (sUAS)
+to a precision landing on a target platform moving with uncertain velocity. This was accomplished using a
+custom developed Python for GFS control in conjunction with Robot Operating System (ROS) and a simulation
+environment called Gazebo. Heavy emphasis was placed on using only software components which an be easily
+implemented on popular hardware platforms. ROS was critical to meeting this goal, as well as the open source
+flight controller project PX4. Many unanticipated drawbacks surfaced using this approach, and are discussed in
+detail. A great effort was made to apply GA learning to the final controller, but the end result is a
+hand-tuned controller controlled which is able to perform the task admirably.
+

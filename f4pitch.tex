@@ -1,0 +1,140 @@
+\chapter{F-4 Pitch Attitude Control}\label{c:f4}
+\section{Introduction} The main challenge of this problem lies in the fact that the flight conditions that a
+fighter jet experiences are wide and varied. It is not possible to design and implement an optimal
+controller for each one individually. In this situation, it is logical to design a controller which works near
+optimally for those conditions which the jet is likely to spend the bulk of its time in, but one which also
+works for the flight conditions at the edge of the envelope. The traditional approach for this desired
+behavior is to determine the PID gains for each common flight condition and perform gain scheduling to allow
+the controller response to be tuned to each condition. The gains are then allowed to vary between set design
+points according to some parameterization by some higher function so that they can smoothly and constantly
+``float'' around to match the flight conditions. One such method is to set the PID gains from a fuzzy
+inference system (FIS). This paper outlines one such system for the approach condition of an F4 fighter jet. A
+fuzzy-PID controller was tuned for the nominal approach condition, and then applied to various other flight
+conditions to show its robustness. No known PID gains are used from the outset, rather, broad ranges are given
+to the GFS and it is allowed to create its own universal approximator to find the gains which give optimal
+performance at any point.
+
+\section{Fuzzy PID} The plant dynamics for all scenarios have poles which are very close to the
+right half of the plane, meaning that this system can easily be destabilized by exerting incorrect control
+force. Much care needs to be taken when designing a controller for such a system. Fuzzy logic is well-suited
+to this task in that it will allow the control gains to move around in a way which will keep the poles in the
+left half of the plane. The system dynamics studied here were used to control a PID and a Fuzzy controller by
+Bossert and Cohen\cite{bossert2002pid} which will be used as a benchmark.
+
+One large downside to fuzzy systems are that they require a significant expense of effort to tune. This task
+becomes even more cumbersome with an increase of membership functions, which, in turn, increase the number of
+rules (possibly exponentially). The FIS designer is then relegated to either drawing on a store of heuristic
+knowledge or experience (perhaps from an expert), or to trial-and-error iteration to incrementally improve the
+controller. The method used in this paper is a GA which plays the part of automating and guiding the
+trial-and-error process (see next section). This method effectively circumvents the difficulty of tuning a FIS,
+and makes the job of controlling this near-unstable system more feasible.
+
+\section{System Controller Design Methodology} At first, an attempt was made to utilize
+Simulink\textsuperscript{\textregistered} and \textsc{Matlab}\textsuperscript{\textregistered} to design a
+genetic algorithm (GA) which would simulate the plant transfer functions with a fuzzy-PID controller in the
+feedback loop. The GA, written in \textsc{Matlab}, would call the Simulink model and evaluate the performance
+of the controller. This methodology presented a number of problems to the designer. The Simulink Fuzzy Logic
+Block seemed to slow down the execution of the control loop siginificantly, making a single simulation run up
+to an order of magnitude slower than one with only PID control. This shortcoming can be circumvented by using
+a lookup table in place of the fuzzy controller, but the overhead time needed to generate the lookup table
+negates the simulation speed gains.
+
+In light of the issues with using a Simulink GA, the GA was implemented in traditional \textsc{Matlab} using
+\verb|ODE45| as the ordinary differential equation solver; however, due to the adaptive timestep of the
+solver, it is prohibitively difficult to accurately obtain error derivative and integral terms for use in the
+PID controller. This led the author to eventually write a simple ode solver in \textsc{Matlab} which
+gives access to all errors at each time step, but the execution of a single simulation was expectedly and
+prohibitively slow.
+
+At this point, the decision was made to implement a genetic fuzzy system using  the C programming language.
+The author had already implemented one such system in Python and made quick work of translating it into C.
+This GA uses the comparable rk8pd (Runge-Kutta Prince-Dormand (8,9)) stepping function from the Gnu Scientific
+Library (GSL) to solve the ordinary differential equation. This method allows the user to specify some basic
+parameters which are desired in the final FIS, a cost function to be applied to each solution, and some basic
+parameters for the GA, at which point the GA starts generating and evaluating FIS's until a suitable stop
+condition has been met.
+
+For the proportional gain, $K_p$, a SISO FIS is created which accepts only angular error as input. To
+calculate the integral and derivated gains, $K_i$, and $K_d$ respectively, two 2-input, 1-output FISs are
+made. These FISs both accept the absolute error in elevator position ($e_p$), and also the error integral
+($e_i$), and the error derivative ($e_d$) respectively.
+
+The cost function used to evaluate each FIS was derived using the fuzzy-PID controlled dynamic system response
+to a step function. The cost function is obtained by simply summing the settling time and the overshoot
+fraction. It should be noted that likely due to some small numerical differences in the GSL solver and
+\textsc{Matlab}'s \verb|ODE45|, the settling times reported by \textsc{Matlab} are marginally slower in most
+cases than than what is given in \cref{t:f4}.
+
+\section{Results for Nominal and Other Flight Conditions} \begin{figure}[h] \centering \begin{subfigmatrix}{2}
+    \subfigure[\label{f:f4_nominal}Nominal approach
+    condition]{\includegraphics[width=0.49\textwidth]{results/f4_approach}}
+    \subfigure[\label{f:f4_degraded}Degraded aerodynamic derivative approach
+    condition]{\includegraphics[width=0.49\textwidth]{results/f4_deg}}
+\subfigure[\label{f:f4_subsonic}Subsonic cruise
+condition]{\includegraphics[width=0.49\textwidth]{results/f4_sub}}
+\subfigure[\label{f:f4_supersonic}Supersonic cruise
+condition]{\includegraphics[width=0.49\textwidth]{results/f4_sup}} \end{subfigmatrix} \caption{Step response
+for various flight conditions. Note the increased overshoot for nominal conditions from the Fuzzy-PID
+controller.}\label{f:f4} \end{figure}
+
+\begin{table}[h] \centering \caption{Comparison table of current results with those of Bossert and
+    Cohen}\label{t:f4} \begin{tabular}{|c|c|c|c|c|c|}\hline Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) & $M_p$
+        (deg) & FV (deg) \\\hline Root Locus F4 Approach (Design Condition) & 23.6 & 1.09 & 3.14 & 1.09 & 0.62
+        \\\hline PID F4 Approach (Design Condition) & 7.08 & 1.27 & 4.98 & 1.023 & 1.00 \\\hline Fuzzy F4
+        Approach (Design Condition) & 1.65 & 1.68 & 1.74 & 1.013 & 1.00 \\\hline \textbf{Fuzzy PID Approach
+        (Design Condition)} \input{results/approach} Root Locus 50\% Red in $C_{m\alpha}$ and $C_{mq}$ & 25.8
+                                                                                                       & 1.16
+                                                                                                       & 3.57
+                                                                                                       & 1.42
+                                                                                                       & 0.77
+        \\\hline PID 50\% Red in $C_{m\alpha}$ and $C_{mq}$ & 8.0 & 1.03 & 1.35 & 1.045 & 1.01 \\\hline Fuzzy
+    50\% Red in $C_{m\alpha}$ and $C_{mq}$ & 1.66 & 1.69 & 1.75 & 1.014 & 1.00 \\\hline \textbf{Fuzzy PID 50\%
+Red in $C_{m\alpha}$ and $C_{mq}$} \input{results/deg} \end{tabular} \end{table}
+
+\begin{figure}[h] \centering \begin{subfigmatrix}{2} \subfigure[\label{f:f4_nominal_nos}Nominal approach
+    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_approach}}
+    \subfigure[\label{f:f4_degraded_nos}Degraded aerodynamic derivative approach
+    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_deg}}
+    \subfigure[\label{f:f4_subsonic_nos}Subsonic cruise
+    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_sub}}
+    \subfigure[\label{f:f4_supersonic_nos}Supersonic cruise
+    condition]{\includegraphics[width=0.49\textwidth]{results/test/f4_sup}} \end{subfigmatrix}
+\caption{Step response for various flight conditions. Note the significantly decreased overshoot for nominal
+and degraded flight conditions.}\label{f:f4_nos} \end{figure}
+
+\begin{table}[h] \centering \caption{Resulting FIS response from GA with modified cost
+    function}\label{t:f4_nos} \begin{tabular}{|c|c|c|c|c|c|}\hline Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) &
+        $M_p$ (deg) & FV (deg) \\\hline Fuzzy PID Approach (Design Condition)
+        \input{results/test/approach} Fuzzy PID 50\% Red in $C_{m\alpha}$ and $C_{mq}$
+        \input{results/test/deg} \end{tabular} \end{table}
+
+\begin{table}[h] \centering \caption{Comparison of response times for subsonic and supersonic cruise
+    conditions for original and modified cost function. Modifying the cost function showed no improvements for
+this set of conditions, rather only proved to slow the response time with no gain in
+overshoot.}\label{t:subsup} \begin{tabular}{|c|c|c|c|c|c|}\hline Case & $T_s$ (s) & $T_r$ (s) & $T_p$ (s) &
+    $M_p$ (deg) & FV (deg) \\\hline Subsonic Cruise (Orig. Cost) \input{results/sub} Supersonic Cruise (Orig.
+    Cost) \input{results/sup} Subsonic Cruise (Mod. Cost) \input{results/test/sub} Supersonic Cruise (Mod.
+    Cost) \input{results/test/sup} \end{tabular} \end{table}
+
+\section{Discussion} As can be seen from \cref{t:f4} and \crefrange{f:f4_nominal}{f:f4_degraded}, the
+overshoot which comes at a cost of decreased settling time is unacceptable. This is a product of defining a
+cost function which under-penalizes overshoot and over-emphasizes settling time alone. The results were
+retained as part of the project to show both the benefits and shortcomings of using a GA t tune a FIS. That
+is, the FIS will be shaped to minimize the cost of whatever function is provided, whether or not the desired
+outcome is truly reflected by that function. For this reason, much care is needed when choosing a cost
+function to be minimized. The GA was given a new cost function which put a higher premium on overshoot and
+given a FIS to optimize for the plant. The results from this run are shown in \cref{t:f4_nos} and
+\cref{f:f4_nos}. As can be seen from \cref{t:f4_nos}, the settling time of the step response is significantly
+slower, but the overall response is arguably better that \cref{f:f4} due to the reduced overshoot.
+Additionally, though not nearly as good for the nominal and degraded flight conditions as was Bossert and
+Cohen's solution, the response for the subsonic and supersonic cruise conditions show arguably better
+performance than theirs.
+
+\section{Conclusion} It has been shown that fuzzy augmented systems can greatly improve the behavior of
+controllers. Where traditional control logic can attain reasonable performance for only nominal and
+near-nominal conditions, fuzzy logic can extend the performance gains across a much wider set of conditions.
+It is also clear the effect the cost function can have on the result of the controller. The oversimplistic
+cost function of settling time alone produces undesirable results in the rest of the response. Careful
+consideration needs to be taken in cost function development. It was only after modifications to the cost
+function were made that the response confromed to a more desirable shape.
+

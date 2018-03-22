@@ -1,0 +1,150 @@
+\chapter{Introduction}
+\label{intro.ch}
+
+This is the first chapter of the dissertation. It probably rambles on
+about Cows and Bulls and what-not.  It most likely contains no
+details, but suggests what will be seen in the other chapters.  Maybe
+you can give a glimpse of ``the problem'' in this chapter, state your
+thesis, and suggest how your thesis is going to be justified. Since
+the bulk of the material is going to be in the succeeding chapters,
+this chapter should inform the reader about what the subsequent
+chapters contain.
+
+Pretty cool, huh?
+
+\section{Getting Started}
+
+Well, before you write up your dissertation and zoom over to the
+Graduate School with your {\em magnus opus}, be sure to read the Grad
+School's Graduate Student Handbook~\cite{osu:guidelines}. It tells you a lot of
+stuff you need to know. And since you will be using \LaTeX\ to write
+your dissertation, have Lamport's \LaTeXe\ book~\cite{lamport:latex}
+handy.
+
+\section{The OSU Dissertation Class}
+
+The latest version of the OSU Dissertation Class (1996) was derived from
+the old version originally created in the CIS department.  The new format
+specifications are much closer to the way the classes in \LaTeXe\ function
+by default; therefore, many of the more challenging aspects of creating the
+class are no longer needed.
+
+A lot of graduate students have contributed to the
+creation of the dissertation class files {\tt osudissert96.cls} and {\tt
+osudissert96-mods.sty}. Elizabeth Zwicky created the original style files. J.
+Ramanujam and Con O'Connell are the other main contributors.  Most
+recently, Mark Hanes has updated the files to conform to the 1996
+Graduate School guidelines.  Al Fencl created
+the vita style in {\tt osudissert96}. All other contributors are mentioned
+at the top of that file.
+
+This document was initially created by Manas Mandal from Con O'Connell's
+dissertation to help a student in Physics.  Since a lot of other people
+have expressed interest in the style files and how to use them in a
+dissertation, this sample dissertation was produced by Manas Mandal and Al
+Fencl.  This document has also been modified by Mark Hanes to reflect the
+1996 Graduate School requirements.
+
+\subsection{What you need in order to use {\tt osudissert96}}
+
+To use the {\tt osudissert96} class, you will need to have
+%
+\begin{enumerate}
+\item \LaTeXe\ (obviously).
+\item {\tt osudissert96.cls}
+\item {\tt osudissert96-mods.sty}
+\end{enumerate}
+These files are currently all available on the EE HP and Sun Workstations.
+%
+
+\subsection{Compiling the Example}
+\label{compile.example}
+
+This document is split into several files.  If you have not compiled
+it yet or had difficulty compiling it, you should make sure you have
+the following files:
+%
+\begin{center}
+\begin{tabular}{l l}
+{\tt Thesis.tex} & The main document. Run \LaTeX\ on this file\\
+{\tt abstract.tex} & The Abstract for the thesis.\\
+{\tt ack.tex} & The Acknowledgement for the thesis.\\
+{\tt vita.tex} & The Vita for the author of the thesis.\\
+{\tt ch1.intro.tex} & Chapter 1 of the thesis.\\
+{\tt ch2.problem.tex} & Chapter 2 of the thesis.\\
+{\tt ch3.implem.tex} & Chapter 3 of the thesis.\\
+{\tt ch4.end.tex} & Chapter 4 of the thesis.\\
+{\tt app1.tex} & The first appendix of the thesis.\\
+{\tt app2.tex} & The second appendix of the thesis.\\
+{\tt bibfile.bib} & The sample bibliography database.
+\end{tabular}
+\end{center}
+%
+
+To fully compile this example, you should do the following:
+%
+\begin{enumerate}
+\item Run \LaTeX\ on {\tt Thesis}.  This will do the inital
+compilation of the document and will create a list of the labels and
+references made.
+%
+\item Run \BibTeX\ on {\tt Thesis}.  This will go into {\tt
+bibfile.bib} and extract the appropriate bibliography for the
+references  cited in the dissertation.
+%
+\item Run \LaTeX\ on {\tt Thesis} {\em two} more times.  
+The first time, \LaTeX\ will go through and (at the end) will
+recognize the references made in the citations and will set up the
+table of contents. However, the table of contents will probably be off
+since the table of contents will grow.  The second time through,
+\LaTeX\ will get the page numbers correct in the table of contents.
+\end{enumerate}
+%
+You will need to perform the above steps on your own
+dissertation/thesis as well.
+
+\subsection{Getting more information}
+
+If you need additional information, please check out EE's \LaTeXe\ web
+page, {\verb+http://eewww.eng.ohio-state.edu/~hanes/latex2e+}.  If you
+can't find what you need there, you might want to read the {\tt .cls} and
+{\tt .sty} files used
+to generate this dissertation to see how the various commands are used and
+start from there. A complete list of the commands defined in {\tt
+osudissert96} is also provided in Appendix~\ref{allcommands:app}.
+
+\subsection{Ph.D. Dissertation and Master's Thesis}
+
+The {\tt osudissert96} class provides support for both Ph.D.
+dissertations and Master's theses. While this document is an example
+of a Ph.D.  dissertation, it is possible generate a Master's thesis
+just by including the appropriate documentclass option.  For example, to
+produce a Master's of Science thesis, give the option {\tt ms}:
+
+\begin{center}
+{\verb+\documentclass[ms]{osudissert96}+}
+\end{center}
+
+\section{Organization of this Thesis}
+
+The rest of this thesis is organized as follows. 
+
+Chapter~\ref{prob.ch} will introduce the problems with cows, and what
+all has been done by other researchers about it.  In reality,
+Chapter~\ref{prob.ch} discusses \LaTeX\ and provides pointers to
+advice and examples of how to use the {\tt osudissert96} class.
+
+Chapter~\ref{implem.ch} describes the details of the implementation
+method used in having a cow, and how it does solve all the world's
+problems. In reality, Chapter~\ref{implem.ch} discusses figures and
+tables and how to create them ``easily'' using \LaTeX.
+
+Chapter~\ref{end.ch} summarizes the results of the thesis, and gives
+pointers to future research that can be based on this exemplary work.
+It has no real bearing on reality.
+
+Appendix~\ref{data.app} explains some of the data used to create
+Table~\ref{example-table}. It also has little to do with reality.
+
+Appendix~\ref{allcommands:app} lists all the commands defined in
+{\tt osudissert96}.
