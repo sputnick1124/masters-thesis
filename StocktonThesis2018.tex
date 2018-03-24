@@ -1,5 +1,5 @@
 \errorcontextlines=5
-\documentclass[ms]{osudissert96}
+\documentclass[ms,twoside]{osudissert96}
 %
 % To change the dissertation to a Master's Thesis, include a documentclass
 % option such as [masters], [ms], [ma], etc.  Also available are [osudraft]
@@ -50,56 +50,17 @@
 
 \DeclareSIUnit{\px}{pixel}
 
-%
-% Everything between the \documentclass and the \begin{document} is
-% called the preamble of the document. Everything between the
-% \begin{document} and the \end{document} is called the body of the
-% document. Define any additional commands you want here (the preamble)
-%
 
 % BibTeX from the BiBTeX Documentation
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
-%
-% It is better to break up the dissertation into multiple files (e.g.,
-% one file per chapter, as well as separate files for the abstract,
-% acknowledgements, and vita).  These files are brought into the
-% document using \include{} statements.  There will be times, however,
-% when you don't want to print the ENTIRE dissertation.  You can limit
-% what will actually be printed by using the \includeonly{} statment.
-% This contains a list of the files you want printed.  Any file NOT
-% listed will not be printed.  However, all page numbers, references,
-% etc., will be preserved as though all the files were actually
-% printed. For example, the line below would result only in chapters 1
-% and 3 being printed (if it were uncommented).
-%
-
-%\includeonly{ch1.intro,ch3.implem}
-
-% UPDATED TEXT (2010):
-%  In the newest format, titles should be title case everywhere.
-%
-% HISTORICAL TEXT (1996):
-%  In the new format, the titles of each chapter should appear in
-%  uppercase.  In the TOC, however, they should be in lowercase.
-%  The command below automates this behavior.  However, you'll have to be
-%  careful not to include \labels within your \chapter definitions or
-%  there will be problems.  If you don't want this to be automated, comment
-%  out the \typesetChapterTitle definition below and do your chapters in
-%  the form:
-%  \chapter[MY TITLE]{My Title}
-%
-%  \renewcommand\typesetChapterTitle[1]{\uppercase{#1}}
 \renewcommand\typesetChapterTitle[1]{#1}
 
 \newcommand{\TODO}[1]{<TODO: #1>}
 
 \begin{document}
 
-%
-% First, declare the parts of your title page 
-%
 
 \author{Nicklas Stockton}
 \title{Hybrid Genetic Fuzzy Systems for Control of Dynamic Systems}
@@ -109,73 +70,29 @@
 \advisorname{Dr. Kelly Cohen}
 \member{Dr. Manish Kumar}
 \member{Prof. George Black}
-%\member{Yet another dude}      % Normally you will have advisor + 2 members
 
-
-%
-% The following creates the title page
-%
 
 \maketitle
 
-% If you get rid of \disscopyright, restore the \blankpage line after it
 %\disscopyright
 \blankpage
-
-%
-% Abstract goes here.
-%
 
 \begin{abstract}
   \input{abstract}
 \end{abstract}
 
 
-%
-% UPDATED TEXT (2010):
-%  The graduate school does not require an external abstract. If this
-%  changes, follow the old instructions below.
-%
-% HISTORICAL TEXT (1996):
-%  Uncomment the three lines below to generate the external abstract.  Two
-%  copies of this must be turned in to the graduate school.  These lines can
-%  be placed pretty much anywhere, since the page numbering should be
-%  independent of the rest of the thesis
-%
-
-% \begin{externalabstract}
-%   \input{abstract}
-% \end{externalabstract}
-
-%
-%  My Dedication
-%
-
 %\dedication{To my wife, Lori, for her unending support and urging to get this thing over with.}
 
 
-%
-% Bring in Acknowledgement and Vita from separate files named ``ack.tex''
-% and ``vita.tex''.
-%
-
-%\include{ack}
+\include{ack}
 %\include{vita}
 
-
-%
-% Make the Table of Contents and other good stuff
-%
 
 \tableofcontents
 \listoftables
 \listoffigures
 
-
-%
-% The following is a list of chapters.  Each is brought in from a
-% separate file using the \include{} command.
-%
 
 \include{intro}
 
@@ -191,26 +108,12 @@
 
 %\include{future}
 
-%
-% If you have appendices in your dissertation, you will need the
-% following, else keep it commented. The following appendices are in
-% files called ``app1.tex'', and ``app2.tex'', and they
-% look just like any chapter.
-%
 
 \appendix
 \include{fuzzyc_app}
 \include{yapflm_app}
 
 
-%
-% The all important bibliography file at the end of your document!! Use
-% the bibstyle you (your department) like in the \bibliographystyle{}
-% statement and list the name of your bibliography database file in
-% the \bibliography{} statement.  In this example, ``bibfile.bib'' is
-% the name of the database.  See the LaTeX manual appendix B for details
-% about the bibliography database and BibTeX.
-%
 
 \bibliographystyle{plain}
 \bibliography{fuzzy}
