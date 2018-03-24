@@ -172,10 +172,11 @@ From this binary image, the image moments are calculated by
 \nomenclature[]{$I_{xy}$}{Pixel intensity value}
 where $I_{xy}$ is the pixel intensity value for each pixel $(x,y)$ (equal to 1 in this case) and $i,j =
 0,1,2$. From this it can be seen that $m_{00}$ describes the area and $\frac{m_{10}}{m_{00}}$ and
-$\frac{m_{01}}{m_{00}}$ describe the centroids $\overline{x}_p$ and $\overline{y}_p$ in terms of pixels. The
-blob is assumed to be circular and hence a diameter is extracted from the pixel area. Using the focal length
-of the sensor, these image points are then projected onto the ground plane using the known diameter of the
-landing pad and a vertical offset estimate is obtained as is shown in \cref{e:dist_est}.
+$\frac{m_{01}}{m_{00}}$ describe the centroids $\overline{x}_p$ and $\overline{y}_p$ in terms of
+pixels\cite{hu1962visual}. The blob is assumed to be circular and hence a diameter is extracted from the pixel
+area. Using the focal length of the sensor, these image points are then projected onto the ground plane using
+the known diameter of the landing pad and a vertical offset estimate is obtained as is shown in
+\cref{e:dist_est}.
 \begin{equation}\label{e:dist_est}
     d_z=\frac{d\cdot f}{m\cdot d_p}
 \end{equation}
@@ -255,22 +256,59 @@ then orient the vehicle to match the heading of the landing pad (see \cref{f:lan
 \end{figure}
 
 \subsection{PID Results}
-A PID controller was created which uses the most recent error estimates and sends velocity requests to the
-flight controller. Due to the lack of a mathematical model of the system. The PID gains were found by
-iterating the simulation with various position setpoints and dynamically adjusting the gains while observing
-the response visually. This closely mimics the method by which PID gains are attained in the tuning of an
-actual quadrotor by flying a series of test flights and adjusting gain values by feel. In this way, a
-reasonable response and landing sequence was achieved for first a static target and then repeated for a
-dynamic target moving with constant velocity. The results are presented in \crefrange{f:pid_stat}{f:pid_dyn}
-in which the normed horizontal offset from target is shown in conjunction with the vertical distance to the
-platform. Viewing the charts, it is apparent that as the vehicle approaches the target, it tends to accumulate
-horizontal errors and must correct more frequently, particularly in the dynamic case. In both cases, the
-quadrotor managed to successfully land on the target. In the static case, the final offset from the center of
-the target was less than \SI{5}{\cm}. For the dynamic case, the error was \SI{7}{\cm} which nearly displaced
-it from the target surface. In both cases, the sink rate and yaw rates were controlled by simple PD
-controllers.
+A PID controller was created which uses error estimates and sends velocity requests to the flight controller.
+Due to the lack of a mathematical model of the system. The PID gains were found by iterating the simulation
+with various position setpoints and dynamically adjusting the gains while observing the response visually.
+This closely mimics the method by which PID gains are attained in the tuning of an actual quadrotor by flying
+a series of test flights and adjusting gain values by feel. In this way, a reasonable response and landing
+sequence was achieved for first a static target and then repeated for a dynamic target moving with constant
+velocity. The results are presented in \crefrange{f:pid_stat}{f:pid_dyn} in which the normed horizontal offset
+from target is shown in conjunction with the vertical distance to the platform. Viewing the charts, it is
+apparent that as the vehicle approaches the target, it tends to accumulate horizontal errors and must correct
+more frequently, particularly in the dynamic case. In both cases, the quadrotor managed to successfully land
+on the target. In the static case, the final offset from the center of the target was less than \SI{5}{\cm}.
+For the dynamic case, the error was \SI{7}{\cm} which nearly displaced it from the target surface. In both
+cases, the sink rate and yaw rates were controlled by simple PD controllers.
+
+\subsection{Kalman Filter}
+A kamlan filter is employed to provide a continuous, fused estimate of the vehicles position relative to the
+platform whenever there is at least visual sensing of the platform. This is done using the
+\verb|robot_localization| package from ROS\cite{MooreStouchKeneralizedEkf2014}. This package is an
+implementation of an extended kalman filter (EKF). The EKF provides a means by which to predict the vehicle
+state even in the absence of current measurementi\cite{kalman1960new}. The prediction is then corrected when
+new measurement values are obtained. The measurements used to update the filter state are the estimate from
+the computer vision algorithm to update the vehicle position, the estimate from the
+AprilTag\cite{olson2011tags} routine to update both position and orientation, and finally the IMU is used to
+update angular rates and linear accelerations. These measurements are fused together to build an internal
+model estimate of the dynamics of the vehicle. It is this model which provides the predictions between
+measurements. An example of the EKF measurement is shown in <TODO: make graph of EKF vs Truth!!>
+
+\section{Genetic Algorithm}
+To create a FLS to control the vehicle in its approach to the platform, a robust controller which is
+insensitive to environmental and measurement noise is needed. It has been planned to use a GA within the
+Gazebo simulation environment to provide a test bed for the GA to iterate in. Gazebo is a very popular
+framework for simulation and has been used in evolutionary robotics in other
+applications\cite{nogueira2014comparative}. There are, however, a number of issues that arose in this effort
+to quickly iterate through chromosomal individuals:
+
+\begin{itemize}
+    \item The dynamic model being implemented from the PX4 project\cite{martin2010true} abides by a different
+        source of time than does the control software written in ROS. The integration between ROS and Gazebo
+        is very tight and allows for the syncing of clock sources, so it was hoped that the simulation could
+        be run significantly faster than realtime. The difference in clock sources between the control and
+        modeling, however, forces the algorithm to run in realtime so as to give an artificially unified
+        source of time to each component. This severely limits the size of populations and number of
+        generations the GA can employ to perform its optimization.
+    \item 
+\end{itemize}
 
 
+\begin{itemize}
+    \item New templates (pull from irols yamls)
+    \item Description of Gazebo issues
+    \item Shims, caveats, and cheats
+    \item Crippling defeat
+\end{itemize}
 
 \subsection{Fuzzy Results}
 Though this work is still in progress, promising preliminary results in development of a fuzzy controller have
@@ -337,15 +375,6 @@ tune each controller.
     \caption{Fuzzy controllers for static and dynamic landing}\label{f:fuzzy_lands}
 \end{figure}
 
-\section{Genetic Algorithmic Approach}
-
-\begin{itemize}
-    \item New templates (pull from irols yamls)
-    \item Description of Gazebo issues
-    \item Shims, caveats, and cheats
-    \item Crippling defeat
-    \item Possible hope?!?
-\end{itemize}
 
 \section{Results (if any from a new hope)}
 
