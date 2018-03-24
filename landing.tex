@@ -188,11 +188,44 @@ Assuming that the image plane and the ground plane are parallel, the center of t
 point directly below the vehicle and the horizontal offsets to the landing pad can then be calculated as
 \begin{align}\label{e:horiz_est}
     d_x &= d_z\cdot\frac{m\overline{x}_p}{f}\\
-    d_y &= d_z\cdot\frac{m\overline{y}_p}{f}
+    d_y &= d_z\cdot\frac{m\overline{y}_p}{f}\label{e:horiz_est-y}
 \end{align}
 \nomenclature[]{$d_x$}{Horizontal offset error from vehicle to target in the body-fixed $x$-axis}
 \nomenclature[]{$d_y$}{Horizontal offset error from vehicle to target in the body-fixed $y$-axis}
 \nomenclature[]{$d_z$}{Vertical offset error from vehicle to the target}
+
+Unless the camera is mounted to a perfect gimbal, the image plane cannot be assumed to be parallel to the
+ground plane, thus invalidating \crefrange{e:horiz_est}{e:horiz_est-y}. To overcome this, the rotation
+sequence needed to transform the image into body-relative coordinates is found and applied to the image data.
+The camera is assumed to be rigidly affixed to the body of the vehicle, thus is a simple static
+transformation. Then, the vehicle body frame is related to the inertial frame by another rotation. The landing
+pad is assumed to be on relative ground and the distance between the vehicle and pad is estimated from
+\cref{e:dist_est}. Note that although there will be image skew when the vehicle is under some rotation, that
+the error in estimated distance this introduces is small compared to the actual distance of the vehicle from
+the target. As the vehicle approaches the target, the estimate improves in quality due to crisper imaging,
+damped, level flight, and addition of AprilTag estimation.
+
+Let $R\left(\phi, \theta, \psi\right)$ be the orthogonal matrix defined as
+
+\begin{equation}
+    R(\phi,\theta,\psi) = 
+    \begin{bmatrix}
+            c_{\theta}c_{\psi}                           & -c_{\theta}s_{\phi}                           & s_{\theta}\\
+            c_{\phi}s_{\psi} + c_{\psi}s_{phi}s_{\theta} & c_{\phi}c_{\psi} - c_{\psi}s_{\phi}s_{\theta} & -c_{\theta}s_{\phi}\\
+            s_{\phi}s_{\psi} -c_{\phi}c_{\psi}s_{\theta} & c_{\psi}s_{\phi} + c_{\phi}s_{\theta}s_{\psi} & c_{\phi}c_{\theta}
+    \end{bmatrix}
+\end{equation}
+
+where $\phi$, $\theta$, and $\psi$ are vehicle roll, pitch and yaw respectively. $c_{\alpha}$ and $s_{\alpha}$
+represent $\cos{\alpha}$ and $\sin{\alpha}$ respectively. Let $R_x^y$ represent the rotation from frame $x$ to
+$y$, then $R_x^yR_y^z$ is the rotation from frame $x$ to frame $z$ with respect to the stationary frame $x$.
+Now assuming the vehicle can estimate its orientation from the onboard inertial measurement unit, the
+following rotation matrices can be defined.
+
+\begin{align}
+    R_{cam}^{body}   & = R(\pi, 0, 0)\label{e:rot_cam_bod}\\
+    R_{body}^{inert} & = R(\phi, \theta, \psi)\label{e:rot_body_inert}
+\end{align}
 
 As the vehicle approaches the landing pad, the image field of view is overtaken by the landing pad itself and
 the former segmentation no longer becomes effective. For this purpose, an apriltag\cite{olson2011tags} (see
@@ -304,22 +337,17 @@ tune each controller.
     \caption{Fuzzy controllers for static and dynamic landing}\label{f:fuzzy_lands}
 \end{figure}
 
-\section{Conclusion}
-The results presented are preliminary only, but show promising results. The control effort of the untuned
-fuzzy controller nearly matched that of the tuned PID controller for the  static target case. For the dynamic
-target, while neither controller was tuned to any high degree of accuracy, the fuzzy controller performed at
-least as well as the PID controller. It should be noted that the overall positioning control of the
-vehicle is relatively simple, but as it approaches more closely to the platform, small movements are
-translated to larger apparent errors and the controller may make bad decisions. This explains the peaks which
-can be seen in both of the dynamic situations; as the quadrotor becomes very near to the platform, it
-occasionally loses visual sight of the key target and must then abort the landing and gain altitude to retry.
+\section{Genetic Algorithmic Approach}
 
-There is much future work to yet complete. Both the PID and Fuzzy controllers will be tuned by a genetic
-algorithm which will greatly improve the performance of each. To prepare the system for real world
-deployment, the perfect gimbal assumption being made in the simulation will be replaced with a rigidly mounted
-camera. This will require then applying a rotational transform to each image pixel measurement which will
-increase the uncertainty in each estimate. Finally, the image processing pipeline must be optimized even
-further to decrease the computation load on the processor. With the current pipeline, the test hardware
-processes images at around \SI{2}{\Hz}, which may introduce too much latency in the control feedback. Either
-the image processing must be sped up, or the delay will need to be handled in some other fashion.
+\begin{itemize}
+    \item New templates (pull from irols yamls)
+    \item Description of Gazebo issues
+    \item Shims, caveats, and cheats
+    \item Crippling defeat
+    \item Possible hope?!?
+\end{itemize}
+
+\section{Results (if any from a new hope)}
+
+\section{Conclusion}
 
