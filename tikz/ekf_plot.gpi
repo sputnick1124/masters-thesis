@@ -1,0 +1,13 @@
+set term tikz
+set output 'ekf_plot.tex'
+#set title 'Ext. Kalman Filter'
+set datafile separator ','
+set key autotitle columnhead
+set key center top
+set xlabel 'Time, s'
+set ylabel 'Horiz. error, m'
+plot 'vis.dat' lw 1 lc 'green' title 'Visual Estimate',\
+    'apr.dat' lw 1 lc 'blue' title 'AprilTag Estimate',\
+    'blest.dat' with linespoints lw 3 lc 'red' title 'EKF Estimate',\
+    'bltrue.dat' lw 1 lc 'magenta' title 'Truth Data'
+

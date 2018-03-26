@@ -140,16 +140,12 @@ require a stricter grading. This time-scaling requires that the BFF be computed 
 real time.
 
 \section{Controller}\label{s:landing:controller}
-Control is exerted on the vehicle by supplying the flight controller with changes in the velocities, $\Delta
-v_x$, $\Delta v_y$, and $\Delta v_z$, as well as yaw rate, $\dot{\psi}$. The quadrotor is able to land with
-any arbitrary yaw angle, $\psi$, but the assumption is made that some reception mechanism may expect the
-vehicle in a nose-forward orientation. Distance to the platform is estimated from images taken by the camera
-sensor. Orientation is estimated only in the last phase of the landing sequence using a robust and efficient
-visual fiducial tag system\cite{olson2011tags} (see \cref{f:apriltag}).
-\nomenclature[]{$\Delta v_x$}{Control input change to velocity in $x$-axis}
-\nomenclature[]{$\Delta v_y$}{Control input change to velocity in $y$-axis}
-\nomenclature[]{$\Delta v_z$}{Control input change to velocity in $z$-axis}
-\nomenclature[]{$\dot{\psi}$}{Control input to yaw rate (rotation about $z$-axis)}
+Control is actuated on the vehicle by providing velocity setpoints to the flight controller, $v_x$, $v_y$,
+$v_z$, and yaw rate, $\dot{\psi}$. Ideally either linear acceleration setpoints or forces would be the control
+output, but limitations in the flight controller make this impossible at this time. Setting velocities allows
+the controller to cope with step changes to position offset well, but have difficulties tracking ramps. The
+yaw angle, $\psi$ of the vehicle at landing is irrelevant for this project, but the controller is able to
+control that axis regardless.
 
 \subsection{Computer Vision}\label{s:landing:cv}
 Much emphasis is put on the sensing algorithms to be computationally efficient to decrease the load on the
@@ -170,8 +166,8 @@ From this binary image, the image moments are calculated by
 \end{equation}
 \nomenclature[]{$m_{ij}$}{Raw image moment}
 \nomenclature[]{$I_{xy}$}{Pixel intensity value}
-where $I_{xy}$ is the pixel intensity value for each pixel $(x,y)$ (equal to 1 in this case) and $i,j =
-0,1,2$. From this it can be seen that $m_{00}$ describes the area and $\frac{m_{10}}{m_{00}}$ and
+where $I_{xy}$ is the pixel intensity value for each pixel $(x,y)$ (equal to 1 for this binary blob) and $i,j
+= 0,1,2$. From this it can be seen that $m_{00}$ describes the area and $\frac{m_{10}}{m_{00}}$ and
 $\frac{m_{01}}{m_{00}}$ describe the centroids $\overline{x}_p$ and $\overline{y}_p$ in terms of
 pixels\cite{hu1962visual}. The blob is assumed to be circular and hence a diameter is extracted from the pixel
 area. Using the focal length of the sensor, these image points are then projected onto the ground plane using
@@ -198,16 +194,15 @@ point directly below the vehicle and the horizontal offsets to the landing pad c
 Unless the camera is mounted to a perfect gimbal, the image plane cannot be assumed to be parallel to the
 ground plane, thus invalidating \crefrange{e:horiz_est}{e:horiz_est-y}. To overcome this, the rotation
 sequence needed to transform the image into body-relative coordinates is found and applied to the image data.
-The camera is assumed to be rigidly affixed to the body of the vehicle, thus is a simple static
+The camera is assumed to be rigidly affixed to the body of the vehicle, thus this is a simple static
 transformation. Then, the vehicle body frame is related to the inertial frame by another rotation. The landing
-pad is assumed to be on relative ground and the distance between the vehicle and pad is estimated from
+pad is assumed to be on level ground and the distance between the vehicle and pad is estimated from
 \cref{e:dist_est}. Note that although there will be image skew when the vehicle is under some rotation, that
 the error in estimated distance this introduces is small compared to the actual distance of the vehicle from
-the target. As the vehicle approaches the target, the estimate improves in quality due to crisper imaging,
+the target. As the vehicle approaches the target, the estimate improves in quality due to a crisper image,
 damped, level flight, and addition of AprilTag estimation.
 
 Let $R\left(\phi, \theta, \psi\right)$ be the orthogonal matrix defined as
-
 \begin{equation}
     R(\phi,\theta,\psi) = 
     \begin{bmatrix}
@@ -216,17 +211,24 @@ Let $R\left(\phi, \theta, \psi\right)$ be the orthogonal matrix defined as
             s_{\phi}s_{\psi} -c_{\phi}c_{\psi}s_{\theta} & c_{\psi}s_{\phi} + c_{\phi}s_{\theta}s_{\psi} & c_{\phi}c_{\theta}
     \end{bmatrix}
 \end{equation}
-
 where $\phi$, $\theta$, and $\psi$ are vehicle roll, pitch and yaw respectively. $c_{\alpha}$ and $s_{\alpha}$
 represent $\cos{\alpha}$ and $\sin{\alpha}$ respectively. Let $R_x^y$ represent the rotation from frame $x$ to
 $y$, then $R_x^yR_y^z$ is the rotation from frame $x$ to frame $z$ with respect to the stationary frame $x$.
 Now assuming the vehicle can estimate its orientation from the onboard inertial measurement unit, the
 following rotation matrices can be defined.
-
 \begin{align}
     R_{cam}^{body}   & = R(\pi, 0, 0)\label{e:rot_cam_bod}\\
     R_{body}^{inert} & = R(\phi, \theta, \psi)\label{e:rot_body_inert}
 \end{align}
+where $R_{x}^{y}$ represents the rotation from fram $x$ to frame $y$. These rotations are then prefixed to the
+projected point found  in \crefrange{e:dist_est}{e:horiz_est-y} to find the point in world units with respect
+to the vehicle.
+\begin{align}\label{e:rotate}
+    P_i = \begin{pmatrix}d_x\\d_y\\d_z\end{pmatrix}\\
+    P_r = R_{body}^{inert}R_{cam}^{body}P_i
+\end{align}
+where $P_i$ is the projected point of the target in the plane parallel to the image plane, and $P_r$ is the
+rotated point of the target with respect to the vehicle.
 
 As the vehicle approaches the landing pad, the image field of view is overtaken by the landing pad itself and
 the former segmentation no longer becomes effective. For this purpose, an apriltag\cite{olson2011tags} (see
@@ -268,7 +270,17 @@ apparent that as the vehicle approaches the target, it tends to accumulate horiz
 more frequently, particularly in the dynamic case. In both cases, the quadrotor managed to successfully land
 on the target. In the static case, the final offset from the center of the target was less than \SI{5}{\cm}.
 For the dynamic case, the error was \SI{7}{\cm} which nearly displaced it from the target surface. In both
-cases, the sink rate and yaw rates were controlled by simple PD controllers.
+cases, the sink rate and yaw rates were controlled by simple PD controllers. These results are visualized in
+\cref{f:pid_lands}. It can be seen that the controller took a significantly longer time to intercept and land
+on the moving target as it repeatedly had trouble responding to the motion and would temporarily lose its
+visual track.
+\begin{figure}[ht]
+    \begin{subfigmatrix}{2}
+        \subfigure[$(kp,ki,kd)=(2.1,0.015,0.2)$ for static target interception.\label{f:pid_stat}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_static.png}}
+        \subfigure[$(k_p,k_i,k_d)=(1.8,0.012,0.02)$ for dynamic target interception.\label{f:pid_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_dynamic.png}}
+    \end{subfigmatrix}
+    \caption{PID controllers for static and dynamic landing}\label{f:pid_lands}
+\end{figure}
 
 \subsection{Kalman Filter}
 A kamlan filter is employed to provide a continuous, fused estimate of the vehicles position relative to the
@@ -281,7 +293,14 @@ the computer vision algorithm to update the vehicle position, the estimate from 
 AprilTag\cite{olson2011tags} routine to update both position and orientation, and finally the IMU is used to
 update angular rates and linear accelerations. These measurements are fused together to build an internal
 model estimate of the dynamics of the vehicle. It is this model which provides the predictions between
-measurements. An example of the EKF measurement is shown in <TODO: make graph of EKF vs Truth!!>
+measurements. An example of the EKF measurement is shown in \cref{f:ekf_plot}.
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/ekf_plot}
+    \caption{EKF estimate with input estimates over short time sample. Note that the EKF could be tuned much
+    more than was done for this work, but the controller was still able to cope.}\label{f:ekf_plot}
+\end{figure}
 
 \section{Genetic Algorithm}
 To create a FLS to control the vehicle in its approach to the platform, a robust controller which is
@@ -291,42 +310,29 @@ framework for simulation and has been used in evolutionary robotics in other
 applications\cite{nogueira2014comparative}. There are, however, a number of issues that arose in this effort
 to quickly iterate through chromosomal individuals:
 
-\begin{itemize}
-    \item The dynamic model being implemented from the PX4 project\cite{martin2010true} abides by a different
-        source of time than does the control software written in ROS. The integration between ROS and Gazebo
-        is very tight and allows for the syncing of clock sources, so it was hoped that the simulation could
-        be run significantly faster than realtime. The difference in clock sources between the control and
-        modeling, however, forces the algorithm to run in realtime so as to give an artificially unified
-        source of time to each component. This severely limits the size of populations and number of
-        generations the GA can employ to perform its optimization.
-    \item 
-\end{itemize}
+The dynamic model being implemented from the PX4 project\cite{martin2010true} abides by a different
+source of time than does the control software written in ROS. The integration between ROS and Gazebo
+is very tight and allows for the syncing of clock sources, so it was hoped that the simulation could
+be run significantly faster than realtime. The difference in clock sources between the control and
+modeling, however, forces the algorithm to run in realtime so as to give an artificially unified
+source of time to each component. This severely limits the size of populations and number of
+generations the GA can employ to perform its optimization.
+
+Ultimately, these limitations proved too large an obstacle to be overcome within the scope of the project and
+effort was put into only tuning the controller by hand to perform the required task.
 
 
-\begin{itemize}
-    \item New templates (pull from irols yamls)
-    \item Description of Gazebo issues
-    \item Shims, caveats, and cheats
-    \item Crippling defeat
-\end{itemize}
-
-\subsection{Fuzzy Results}
-Though this work is still in progress, promising preliminary results in development of a fuzzy controller have
-been obtained. Four fuzzy controllers of similar architecture were created as shown in \cref{f:fuzzy_mfs}.
+\subsection{Fuzzy Controller}
+Four fuzzy controllers of similar architecture were created as shown in \cref{f:fuzzy_mfs}.
 Each input fuzzy partition was multiplied by a scaling factor to bring it into the regime of the controller.
 Likewise, the outputs were then again scaled to match actuation limits. The rule base was developed using
 common intuition about the system dynamics. A full rule matrix was defined to fully cover the system
-possibilities. This rule matrix is shown in \cref{t:rules}. The rules are made up of linguistic variables
-composed into IF-THEN constructions of antecedents and consequents. For example:
-\begin{center}
-    IF \emph{error} is \textbf{N} AND \emph{error rate} is \textbf{Z} THEN \emph{$\Delta v$} is \textbf{SP}
-\end{center}
-
+possibilities. This rule matrix is shown in \cref{t:rules}.
 \begin{figure}[ht]
     \begin{subfigmatrix}{3}
-        \subfigure[Fuzzy input partition template\label{f:error_in_mfs}]{\includegraphics{images/error_in.png}}
-        \subfigure[Fuzzy input partition template\label{f:error_d_in_mfs}]{\includegraphics{images/error_del_in.png}}
-        \subfigure[Fuzzy output partition template\label{f:vel_out_mfs}]{\includegraphics{images/vel_out.png}}
+        \subfigure[Fuzzy input partition \label{f:error_in_mfs}]{\includegraphics{images/error_in.png}}
+        \subfigure[Fuzzy input partition \label{f:error_d_in_mfs}]{\includegraphics{images/error_del_in.png}}
+        \subfigure[Fuzzy output partition \label{f:vel_out_mfs}]{\includegraphics{images/vel_out.png}}
     \end{subfigmatrix}
     \caption{Membership function definitions for fuzzy logic controller.}\label{f:fuzzy_mfs}
 \end{figure}
@@ -335,10 +341,8 @@ decision-making system with a foundation in human reasoning. The tuning process 
 becomes the task of defining the membership functions which decide how much of each rule should be activated
 for certain inputs. Triangular membership functions are used exclusively for their simplicity in definition
 and tuning\cite{mishra1994performance} while the aggregation of rules is the popular min-max method put forth
-by Mamdani\cite{MAMDANI19751}. The membership functions shown in \cref{f:fuzzy_mfs} are the result of only a
-small number of iterative tuning steps and were found to be the most effective of the configurations
-attempted. The fuzzy rule base also provides ample opportunities for tuning and will have a significant impact
-on controller performance.
+by Mamdani\cite{MAMDANI19751}. The membership functions shown in \cref{f:fuzzy_mfs} are the result of a number
+of iterative tuning steps and were found to be the most effective of the configurations attempted.
 
 
 \begin{table}[ht]
@@ -362,13 +366,6 @@ have with novel situations. The results are expected to improve dramatically by 
 tune each controller.
 \begin{figure}[ht]
     \begin{subfigmatrix}{2}
-        \subfigure[$(kp,ki,kd)=(2.1,0.015,0.2)$ for static target interception.\label{f:pid_stat}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_static.png}}
-        \subfigure[$(k_p,k_i,k_d)=(1.8,0.012,0.02)$ for dynamic target interception.\label{f:pid_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_pid_dynamic.png}}
-    \end{subfigmatrix}
-    \caption{PID controllers for static and dynamic landing}\label{f:pid_lands}
-\end{figure}
-\begin{figure}[ht]
-    \begin{subfigmatrix}{2}
         \subfigure[Static target interception.\label{f:fuz_stat}]{\includegraphics[width=0.45\textwidth]{images/mag_z_fuzzy_static3.png}}
         \subfigure[Dynamic target interception.\label{f:fuz_dyn}]{\includegraphics[width=0.45\textwidth]{images/mag_z_fuzzy_dynamic3.png}}
     \end{subfigmatrix}
@@ -376,7 +373,13 @@ tune each controller.
 \end{figure}
 
 
-\section{Results (if any from a new hope)}
-
 \section{Conclusion}
+It has been shown that a pure FLS controller is capable of controlling the position of a multirotor vehicle in
+the task of precision landing on a small target. The components chosen to accomplish this task are readily
+available in university laboratory environments and the physical realization of this system was kept in the
+forefront of the design process. While it has not yet been physically realized, with relatively little effort
+this goal should be possible. 
+
+The simulation tools used for the work proved insufficient to use for training using the GA due to time and
+model constraints, but they facilitated the manual tuning of the controller nicely. 
 

@@ -1,1 +1,43 @@
 \chapter{Conclusions}
+
+\section{Future Work}
+It is the author's hope that the work will be continued in the laboratoy and eventually applied to hardware.
+The use of ROS to implement the control architecture allows this control architecture to operate in physical
+hardware as has been shown in other projects in the laboratory environment in recent projects. The barrier to
+actualizing the hardware platform is the current lack of a reliable indoor positioning system. The lab used to
+facilitate this research contains a motion capture system, but it has only recently been used enough to
+understand how to integrate it into flying platforms repeatably, thus enabling further hardware testing of
+this project.
+
+Also, there is still much work which could be done with regards to the components of the controller itself.
+There are many corollaries to the controller which were not much explored due to the limited scope of the
+thesis. The computer vision algorithm is very simplistic and could be expanded greatly to produce a much more
+robust and versatile application. Also, the EKF is virtually untuned and could stand a great deal of work to
+produce a cleaner estimate signal.
+
+Finally, integration of this work with other projects within the UAV Master Labs at the University of
+Cincinnati would facilitate this project in being used in real applications. The controller could rather
+easily be ported to be a module within the  $\mathbbm{FlyMASTER}$ framework. This would ease the integration
+of this work with other projects in the future and work towards the goal of unifying many projects in the lab
+towards a greater whole.
+
+\section{Summary}
+Genetic Fuzzy Systems are not a panacea. They are not magic. They are not a silver bullet. These are truths
+which can be said of any architecture, paradigm, or approach. It becomes the job of an engineer to know the
+breadth of tools at their disposal and be able to chose the best for a job. It is the proposition of this
+thesis that FL systems should be considered as first class citizens in the tool chest of any controls
+engineer. They are more than capable of performing the low-level control tasks required in dynamics problems
+and are remarkably well-suited to make decisions at higher levels as well. The ability of FLS to translate the
+intuition of expert controls designers into machine-executable signals is a unique benefit that is worth
+exploring for a wide array of problems we face every day.
+
+It was shown in this work that the combination of manual construction and genetic tuning of a FLS produces a
+controller which performs near-optimally in a highly non-linear system. The intuition gained from manual
+interaction with system translates directly into controller development very well. It was also shown that a
+FLS which is learned almost solely via a GA can attain results which meet any number of physically realizable
+specifications. The expert intuition in these cases emerges in the development of a fitness (or cost) function
+which accurately describes the desired behavior. Finally, it was shown that purely hand-tuned system can
+perform remarkably well. This system is perhaps far from optimal, but has the distinction of being
+implementable on affordable hardware in real time. The integation with ROS also facilitates its use in a wide
+array of robotics applications across many domains
+
