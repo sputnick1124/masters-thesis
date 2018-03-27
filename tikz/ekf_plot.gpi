@@ -11,3 +11,7 @@ plot 'vis.dat' lw 1 lc 'green' title 'Visual Estimate',\
     'blest.dat' with linespoints lw 3 lc 'red' title 'EKF Estimate',\
     'bltrue.dat' lw 1 lc 'magenta' title 'Truth Data'
 
+set output '../presentation/ekf_plot.tex'
+#set size 120mm,90mm
+set term epslatex color
+replot

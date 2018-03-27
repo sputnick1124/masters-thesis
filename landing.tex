@@ -207,7 +207,7 @@ Let $R\left(\phi, \theta, \psi\right)$ be the orthogonal matrix defined as
     R(\phi,\theta,\psi) = 
     \begin{bmatrix}
             c_{\theta}c_{\psi}                           & -c_{\theta}s_{\phi}                           & s_{\theta}\\
-            c_{\phi}s_{\psi} + c_{\psi}s_{phi}s_{\theta} & c_{\phi}c_{\psi} - c_{\psi}s_{\phi}s_{\theta} & -c_{\theta}s_{\phi}\\
+            c_{\phi}s_{\psi} + c_{\psi}s_{\phi}s_{\theta} & c_{\phi}c_{\psi} - c_{\psi}s_{\phi}s_{\theta} & -c_{\theta}s_{\phi}\\
             s_{\phi}s_{\psi} -c_{\phi}c_{\psi}s_{\theta} & c_{\psi}s_{\phi} + c_{\phi}s_{\theta}s_{\psi} & c_{\phi}c_{\theta}
     \end{bmatrix}
 \end{equation}
@@ -220,7 +220,7 @@ following rotation matrices can be defined.
     R_{cam}^{body}   & = R(\pi, 0, 0)\label{e:rot_cam_bod}\\
     R_{body}^{inert} & = R(\phi, \theta, \psi)\label{e:rot_body_inert}
 \end{align}
-where $R_{x}^{y}$ represents the rotation from fram $x$ to frame $y$. These rotations are then prefixed to the
+where $R_{x}^{y}$ represents the rotation from frame $x$ to frame $y$. These rotations are then prefixed to the
 projected point found  in \crefrange{e:dist_est}{e:horiz_est-y} to find the point in world units with respect
 to the vehicle.
 \begin{align}\label{e:rotate}
