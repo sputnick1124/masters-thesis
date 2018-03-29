@@ -186,3 +186,6 @@ TSWLatexianTemp*
 
 # tags
 tags
+
+# large files
+*.mp4
