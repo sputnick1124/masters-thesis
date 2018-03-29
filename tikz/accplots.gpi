@@ -1,0 +1,45 @@
+set terminal lua tikz monochrome
+set style fill pattern border transparent
+set style data filledcurves
+
+set output 'accx2plotcomp.tex'
+set yrange [ -0.1 : 1.1 ]
+set key right center box opaque width 4.5
+plot 'accx2.dat' using 1:2 title 'Far',\
+     'accx2.dat' using 1:3 title 'Close',\
+     'accx2comp.dat' using 1:2 title 'VeryClose' fs transparent solid 0.25
+set output
+set output 'accx2plot.tex'
+plot 'accx2.dat' using 1:2 title 'Far',\
+     'accx2.dat' using 1:3 title 'Close',\
+     'accx2.dat' using 1:4 title 'VeryClose' fs transparent solid 0.25
+set xlabel '$x_2$, m'
+set ylabel '$\mu$, Membership value'
+
+set terminal lua tikz monochrome
+set output 'accx2dotplotcomp.tex'
+set yrange [ -0.1 : 1.1 ]
+set key right center
+unset xlabel
+unset ylabel
+plot 'accx2dot.dat' using 1:2 title 'Negative',\
+     'accx2dot.dat' using 1:3 title 'Zero',\
+     'accx2dot.dat' using 1:4 title 'Positive' fs transparent solid 0.25
+set output 'accx2dotplot.tex'
+set xlabel '$\dot{x}_2$, m'
+set ylabel '$\mu$, Membership value'
+replot
+
+set terminal lua tikz monochrome
+set output 'accoutplotcomp.tex'
+set key right center
+unset xlabel
+unset ylabel
+plot 'accout.dat' using 1:2 title 'Negative',\
+     'accout.dat' using 1:3 title 'Zero',\
+     'accout.dat' using 1:4 title 'Positive' fs transparent solid 0.25
+set output 'accoutplot.tex'
+set xlabel 'Force, N'
+set ylabel '$\mu$, Membership value'
+replot
+

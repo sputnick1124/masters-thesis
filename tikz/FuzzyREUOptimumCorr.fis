@@ -1,0 +1,45 @@
+[System]
+Name='FuzzyREUOptimumCorr'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=7
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='x2'
+Range=[0 101]
+NumMFs=3
+MF1='far':'trapmf',[0 0 49.8 50.1]
+MF2='close':'trapmf',[49.8 50.1 99.9 100]
+MF3='veryclose':'trimf',[99.9 100 100.1]
+
+[Input2]
+Name='x4'
+Range=[-6 6]
+NumMFs=3
+MF1='negative':'trapmf',[-6 -6 -0.279205 0]
+MF2='zero':'trimf',[-0.2792 0 0.2792]
+MF3='positive':'trapmf',[0 0.279205 6 6]
+
+[Output1]
+Name='u'
+Range=[-2 2]
+NumMFs=3
+MF1='Negative':'trimf',[-2 -1 0]
+MF2='Zero':'trimf',[-1 0 1]
+MF3='Positive':'trimf',[0 1 2]
+
+[Rules]
+1 0, 3 (1) : 1
+2 1, 3 (1) : 1
+2 2, 3 (1) : 1
+2 3, 1 (1) : 1
+3 1, 3 (1) : 1
+3 2, 2 (1) : 1
+3 3, 1 (1) : 1

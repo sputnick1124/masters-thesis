@@ -1,28 +1,35 @@
-set terminal tikz 
+set terminal lua tikz monochrome
+#set terminal latex
+#set linetype 1 dashtype 2
+#set linetype 2 dashtype '..-'
+#set linetype 3 dashtype (2,2,4,4,6,6)
+set style fill pattern border transparent
+set style data filledcurves
+
 set output 'crispplot.tex'
 set yrange [ -0.1 : 1.1 ]
 set xlabel 'Temperature, $\deg$'
 set ylabel '$\mu$, Membership value'
-set key right center
-plot 'crispset.dat' using 1:2 with lines lc 'blue' title 'Cool',\
-     'crispset.dat' using 1:3 with lines lc 'orange' title 'Warm',\
-     'crispset.dat' using 1:4 with lines lc 'red' title 'Hot'
+#set style data lines
+set key right center box opaque width 4.5
+plot 'crispset.dat' using 1:2 title 'Cool',\
+     'crispset.dat' using 1:3 title 'Warm',\
+     'crispset.dat' using 1:4 title 'Hot' fs transparent solid 0.25
 
-set terminal tikz
+set terminal lua tikz monochrome
 set output 'fuzzyplot.tex'
 set key right center
-plot 'fuzzyset.dat' using 1:2 with lines title 'Cool' lc 'blue',\
-     'fuzzyset.dat' using 1:3 with lines title 'Warm' lc 'orange',\
-     'fuzzyset.dat' using 1:4 with lines title 'Hot' lc 'red'
+plot 'fuzzyset.dat' using 1:2 title 'Cool',\
+     'fuzzyset.dat' using 1:3 title 'Warm',\
+     'fuzzyset.dat' using 1:4 title 'Hot' fs transparent solid 0.25 
 
-set terminal tikz
+set terminal lua tikz monochrome
 set output 'outputplot.tex'
 set xrange[-0.01 : 1.01]
 set xlabel 'Fan Speed, $\%$'
 set ylabel '$\mu$, Membership value'
 set key right center
-plot 'outset.dat' using 1:2 with lines title 'Off' lc 'blue',\
-     'outset.dat' using 1:3 with lines title 'Low' lc 'orange',\
-     'outset.dat' using 1:4 with lines title 'High' lc 'red'
+plot 'outset.dat' using 1:2 title 'Off' fc 4,\
+     'outset.dat' using 1:3 title 'Low',\
+     'outset.dat' using 1:4 title 'High' fs transparent solid 0.25
 
-pause -1

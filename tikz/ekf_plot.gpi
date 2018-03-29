@@ -1,4 +1,4 @@
-set term tikz
+set term tikz monochrome
 set output 'ekf_plot.tex'
 #set title 'Ext. Kalman Filter'
 set datafile separator ','
@@ -6,10 +6,15 @@ set key autotitle columnhead
 set key center top
 set xlabel 'Time, s'
 set ylabel 'Horiz. error, m'
-plot 'vis.dat' lw 1 lc 'green' title 'Visual Estimate',\
-    'apr.dat' lw 1 lc 'blue' title 'AprilTag Estimate',\
-    'blest.dat' with linespoints lw 3 lc 'red' title 'EKF Estimate',\
-    'bltrue.dat' lw 1 lc 'magenta' title 'Truth Data'
+#plot 'vis.dat' lw 1 lc 'green' title 'Visual Estimate',\
+    #'apr.dat' lw 1 lc 'blue' title 'AprilTag Estimate',\
+    #'blest.dat' with linespoints lw 3 lc 'red' title 'EKF Estimate',\
+    #'bltrue.dat' lw 1 lc 'magenta' title 'Truth Data'
+set style data points
+plot 'vis.dat' lw 1 pt 1 title 'Visual Estimate',\
+    'apr.dat' lw 1 pt 2 title 'AprilTag Estimate',\
+    'blest.dat' with linespoints lw 3 title 'EKF Estimate',\
+    'bltrue.dat' lw 1 pt 4 title 'Truth Data'
 
 set output '../presentation/ekf_plot.tex'
 #set size 120mm,90mm

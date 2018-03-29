@@ -2,31 +2,41 @@
 \section{Introduction}
 The 1992 American Control Conference published a set of benchmark problems to explore the capabilities of
 modern control techniques\cite{wie1992benchmark}. The second stated problem solicited solutions to the
-stabilization of a two-body spring mass system which was robust to uncertain masses and spring constants. A
-great number of solutions were conceived which performed well\cite{stengel1992robustness}. Cohen et. al
-\cite{cohen:01jgcd} proposed a solution using fuzzy logic which is superior to all others surveyed with
-respect to both robustness and control effort. A variation on the same problem is addressed here. The carts
-are allowed to move in one dimension down a track. The carts are initially stationary, but are to be moved to
-a target distance without exceeding an upper limit. This system is controlled using a single FIS. The plant
-model masses are then changed significantly and the controller is retrained. The result is a system which can
-be quickly trained to accomodate new plant dynamics.
+stabilization of a two-body spring mass system which was robust to uncertain masses and spring constants. This
+benchmark problem focuses on disturbance rejection in minimum time. Stengel\cite{stengel1992robustness}
+surveyed the best performing control strategies and quantified their stability and performance robustness
+using stochastic robustness analysis. Cohen et. al \cite{cohen:01jgcd} independently proposed a solution using
+fuzzy logic which has more robust stability, performance and uses less control effort.
 
-\section{Coupled Spring-Mass Simulation Model}\label{s:model} A simulated environment is
-necessary to test the efficacy of the proposed FIS. The simulation consists of two
+This problem extends the benchmark problem with the addition of automatically tuned fuzzy controllers for
+various plant models via a GA. The goal of the controller is to move the dual-mass system from a stationary
+initial condition to a stationary end goal in minimum time. Simplifications to the problem include a
+collocated sensor and actuator, removed plant disturbance, and removed sensor noise. The model dynamics are
+similar to those experienced by a robotic arm moving from one control point to another. The system exhibits
+both rigid and flexible body modes and thus provides a good test case for a nonlinear fuzzy controller. The
+controller is first developed by hand and then automatic tuning strategies are employed using a GA. The plant
+model masses are then changed significantly and the controller is retrained to test the efficacy of the GA
+tuning process and to demonstrate the utility of having an automated tuning method. The result is a system
+which can be quickly trained to accommodate new plant dynamics within this class of models. The performance of
+the hand- and GA-tuned controllers are compared. 
+
+\section{Coupled Spring-Mass Simulation Model}\label{s:model}
+A simulated environment is necessary to test the efficacy of the proposed FIS. The simulation consists of two
 cars connected by a spring; this system is expected to traverse a given distance as quickly as possible
-without exceeding a certain bound represented by a wall. The system is propelled by a force on the leading car
+without exceeding a certain boundary represented by a wall. The system is propelled by a force on the leading car
 which represents the actuating output of the controller. At each time instant, the controller must determine
 how much force to exert on the carts, and in which direction, to get as close as possible to the wall in
-minimum time. The constants for the model are the weight of each car, the spring constant, and the distance
+minimum time. The carts are represented by point masses which
+may occupy the same position in space. The constants for the model are the weight of each car, the spring constant, and the distance
 which must be traversed to the wall. A diagram of the simulation is shown in \cref{f:model}.
 
 \begin{displaymath}
     m_{1}=\SI{1}{\kilogram}, \quad m_{2}=\SI{2}{\kilogram}, \quad K =
-\SI{250}{\newton\per\metre}, \quad L = \SI{100}{\metre}
+    \SI{250}{\newton\per\metre}, \quad L = \SI{100}{\metre}
 \end{displaymath}
 \nomenclature{$m$}{Cart mass,\si{\kilogram}}
 \nomenclature{$K$}{Spring Constant, \si{\newton\per\metre}}
-\nomenclature{$L$}{Simulationlength, \si{\metre}}
+\nomenclature{$L$}{Simulation length, \si{\metre}}
 \nomenclature[b$1$]{$1$}{Denotes property of trailing cart}
 \nomenclature[b$2$]{$2$}{Denotes property of leading cart}
 \nomenclature{$F$}{Control force, \si{\newton}}
@@ -42,7 +52,7 @@ which must be traversed to the wall. A diagram of the simulation is shown in \cr
 The modeled system contains displacement and velocity sensors on each cart; therefore, the four inputs to the
 FIS are the distances traveled and the velocities of both carts. These inputs represent the state vector of
 the system. The output of the controller is the force, $F(t)$, applied to cart 2, limited to $\pm
-\SI{1}{\newton}$. At each time step of the simulation, the FIS uses the four inputs to determine the force
+\SI{1}{\newton}$. At each time step of the simulation, the FIS uses the state of cart 2 to determine the force
 which must be exerted according to a fuzzy rule base. 
 
 \begin{displaymath}
@@ -56,12 +66,13 @@ which must be exerted according to a fuzzy rule base.
 \nomenclature[1\(xx\)]{$\dot{x}(t)$}{Cart velocity, \si{\metre\per\second}}
 \nomenclature[1\(xb\)]{$x(t)$}{Cart position, \si{\meter}}
 At time $t=0$, both carts are at rest at position
-$x=0$. The maximum allowed runtime of the simulation is \SI{500}{\second}. The system requirement for the
-final condition is that neither cart exceeds \SI{100}{\metre} and should be at rest with negligible
-oscillation. 
-\begin{displaymath} \vec{y}_0=\begin{bmatrix}
+$x=0$. The maximum allowed run time of the simulation is \SI{500}{\second}. The system requirement for the
+final condition is that both carts come to rest between \SIrange{99}{100}{\metre} with minimal oscillation.
+Neither cart is allowed at any point in the simulation to exceed \SI{100}{\metre}.
+\begin{displaymath}
+    \vec{y}_0=\begin{bmatrix}
 \SI{0}{\metre}\\\SI{0}{\metre}\\\SI{0}{\metre\per\second}\\\SI{0}{\metre\per\second} \end{bmatrix},\quad
-\vec{y}(500)=\begin{bmatrix} <\SI{100}{\metre}\\ <\SI{100}{\metre}\\ \SI{0}{\metre\per\second}\\
+\vec{y}(500)=\begin{bmatrix} \SI{99}{\metre}<x_1<\SI{100}{\metre}\\ \SI{99}{\metre}<x_2<\SI{100}{\metre}\\ \SI{0}{\metre\per\second}\\
 \SI{0}{\metre\per\second} \end{bmatrix}
 \end{displaymath}
 \nomenclature[b$0$]{$0$}{Denotes initial condition}
@@ -76,35 +87,37 @@ force. The equations of motion for the system are represented by simple second-o
     \label{e:cart2} \mathrm{Cart 2:}\quad \ddot{x}_2=\frac{K}{m_2}(x_1-x_2)+\frac{F}{m_2}
 \end{equation} \nomenclature[1\(xxx\)]{$\ddot{x}(t)$}{Cart acceleration, \si{\metre\per\second\squared}}
 
-\subsection{Data Evaluation} The efficiency of a FIS's control of the system is based upon the amount of time
+\subsection{System Performance Cost}
+The efficiency of a FIS's control of the system is based upon the amount of time
 it expends traversing the distance to the wall and how close the carts are to the wall when they settle. Any
 breach of the wall results in immediate system failure. A cost function, $J$, is defined by the settling time
 $t_f$, the time taken to settle within \SI{1}{\metre} of the wall and the steady state error, the distance
-between the leading carts and the wall. The control system that produces the lowest $J$ value will be proven
-to be the most fit solution for the simulation.  
+between the leading cart and the wall. The control system that produces the lowest $J$ value will be proven
+to be the most fit solution for the simulation. This cost function in particular was provided in order to
+compare to results previously obtained\cite{walker:13p,vick:13p,mitchell:13p,stimetz:13p}.
 \begin{equation}\label{e:timesettle}
 t_f=|L-\bar{x}(t_f)|\le\SI{1}{\metre}
 \end{equation} \nomenclature[b$f$]{$f$}{Denotes condition at settling time}
 \begin{equation}\label{e:cost}
 J=\frac{t_f}{100}+2[L-x_2(500)]
-\end{equation} where the constants 100
-    and 2 are scaling factors. In order to provide a frame of reference for the performance of any control
-    system, the theoretical limits of the simulation were calculated to provide a lower bound for the value of
-    Eq.~\eqref{e:cost}. Assuming a single rigid body assembly with no dynamic coupling, the model is greatly
-    simplified to a single equation where the acceleration of the body is a function of only the control
-    force.
+\end{equation}
+where the constants 100 and 2 are scaling factors. In order to provide a frame of reference for the
+performance of any control system, the theoretical limits of the simulation were calculated to provide a lower
+bound for the value of \cref{e:cost}. Assuming a single rigid body assembly with no dynamic coupling, the
+model is greatly simplified to a single equation where the acceleration of the body is a function of only the
+control force. Since no energy is lost to a spring, the optimal solution to this system is assumed to be a
+lower bound on the flexible system with losses.
 \begin{equation}
     \label{e:simplemodel} \ddot{x}=\frac{F}{M}
 \end{equation}
 \nomenclature{$M$}{Total system mass, \si{\kilogram}}
-where $M$ is the total mass of the system. The total mass of the system is
-        \SI{3}{\kilogram}, whereas the maximum input force is limited to \SI{1}{\newton}, rendering
-        Eq.~\eqref{e:simplemodel}
+where $M$ is the total mass of the system. The total mass of the system is \SI{3}{\kilogram}, whereas the
+maximum input force is limited to \SI{1}{\newton}, rendering \cref{e:simplemodel}
 \begin{displaymath}
         \ddot{x}=\frac{\SI{1}{\newton}}{\SI{3}{\metre}}=\SI[quotient-mode=fraction]{1/3}{\metre\per\second\squared}
 \end{displaymath}
-as the maximum acceleration. Given this acceleration and the distance to be traversed to the wall, the minimum time to complete the trip can be calculated. There are, however, two scenarios to
-    consider. 
+as the maximum acceleration. Given this acceleration and the distance to be traversed to the wall, the minimum
+time to complete the trip can be calculated. There are, however, two scenarios to consider. 
 \begin{enumerate} 
     \item Applying maximum force over the entire distance and instantaneously
         stopping the carts at (but not touching) the wall provides an absolute, if unfeasible, optimum
@@ -132,7 +145,7 @@ the total time expended in reaching \SI{100}{\metre} is \SI{34.46}{\second}; how
 time taken to breach the \SI{99}{\metre} mark. The time taken to travel the last meter is \SI{2.45}{\second},
 so the best possible time to reach the \SI{99}{\metre} position is : \begin{displaymath} t=\SI{32.19}{\second}
 \end{displaymath} As this is a much more realistic scenario, this is the limit used as the benchmark in this
-research. Using this time to evaluate Eq.~\eqref{e:cost} \begin{displaymath}
+research. Using this time to evaluate \cref{e:cost} \begin{displaymath}
     J=\frac{32.19}{100}+2[100-100]=0.3219 \end{displaymath} results in the minimum possible cost. The addition
     of harmonic oscillation and non-linear dynamics ensures that this limit will not be reached, but merely
     provides a standard against which a controller may be measured.
@@ -169,10 +182,28 @@ the simulation, the carts are moving forward with a fast pace; therefore, the ``
 does not come into play until close to the very end of the  simulation when the oscillatory effects dominate
 the motion of the cart system. It is at this point that the true dynamic nature of the system is exhibited and
 the controller does the most calculation in an attempt to damp the oscillations. The membership functions for
-$\ddot{x}_2$ are shown in \cref{f:x4mfs}.  \begin{figure} \begin{subfigmatrix}{2} \subfigure[$x_2$
-membership functions\label{f:x2mfs}]{\includegraphics{images/x2_mfs.pdf}} \subfigure[$\dot{x}_2$ membership
-functions\label{f:x4mfs}]{\includegraphics{images/x4_mfs.pdf}} \end{subfigmatrix} \caption{Input membership
-functions}\label{f:mfs} \end{figure}
+$\ddot{x}_2$ are shown in \cref{f:x4mfs}.
+%\begin{figure}
+    %\begin{subfigmatrix}{2}
+        %%\subfigure[$x_2$ membership functions\label{f:x2mfs}]{\includegraphics{images/x2_mfs.pdf}}
+        %\subfigure[$x_2$ membership functions\label{f:x2mfs}]{\input{tikz/accx2plot}}
+        %%\subfigure[$\dot{x}_2$ membership functions\label{f:x4mfs}]{\includegraphics{images/x4_mfs.pdf}}
+        %\subfigure[$\dot{x}_2$ membership functions\label{f:x4mfs}]{\input{tikz/accx2dotplot}}
+    %\end{subfigmatrix} \caption{Input membership functions}\label{f:mfs}
+%\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/accx2plot}
+    \caption{$x_2$ membership functions}\label{f:x2mfs}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \input{tikz/accx2dotplot}
+    \caption{$\dot{x}_2$ membership functions}\label{f:x4mfs}
+\end{figure}
+
 
 The velocity membership function parameters are: \begin{displaymath} \mathrm{Negative:}\quad
 \begin{bmatrix}
@@ -181,16 +212,17 @@ The velocity membership function parameters are: \begin{displaymath} \mathrm{Neg
     \SI{-0.2792}{\metre\per\second}\\\SI{0}{\metre\per\second}\\\SI{0.2792}{\metre\per\second} \end{bmatrix},
 \end{displaymath} \begin{displaymath} \mathrm{Positive:}\quad \begin{bmatrix}
 \SI{0}{\metre\per\second}\\\SI{0.2792}{\metre\per\second}\\\SI{6}{\metre\per\second}\\\SI{6}{\metre\per\second}
-\end{bmatrix} \end{displaymath} \subsubsection{Rule Base}\label{ss:rulebase} The rule base of an FIS is a
-series of IF-THEN (antecedent-consequent) conditions that use the membership functions of all the inputs in
-order to determine the output variable. There are also several membership functions for the output variable
-that the rule base maps to. Each of the rules has an influence on what the output of the system should be. The
-weight of these influences again varies from 0 to 1 and the final output value is determined by calculating
-the centroid of all of the rules. For instance, one rule dictates that if the car is far away then the output
-force should be positive and large so that the car will move towards the wall. Another rule will say that when
-the car is close to the wall the output force should be negative in order to slow the car down. All of these
-rules have influence over all input ranges determined by how the input variables map to the given membership
-functions in that specific rule.
+\end{bmatrix} \end{displaymath}
+\subsubsection{Rule Base}\label{ss:rulebase}
+As previously discussed, the rule base of an FIS is a series of IF-THEN (antecedent-consequent) conditions
+that use the membership functions of all the inputs in order to determine the output variable. There are also
+several membership functions for the output variable that the rule base maps to. Each of the rules has an
+influence on what the output of the system should be. The weight of these influences again varies from 0 to 1
+and the final output value is determined by calculating the centroid of all of the rules. For instance, one
+rule dictates that if the car is far away then the output force should be positive and large so that the car
+will move towards the wall. Another rule will say that when the car is close to the wall the output force
+should be negative in order to slow the car down. All of these rules have influence over all input ranges
+determined by how the input variables map to the given membership functions in that specific rule.
 
 The antecedent of each statement contains memberships of both input variables and the consequent maps to the
 output membership functions. The rules for this FIS were developed based upon intuitive decision making. The
@@ -199,16 +231,11 @@ rules developed for our FIS are shown in \cref{tab:rulebase}.
     \begin{center}
         \caption{Rule Base of the Fuzzy Inference System}\label{tab:rulebase}
         \begin{tabular}{ccccc} \multicolumn{2}{c}{}  & \multicolumn{3}{c}{Velocity Measurement}\\ \cline{3-5}
-            \multicolumn{2}{c|}{}  & \multicolumn{1}{c|}{Negative} & \multicolumn{1}{c|}{Zero} &
-            \multicolumn{1}{c|}{Positive} \\ \cline{2-5}
-            \multicolumn{1}{c|}{\multirow{3}{*}{\parbox{3cm}{\centering Position\\Measurement}}} &
-            \multicolumn{1}{c|}{Far} & \multicolumn{3}{c|}{Positive} \\ \cline{2-5} \multicolumn{1}{c|}{} &
-            \multicolumn{1}{c|}{Close} & \multicolumn{1}{c|}{Positive} & \multicolumn{1}{c|}{Zero} &
-            \multicolumn{1}{c|}{Negative}\\ \cline{2-5} \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{VeryClose}
-                                                                              & \multicolumn{1}{c|}{Positive}
-                                                                              & \multicolumn{1}{c|}{Zero} &
-            \multicolumn{1}{c|}{Negative} \\ \cline{2-5} \multicolumn{2}{c}{}  & \multicolumn{3}{c}{Control
-            Force}
+            \multicolumn{2}{c|}{}  & \multicolumn{1}{c|}{\textbf{Negative}} & \multicolumn{1}{c|}{\textbf{Zero}} & \multicolumn{1}{c|}{\textbf{Positive}} \\ \cline{2-5}
+            \multicolumn{1}{c|}{\multirow{3}{*}{\parbox{3cm}{\centering Position\\Measurement}}} & \multicolumn{1}{c|}{\textbf{Far}} & \multicolumn{3}{c|}{Positive} \\ \cline{2-5}
+            \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{\textbf{Close}} & \multicolumn{1}{c|}{Positive} & \multicolumn{1}{c|}{Zero} & \multicolumn{1}{c|}{Negative}\\\cline{2-5}
+            \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{\textbf{VeryClose}} & \multicolumn{1}{c|}{Positive} & \multicolumn{1}{c|}{Zero} & \multicolumn{1}{c|}{Negative} \\ \cline{2-5}
+            \multicolumn{2}{c}{}  & \multicolumn{3}{c}{Control Force}
         \end{tabular}
     \end{center}
 \end{table}
@@ -216,7 +243,7 @@ rules developed for our FIS are shown in \cref{tab:rulebase}.
 \subsubsection{Control Force}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/f_mfs.pdf}
+    \input{tikz/accoutplot}
     \caption{Control force membership functions.}
     \label{f:fmfs}
 \end{figure}
@@ -260,17 +287,29 @@ in \cref{f:fmfs}.
 \subsection{Simulation Performance}\label{ss:simperf}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{images/FuzzyForcePlot.pdf} \caption{System control force over time.}
-    \label{f:forceplot}
+    \input{tikz/accforce}
+    \caption{System control force over time.}\label{f:forceplot}
 \end{figure}
+
+\begin{figure}
+    \centering
+    \input{accresponse}
+    \caption{Cart position time history. Note that the displacement between the carts is negligible.}%
+    \label{f:accresponse}
+\end{figure}
+
+%\begin{figure}
+    %\centering
+    %\input{tikz/accdisplacement}
+%\end{figure}
+
 
 
 The efficiency of this FIS was determined by using it as the control mechanism in the simulation. The goal was
 to approach the realistic theoretical limits calculated above and reach this goal with minimum force.
-\cref{tab:finalres} shows the settling time, final position of cart 2 and the calculated $J$ value for
+\Cref{tab:finalres} shows the settling time, final position of cart 2 and the calculated $J$ value for
 the controller's performance. \Cref{f:forceplot} shows the controller's output force over time for each
-step of the simulation. The controller's output force is much lower than previously tested fuzzy solutions as
-well as an optimal linear controller.
+step of the simulation. 
 
 It is clear that the controller expends less energy than a traditional bang-bang type controller would in the
 oscillation damping process. It can be seen that the FIS responds quickly to control needs and applies the
@@ -278,10 +317,10 @@ needed force with low-latency.
 
 Much work was done to hand-tune this controller to perform optimally, thus the work was undertaken to develop
 a genetic algorithm to produce similar results autonomously. Automating the tuning process ultimately produces
-a controller which is nearly as good as the hand-tuned controller, but requires little to no effort from the
+a controller which is as good as the hand-tuned controller, but requires little to no effort from the
 programmer.
 
-\begin{table} \centering \caption{Results from implemented FIS.} \label{tab:finalres} \begin{tabular}{|c|c|c|}
+\begin{table} \centering \caption{Results from hand-tuned FIS.} \label{tab:finalres} \begin{tabular}{|c|c|c|}
 \hline $t_f$ & $x_2(500)$ & $J$ \\ \hline \SI{32.303}{\second} & \SI{99.999821}{\metre} & 0.32328 \\ \hline
 \end{tabular} \end{table}
 
@@ -290,35 +329,35 @@ on the value of each parameter of the membership functions. These values were ha
 process of trial and error. To quicken this process, a genetic algorithm was utilized to autonomously tune the
 membership functions and approach an optimal solution. 
 
-      A genetic algorithm is a computational mechanism which imitates evolutionary behavior to achieve
-      optimality. It consists of a population of individuals which undergoes a process similar to natural
-      selection, reproduction, and mutation over the course of a number of generations\cite{cordon:01bk}.
-      Selection is attained by evaluating the fitness of each individual according to a fitness function. For
-      the purposes of this research, each individual represents a FIS and the fitness function is simply the
-      cost function used earlier. The individual which most effectively minimizes the cost function is
-      considered most fit for the control environment.
-      
-      In order to manipulate the FIS structure in an algorithmic manner, it is necessary to represent it as a
-      genetic individual. Since the values of the parameters of the membership functions of the FIS have
-      significant impact on the control performance, it was decided to manipulate only these parameters with
-      the algorithm; however, of the thirty-one parameters which comprise this FIS model, many are trivial to
-      the overall performance. It is desirable to reduce the number of parameters to facilitate the
-      optimization process.
+As previously discussed, a genetic algorithm is a computational mechanism which imitates evolutionary behavior
+to achieve optimality. It consists of a population of individuals which undergoes a process similar to natural
+selection, reproduction, and mutation over the course of a number of generations\cite{cordon:01bk}.  Selection
+is attained by evaluating the fitness of each individual FIS according to \cref{e:cost}. The individual which
+most effectively minimizes the cost function is considered most fit for the control environment.
+
+In order to manipulate the FIS structure in an algorithmic manner, it is necessary to represent it as a
+genetic individual. Since the values of the parameters of the membership functions of the FIS have
+significant impact on the control performance, it was decided to manipulate only these parameters with
+the algorithm; however, of the thirty-one parameters which comprise this FIS model, many are trivial to
+the overall performance. It is desirable to reduce the number of parameters to facilitate the
+optimization process.
 
 \subsection{State Reduction} To simplify the genetic tuning of the parameters, the symmetry of the system
-was exploited. The parameters were reduced from thirty-one to seven. The position membership functions were
+was exploited. The parameters were reduced from thirty-one to seven. 
+
+The position membership functions were
 simplified to only three parameters by defining a center point (center) between far and close functions, a
 distance from the center point at which the far and close functions will be valued at 0 and 1 respectively
 (iTrap1), and half of the base of the triangular membership function which decides when the car is very close
-to the wall (iTriBase1). The velocity membership function parameters were reduced to two parameters by
-defining the one parameter for the distance from 0 that each of the membership functions reaches 1 for the
-negative and positive functions (iTrap2) and another to define half of the base of the zero velocity
-triangular membership function (iTriBase2). The output force membership functions were reduced similarly by
-allowing the negative and positive membership functions become trapezoidal (oTrap and oTriBase). 
+to the wall (iTriBase1). The velocity membership function parameters were reduced to two parameters. One
+parameter describes the distance from 0 to the point at which each of the velocities reach 1 (iTrap2). The
+other parameter is defined as half of the base of the zero velocity triangular membership function
+(iTriBase2). The output force membership functions were reduced similarly by allowing the negative and
+positive membership functions to become trapezoidal (oTrap and oTriBase). 
 
 \begin{itemize} \item Position Membership Function Parameter \begin{displaymath} \mathrm{Far:}\quad
 \begin{bmatrix} 0\\0\\(center-iTrap1)\\(center+iTrap1) \end{bmatrix}, \quad
-\mathrm{Close:}\quad \begin{bmatrix} (center-iTrap1\\(center+iTrap1)\\99.9\\100
+    \mathrm{Close:}\quad \begin{bmatrix} (center-iTrap1)\\(center+iTrap1)\\99.9\\100
 \end{bmatrix}, \end{displaymath} \begin{displaymath} \mathrm{VeryClose:}\quad \begin{bmatrix}
 (100-iTriBase1)\\100\\ (100+iTriBase1) \end{bmatrix} \end{displaymath}
  
@@ -345,14 +384,12 @@ and oTrap between 0.05 and 0.95. Twenty individuals comprise a population. Each 
 fitness and brought up for selection to produce a new generation.
 
 \subsection{Parent Selection and Reproduction} A new generation consists of three individuals which remain
-unchanged from the previous generation, called elite children, ten individuals which are created from
-recombination of two parents, five individuals which are created from mutating recombined children, and two
-individuals randomly defined from the previously defined ranges.
-
-Parents are selected by selecting the three best fit individuals to both become parents and elite children.
-Seven more parents are selected by randomly choosing three individuals from the remaining population,
-selecting the most fit, and returning the other two. This tournament style of selection is repeated until all
-parents are selected.
+unchanged from the previous generation, called elite individuals, ten children which are created from
+recombination of two parents each, five individuals which are created from mutating recombined children, and
+two individuals randomly defined from the previously defined ranges.  The parents for this population consist
+of the three elite individuals as well as seven more individuals. Each of the seven is selected by randomly
+choosing three individuals from the previous population, selecting the most fit, and returning the other two.
+This tournament style of selection is repeated until all parents are selected.
 
 Reproduction occurs by blended crossover process with an $\alpha$ modification (BLX-$\alpha$), by selecting a
 new parameter $x_i'$ from the range $[x_{min}-I\alpha,x_{max}+I\alpha]$, where \begin{displaymath}
@@ -380,10 +417,7 @@ such that the mutation has a smaller effect in later generations as follows: \be
         interval $[0,1]$. The function $\Delta$ computes a value in the range $[0,x]$ such that the
         probability of returning a zero increases as the algorithm advances. The value of $b$ determines the
         impact of the time on the probability distribution of $\Delta$. The value of $b$ is set to 1.5 for
-        algorithm for this research.
-
-Two additional children are added to the population by random selection from the ranges in order to ensure
-that the search space is sufficiently large. 
+         the algorithms used in this research.
 
 \section{Results} Running the algorithm for 50 generations yields a FIS which
 performs as well as the hand-tuned FIS from~\cref{ss:simperf}. This result converges out of the evolution
@@ -395,17 +429,52 @@ search for optimality. This satisfies the need of a good algorithm to expand the
 premature convergence.
 
 The results of the performance of the most fit individual produced by the genetic algorithm are shown in
-\cref{tab:garesult}.
+\cref{tab:garesult}. It is shown in \cref{f:accforcecomp} that the output force of the GA-tuned controller is
+very similar to the hand-tuned version. Examining \cref{f:fiscomp} shows that the GA has changed the
+membership functions appreciably within the allotted envelopes while still yielding a near-optimal result.
 
 \begin{table} \centering \caption{Final Results from algorithm-generated FIS}\label{tab:garesult}
 \begin{tabular}{|c|c|c|} \hline $t_f$ & $x_2(500)$ & $J$ \\\hline \SI{32.308}{\second} &
 \SI{99.999999}{\metre} &  0.32311 \\\hline \end{tabular} \end{table}
 
-\begin{figure} \begin{subfigmatrix}{2} \subfigure[Best fit individual by
-generation.\label{f:popfitness}]{\includegraphics{images/popFitness.pdf}} \subfigure[Individual fitness average by
-generation.\label{f:popaverage}]{\includegraphics{images/popAverage.pdf}} \end{subfigmatrix} \end{figure}
+\begin{figure}
+    \centering
+    \resizebox{0.75\textwidth}{!}{\input{tikz/accga_minfit}}
+    \caption{Best fit individual by generation.}\label{f:popfitness}
+\end{figure}
 
-\subsection{Genetic Adaptability} These results demonstrate the ability of the genetic algorithm to tune a FIS
+\begin{figure}
+    \centering
+    \resizebox{0.75\textwidth}{!}{\input{tikz/accga_avgfit}}
+    \caption{Individual fitness average by generation.}\label{f:popaverage}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \resizebox{0.75\textwidth}{!}{\input{tikz/accforcecomp}}
+    \caption{The force signals over time from the hand- and GA-tuned controllers.}\label{f:accforcecomp}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigmatrix}{2}
+        \subfigure[$x_2$ input partition before GA
+        tuning]{\resizebox{0.49\textwidth}{!}{\input{tikz/accx2plotcomp}}}
+        \subfigure[$x_2$ input partition after GA
+        tuning]{\resizebox{0.49\textwidth}{!}{\input{tikz/gaaccx2plot}}}
+        \subfigure[$\dot{x}_2$ input partition before GA
+        tuning]{\resizebox{0.49\textwidth}{!}{\input{tikz/accx2dotplotcomp}}}
+        \subfigure[$\dot{x}_2$ input partition after GA
+        tuning]{\resizebox{0.49\textwidth}{!}{\input{tikz/gaaccx2dotplot}}}
+        \subfigure[Force output partition before GA
+        tuning]{\resizebox{0.49\textwidth}{!}{\input{tikz/accoutplotcomp}}}
+        \subfigure[Force output partition after GA
+        tuning]{\resizebox{0.49\textwidth}{!}{\input{tikz/gaaccoutplot}}}
+    \end{subfigmatrix} \caption{FIS comparison between hand- and GA-tuned membership
+    functions}\label{f:fiscomp}
+\end{figure}
+
+\subsection{Genetic Adaptability}
+These results demonstrate the ability of the genetic algorithm to tune a FIS
 to near-optimal performance. All tuning and development heretofore was done with an unchanging system setup of
 known masses connected by a known spring. Although a robust controller\cite{cohen:01jgcd}, introducing changes
 to the masses of each car significantly alters the performance of the FIS as it was carefully tuned to only a

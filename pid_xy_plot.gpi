@@ -1,0 +1,18 @@
+set term epslatex monochrome
+set output 'pid_static.tex'
+#set title 'Controller error history'
+set xlabel 'Time, s'
+set ylabel 'Error, m'
+set grid
+set style data lines
+set linetype 2 dashtype '--'
+plot 'tikz/pid/lezl_pid_land2.dat' using 1:(sqrt(($2-$5)**2+($3-$6)**2)) title '$e_{xy}$',\
+     'tikz/pid/lezl_pid_land2.dat' using 1:($4-0.3215) title '$e_z$'
+set output
+
+set output 'pid_dyn.tex'
+plot 'tikz/pid/lezl_pid_land2_dyn.dat' using ($1-150):(sqrt(($2-$5)**2+($3-$6)**2)) title '$e_{xy}$',\
+     'tikz/pid/lezl_pid_land2_dyn.dat' using ($1-150):($4-0.3215) title '$e_z$'
+set output
+
+

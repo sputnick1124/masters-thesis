@@ -1,0 +1,33 @@
+set terminal lua tikz monochrome
+set style fill pattern border transparent
+set style data filledcurves
+
+set output 'gaaccx2plot.tex'
+set yrange [ -0.1 : 1.1 ]
+#set xlabel '$x_2$, m'
+#set ylabel '$\mu$, Membership value'
+set key right center box opaque width 4.5
+plot 'ga_fis_i1.dat' using 1:2 title 'Far',\
+     'ga_fis_i1.dat' using 1:3 title 'Close',\
+     'ga_fis_i1.dat' using 1:4 title 'VeryClose' fs transparent solid 0.25
+
+set terminal lua tikz monochrome
+set output 'gaaccx2dotplot.tex'
+set yrange [ -0.1 : 1.1 ]
+set key right center
+#set xlabel '$\dot{x}_2$, m'
+#set ylabel '$\mu$, Membership value'
+plot 'ga_fis_i2_traps.dat' using 1:2 title 'Negative',\
+     'ga_fis_i2_tri.dat' using 1:2 title 'Zero',\
+     'ga_fis_i2_traps.dat' using 1:3 title 'Positive' fs transparent solid 0.25
+
+set terminal lua tikz monochrome
+set output 'gaaccoutplot.tex'
+#set xlabel 'Force, N'
+#set ylabel '$\mu$, Membership value'
+set key right center
+plot 'ga_fis_out_traps.dat' using 1:2 title 'Negative',\
+     'ga_fis_out_tri.dat' using 1:2 title 'Zero',\
+     'ga_fis_out_traps.dat' using 1:3 title 'Positive' fs transparent solid 0.25
+
+

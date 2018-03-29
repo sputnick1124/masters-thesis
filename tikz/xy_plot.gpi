@@ -1,15 +1,15 @@
-set term png
-set output 'static_smach_good_plot.png'
-set title 'Controller error history'
+set term epslatex color
+set output 'static_smach_good_plot.tex'
+#set title 'Controller error history'
 set xlabel 'Time, s'
 set ylabel 'Error, m'
 set style data lines
-plot 'static_smach_good.txt' using 1:(sqrt($2*$2+$3*$3)) title 'e_{xy}',\
-     'static_smach_good.txt' using 1:4 title 'e_z'
+plot 'tikz/static_smach_good.txt' using 1:(sqrt($2*$2+$3*$3)) title 'e_{xy}',\
+     'tikz/static_smach_good.txt' using 1:($4-0.315) title 'e_z'
 
-set term png
-set output 'moving_line_good_plot.png'
-plot 'moving_line_good.txt' using 1:(sqrt($2*$2+$3*$3)) title 'e_{xy}',\
-     'moving_line_good.txt' using 1:4 title 'e_z'
+set term epslatex color
+set output 'moving_line_good_plot.tex'
+plot 'tikz/moving_line_good.txt' using 1:(sqrt($2*$2+$3*$3)) title 'e_{xy}',\
+     'tikz/moving_line_good.txt' using 1:($4-0.315) title 'e_z'
 
 

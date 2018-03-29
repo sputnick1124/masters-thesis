@@ -12,27 +12,33 @@
 \makeatother
 
 \usepackage{amsmath,amssymb,bbm}
+\setlength{\jot}{10pt}
 \usepackage{graphicx,subfigmat,subfigure}
 \usepackage[per-mode=fraction]{siunitx}
+\sisetup{output-exponent-marker=\ensuremath{\mathrm{e}}}
 \usepackage{nomencl}
 \usepackage{booktabs}
 \usepackage{hhline }
 \usepackage{multirow}
 \usepackage{rotating}
 \usepackage{microtype}
+\usepackage{url}
+\renewcommand{\UrlFont}{\small\tt}
+
+\usepackage{float}
 
 \usepackage{gnuplot-lua-tikz}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning}
 \usetikzlibrary{calc}
-\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+\tikzstyle{decision} = [diamond, draw, fill=white!20, 
     text width=6em, text centered,  inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+\tikzstyle{block} = [rectangle, draw, fill=white!20, 
      text centered, rounded corners, minimum height=2em]
 \tikzstyle{line} = [draw, -latex']
-\tikzstyle{mom} = [rectangle, draw, node distance=1em,fill=red!20,
+\tikzstyle{mom} = [rectangle, draw, node distance=1em,fill=gray!30,
    	text width=1em, text centered, minimum height=1em, inner sep=0pt]
-\tikzstyle{dad} = [rectangle, draw, node distance=1em,fill=blue!20,
+\tikzstyle{dad} = [rectangle, draw, node distance=1em,fill=white!20,
 	text width=1em, text centered, minimum height=1em, inner sep=0pt]
 \tikzstyle{every picture} += [remember picture]
 \def\gpsetdashtype#1{} % dummy definition to squash errors. This is what happens when you don't install
@@ -89,7 +95,8 @@
 \end{abstract}
 
 
-\dedication{To my wife, Lori, for her unending support and urging to get this thing over with.}
+\dedication{To my wife, Lori, for her unending support, motivation and loving guidance. I simply would not
+have been able to complete this work without her by my side.}
 
 
 \include{ack}
@@ -107,22 +114,19 @@
 
 \include{f4pitch}
 
+%\chapter{Fuzzy Landing}\label{c:landing}
 \include{landing}
-
-%\include{results}
 
 \include{concl}
 
-%\include{future}
 
-
-%\appendix
-%\include{fuzzyc_app}
-%\include{yapflm_app}
+\appendix
+\include{smach_capture}
+\include{moving_capture}
 
 
 
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 \bibliography{fuzzy}
 
 \end{document}
